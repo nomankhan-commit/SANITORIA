@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Vendor";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+
+<a class="btn btn-dark" href="@Url.Action("New", "vendor")">Add</a>
+
+<div id="grid"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/Vendor.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        vendor.loadGrid();
+        $('body').on('click', '.elm_edit', function () {
+
+            let id = $(this).attr('id');
+            window.location.href = fin_common.sitrurl + "/Vendor/edit/" + id;
+
+        })
+
+        $('body').on('click', '.elm_delete', function () {
+
+            let id = $(this).attr('id');
+            vendor.delete(id);
+
+        })
+
+
+
+
+    })
+
+
+</script>
+

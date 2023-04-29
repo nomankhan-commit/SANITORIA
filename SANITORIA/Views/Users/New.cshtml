@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "New";
+    ViewBag.pagesubTitle = "Create User";
+
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<div class="container">
+
+    <form action="#" method="post" id="userform">
+        <input type="hidden" id="id" name="id" />
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <button type="button" id="openimginput">image</button>
+                    <input type="file" class="form-control" id="userimage" style="display:none" name="userimage" required accept="image/x-png,image/jpeg">
+                    <input type="hidden" id="userimageguid" name="userimageguid">
+                </div>
+
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <div id="imageBoxFor">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label for="uname">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                    <div class="valid-feedback">Valid.</div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label for="uname">Complete Name:</label>
+                    <input type="text" class="form-control" id="completename" placeholder="Complete Name" name="completename" required>
+                    <div class="valid-feedback">Valid.</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label for="uname">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+                    <div class="valid-feedback">Valid.</div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label for="uname">Conform Password:</label>
+                    <input type="password" class="form-control" id="Cpassword" placeholder="Conform Password" name="Cpassword" required>
+                    <div class="valid-feedback">Valid.</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label for="uname">Contact no:</label>
+                    <input type="text" class="form-control" id="contactno" placeholder="Contact no" name="contactno" required>
+                    <div class="valid-feedback">Valid.</div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label>NIC:</label>
+                    <input type="text" class="form-control" id="nic" placeholder="nic" name="nic" required>
+                    <div class="valid-feedback">Valid.</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="active" name="active"> Active
+            </label>
+        </div>
+        <button type="button" id="saveuser" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script src="~/Scripts/Lib/User.js"></script>
+<script>
+
+    let userdata = @Html.Raw(Json.Encode(ViewBag.user))
+
+    $(document).ready(function () {
+        $("#imageBoxFor").html('<img src=/content/UserImages/defaultuser.jpeg style="width:200px">');
+        $("#userimageguid").val('defaultuser.jpeg');
+        if (userdata!=null) {
+
+            user.loadUser(userdata.data1);
+
+        }
+
+        $('#userform').validate({
+            rules: {
+                userimageguid: { required: true, },
+                email: { required: true },
+                completename: { required: true },
+                contactno: { required: true },
+                nic: { required: true },
+                password: { required: true, minlength: 5 },
+                Cpassword: { required: true, minlength: 5, equalTo: "#password" }
+               
+            },
+            messages: {
+                userimageguid: { required: 'This field is required' },
+                email: { required: 'This field is required' },
+                completename: { required: 'This field is required' },
+                contactno: { required: 'This field is required' },
+                password: { required: 'This field is required' },
+                nic: { required: 'This field is required' },
+                
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+
+        $("#openimginput").click(function () {
+
+            $('#userimage').trigger('click');
+
+
+        })
+
+
+        $('#userimage').on('change', function (e) {
+            var d = new Date().valueOf();
+            var n = d.toString();
+            var result = '';
+            var length = 32;
+            var p = 0;
+            var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            for (var i = length; i > 0; --i) {
+                result += ((i & 1) && n.charAt(p) ? n.charAt(p) : chars[Math.floor(Math.random() * chars.length)]);
+                if (i & 1) p++;
+            };
+            var files = e.target.files;
+            var myID = 3; //uncomment this to make sure the ajax URL works
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: '/imageUploader/uploadimage?id=' + myID + '&name=' + result + '&folder=UserImages',
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () {
+                            $("#imageBoxFor").html('<img src=/content/images/loading.gif style="width:200px">');
+                            
+                            
+                        },
+                        data: data,
+                        success: function (result) {
+                            debugger;
+                            $('#userimageguid').val(result);
+                            $("#imageBoxFor").html('<img src=/Content/UserImages/' + result + '>');
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+
+
+        $("#saveuser").click(function () {
+
+            if ($('#userform').valid()) {
+                if ($('#id').val() > 0) {
+                    user.save("/Users/Edit");
+                } else {
+                    user.save("/Users/New_");
+                }
+            }
+           
+        })
+
+    })
+
+
+
+</script>
+
+

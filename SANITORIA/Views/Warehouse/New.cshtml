@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<div>
+
+
+
+
+    <form id="taxform">
+        <div class="row">
+            <input type="hidden" id="id" value="@ViewBag.id"/>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Warehouse:</label>
+                    <input type="text" class="form-control" id="warehouse">
+                </div>
+            </div>
+            
+        </div>
+
+
+
+        <div class="row">
+            
+           
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Address:</label>
+                    <textarea class="form-control" id="address" name="address" rows="4" cols="100" maxlength="200">
+
+                    </textarea>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+
+    <div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <button type="button" id="save" class="btn btn-default">Submit</button>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/warehouse.js"></script>
+<script src="~/Scripts/Lib/bem_common.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+
+<script>
+
+    //address
+    //warehouse
+    //id
+
+    $(document).ready(function () {
+
+        let id = $('#id').val();
+        if (id > 0) {
+            warehouse.getByid(id);
+        }
+
+      
+        $('body').on('click', '#save', function () {
+
+            warehouse.save();
+
+        })
+
+    })
+
+
+
+</script>

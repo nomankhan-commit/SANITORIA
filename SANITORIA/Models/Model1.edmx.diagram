@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="85ef11005bc346a6a2503ce9c4b19117" Name="Diagram1">
+        <EntityTypeShape EntityType="SANITORIA_DBModel.BankAccoutn" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.Brand" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.Comapny" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.Product" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductsCategory" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductsVariant_" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductVariant" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.RFQ" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.RfqProduct" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.sysdiagram" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.Tax" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.USER" Width="1.5" PointX="6.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.vendor" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.warehouse" Width="1.5" PointX="0.75" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

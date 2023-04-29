@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<div>
+
+
+
+
+    <form id="taxform">
+        <div class="row">
+            <input type="hidden" id="id" value="@ViewBag.id" />
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Vendor Name:</label>
+                    <input type="text" class="form-control" id="vname">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Phone:</label>
+                    <input type="text" class="form-control" id="phone">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email">
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Website:</label>
+                    <input type="text" class="form-control" id="website">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="email">Zip Code:</label>
+                    <input type="number" class="form-control" id="zipcode">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Addrss:</label>
+                    <textarea class="form-control" id="address" name="address" rows="4" cols="100" maxlength="200">
+
+                    </textarea>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+    </form>
+
+
+    <div>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" id="addbankaccount" class="btn btn-primary">Add</button>
+                <table class="table" id="bankaccountTable">
+                    <thead>
+                        <tr>
+                            <th>Bank</th>
+                            <th>Account</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bankaccountBody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+
+                <button type="button" id="save" class="btn btn-default">Submit</button>
+
+            </div>
+            </div>
+
+        </div>
+    
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/Vendor.js"></script>
+<script src="~/Scripts/Lib/bem_common.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        if ($('#id').val()>0)
+        {
+            vendor.getByid($('#id').val());
+        }
+
+
+        $('#addbankaccount').click(function () {
+
+            debugger;
+
+                let input = "<input type='text' class='bankname form-control'>";
+                let accoutninput = "<input type='number' class='account form-control'>";
+                let tbody = `<tr bankGuid='${bem_common.getGuid()}'>
+                            <td bankname> ${input}</td>
+                            <td accountnumber>  ${accoutninput} </td>
+                            <td> <button type="button" class="btn btn-primary removeBank">delete</button> </td>
+                            </tr>`;
+            $('#bankaccountBody').append(tbody);
+            
+
+        })
+
+        $('body').on('click', '.removeBank', function () {
+
+            $(this).closest('tr').remove();
+
+        })
+
+
+        $('body').on('click', '#save', function () {
+
+            vendor.save();
+
+        })
+
+    })
+
+
+
+</script>

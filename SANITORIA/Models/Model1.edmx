@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SANITORIA_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BankAccoutn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bankName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="account" Type="varchar" MaxLength="100" />
+          <Property Name="v_id" Type="int" Nullable="false" />
+          <Property Name="bankGudi" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Brand" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comapny">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comapny" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="pid" />
+          </Key>
+          <Property Name="pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="p_des" Type="varchar" MaxLength="500" />
+          <Property Name="p_type" Type="int" />
+          <Property Name="p_tax" Type="varchar" MaxLength="50" />
+          <Property Name="invoicingPolicy" Type="int" />
+          <Property Name="salesPrice" Type="int" />
+          <Property Name="cost" Type="int" />
+          <Property Name="total" Type="varchar" MaxLength="50" />
+          <Property Name="category" Type="int" />
+          <Property Name="brand" Type="int" />
+          <Property Name="company" Type="int" />
+          <Property Name="createAT" Type="datetime" />
+          <Property Name="updateAt" Type="datetime" />
+          <Property Name="createdBy" Type="int" />
+          <Property Name="updatedBy" Type="int" />
+          <Property Name="image" Type="varchar" MaxLength="200" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProductsCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="50" />
+          <Property Name="CostingMethod" Type="int" />
+          <Property Name="InventoryValuation" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductsVariant_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="p_id" Type="int" />
+          <Property Name="variantID" Type="int" />
+          <Property Name="variantValues" Type="varchar" MaxLength="50" />
+          <Property Name="variantGuid" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ProductVariants">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VariantName" Type="varchar" MaxLength="50" />
+          <Property Name="values" Type="varchar" MaxLength="500" />
+          <Property Name="isMultiList" Type="bit" />
+        </EntityType>
+        <EntityType Name="RFQ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RFQ_id" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
+          <Property Name="vendor" Type="int" Nullable="false" />
+          <Property Name="company" Type="int" Nullable="false" />
+          <Property Name="currenty" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="orderDeadLine" Type="datetime" Nullable="false" />
+          <Property Name="RecieptDate" Type="datetime" Nullable="false" />
+          <Property Name="DeliverTo" Type="datetime" Nullable="false" />
+          <Property Name="createAT" Type="datetime" />
+          <Property Name="updateAt" Type="datetime" />
+          <Property Name="createBy" Type="int" />
+          <Property Name="updateBy" Type="int" />
+        </EntityType>
+        <EntityType Name="RfqProduct">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rfqid" Type="int" />
+          <Property Name="product" Type="int" Nullable="false" />
+          <Property Name="varient" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="qty" Type="int" Nullable="false" />
+          <Property Name="unitprice" Type="int" Nullable="false" />
+          <Property Name="taxes" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="subtotal" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaxName" Type="varchar" MaxLength="50" />
+          <Property Name="type" Type="int" />
+          <Property Name="taxScope" Type="int" />
+          <Property Name="amount" Type="int" />
+          <Property Name="taxComputation" Type="int" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="CompleteName" Type="varchar" MaxLength="150" />
+          <Property Name="password" Type="varchar" MaxLength="500" />
+          <Property Name="contactNo" Type="varchar" MaxLength="50" />
+          <Property Name="nic" Type="varchar" MaxLength="50" />
+          <Property Name="imgGuid" Type="varchar" MaxLength="500" />
+          <Property Name="policyid" Type="int" />
+          <Property Name="createAT" Type="datetime" />
+          <Property Name="updateAT" Type="datetime" />
+          <Property Name="createdBy" Type="int" />
+          <Property Name="updatedBy" Type="int" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="vendor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vendorName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="website" Type="varchar" MaxLength="500" />
+          <Property Name="zipcode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="warehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="warehouse" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SANITORIA_DBModelStoreContainer">
+          <EntitySet Name="BankAccoutn" EntityType="Self.BankAccoutn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comapny" EntityType="Self.Comapny" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsCategory" EntityType="Self.ProductsCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsVariant_" EntityType="Self.ProductsVariant_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductVariants" EntityType="Self.ProductVariants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFQ" EntityType="Self.RFQ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RfqProduct" EntityType="Self.RfqProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vendor" EntityType="Self.vendor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="warehouse" EntityType="Self.warehouse" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SANITORIA_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SANITORIA_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BankAccoutns" EntityType="SANITORIA_DBModel.BankAccoutn" />
+          <EntitySet Name="Brands" EntityType="SANITORIA_DBModel.Brand" />
+          <EntitySet Name="Comapnies" EntityType="SANITORIA_DBModel.Comapny" />
+          <EntitySet Name="Products" EntityType="SANITORIA_DBModel.Product" />
+          <EntitySet Name="ProductsCategories" EntityType="SANITORIA_DBModel.ProductsCategory" />
+          <EntitySet Name="ProductsVariant_" EntityType="SANITORIA_DBModel.ProductsVariant_" />
+          <EntitySet Name="ProductVariants" EntityType="SANITORIA_DBModel.ProductVariant" />
+          <EntitySet Name="RFQs" EntityType="SANITORIA_DBModel.RFQ" />
+          <EntitySet Name="RfqProducts" EntityType="SANITORIA_DBModel.RfqProduct" />
+          <EntitySet Name="sysdiagrams" EntityType="SANITORIA_DBModel.sysdiagram" />
+          <EntitySet Name="Taxes" EntityType="SANITORIA_DBModel.Tax" />
+          <EntitySet Name="USERS" EntityType="SANITORIA_DBModel.USER" />
+          <EntitySet Name="vendors" EntityType="SANITORIA_DBModel.vendor" />
+          <EntitySet Name="warehouses" EntityType="SANITORIA_DBModel.warehouse" />
+        </EntityContainer>
+        <EntityType Name="BankAccoutn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bankName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="account" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="v_id" Type="Int32" Nullable="false" />
+          <Property Name="bankGudi" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Brand1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Comapny">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comapny1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="pid" />
+          </Key>
+          <Property Name="pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="p_des" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="p_type" Type="Int32" />
+          <Property Name="p_tax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="invoicingPolicy" Type="Int32" />
+          <Property Name="salesPrice" Type="Int32" />
+          <Property Name="cost" Type="Int32" />
+          <Property Name="total" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="Int32" />
+          <Property Name="brand" Type="Int32" />
+          <Property Name="company" Type="Int32" />
+          <Property Name="createAT" Type="DateTime" Precision="3" />
+          <Property Name="updateAt" Type="DateTime" Precision="3" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="updatedBy" Type="Int32" />
+          <Property Name="image" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ProductsCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CostingMethod" Type="Int32" />
+          <Property Name="InventoryValuation" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductsVariant_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="p_id" Type="Int32" />
+          <Property Name="variantID" Type="Int32" />
+          <Property Name="variantValues" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="variantGuid" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ProductVariant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VariantName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="values" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="isMultiList" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RFQ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RFQ_id" Type="String" MaxLength="7" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="vendor" Type="Int32" Nullable="false" />
+          <Property Name="company" Type="Int32" Nullable="false" />
+          <Property Name="currenty" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="orderDeadLine" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RecieptDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeliverTo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createAT" Type="DateTime" Precision="3" />
+          <Property Name="updateAt" Type="DateTime" Precision="3" />
+          <Property Name="createBy" Type="Int32" />
+          <Property Name="updateBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RfqProduct">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rfqid" Type="Int32" />
+          <Property Name="product" Type="Int32" Nullable="false" />
+          <Property Name="varient" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" Nullable="false" />
+          <Property Name="unitprice" Type="Int32" Nullable="false" />
+          <Property Name="taxes" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="subtotal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaxName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="taxScope" Type="Int32" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="taxComputation" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CompleteName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="contactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="imgGuid" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="policyid" Type="Int32" />
+          <Property Name="createAT" Type="DateTime" Precision="3" />
+          <Property Name="updateAT" Type="DateTime" Precision="3" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="updatedBy" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="vendor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vendorName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="website" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="zipcode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="warehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="warehouse1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SANITORIA_DBModelStoreContainer" CdmEntityContainer="SANITORIA_DBEntities">
+          <EntitySetMapping Name="BankAccoutns">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.BankAccoutn">
+              <MappingFragment StoreEntitySet="BankAccoutn">
+                <ScalarProperty Name="bankGudi" ColumnName="bankGudi" />
+                <ScalarProperty Name="v_id" ColumnName="v_id" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="bankName" ColumnName="bankName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="Brand1" ColumnName="Brand" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comapnies">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.Comapny">
+              <MappingFragment StoreEntitySet="Comapny">
+                <ScalarProperty Name="Comapny1" ColumnName="Comapny" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="salesPrice" ColumnName="salesPrice" />
+                <ScalarProperty Name="invoicingPolicy" ColumnName="invoicingPolicy" />
+                <ScalarProperty Name="p_tax" ColumnName="p_tax" />
+                <ScalarProperty Name="p_type" ColumnName="p_type" />
+                <ScalarProperty Name="p_des" ColumnName="p_des" />
+                <ScalarProperty Name="P_name" ColumnName="P_name" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsCategories">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.ProductsCategory">
+              <MappingFragment StoreEntitySet="ProductsCategory">
+                <ScalarProperty Name="InventoryValuation" ColumnName="InventoryValuation" />
+                <ScalarProperty Name="CostingMethod" ColumnName="CostingMethod" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsVariant_">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.ProductsVariant_">
+              <MappingFragment StoreEntitySet="ProductsVariant_">
+                <ScalarProperty Name="variantGuid" ColumnName="variantGuid" />
+                <ScalarProperty Name="variantValues" ColumnName="variantValues" />
+                <ScalarProperty Name="variantID" ColumnName="variantID" />
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductVariants">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.ProductVariant">
+              <MappingFragment StoreEntitySet="ProductVariants">
+                <ScalarProperty Name="isMultiList" ColumnName="isMultiList" />
+                <ScalarProperty Name="values" ColumnName="values" />
+                <ScalarProperty Name="VariantName" ColumnName="VariantName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RFQs">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.RFQ">
+              <MappingFragment StoreEntitySet="RFQ">
+                <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="DeliverTo" ColumnName="DeliverTo" />
+                <ScalarProperty Name="RecieptDate" ColumnName="RecieptDate" />
+                <ScalarProperty Name="orderDeadLine" ColumnName="orderDeadLine" />
+                <ScalarProperty Name="currenty" ColumnName="currenty" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="RFQ_id" ColumnName="RFQ_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RfqProducts">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.RfqProduct">
+              <MappingFragment StoreEntitySet="RfqProduct">
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="taxes" ColumnName="taxes" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="rfqid" ColumnName="rfqid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxes">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.Tax">
+              <MappingFragment StoreEntitySet="Tax">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="taxComputation" ColumnName="taxComputation" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="taxScope" ColumnName="taxScope" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="TaxName" ColumnName="TaxName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.USER">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updateAT" ColumnName="updateAT" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="policyid" ColumnName="policyid" />
+                <ScalarProperty Name="imgGuid" ColumnName="imgGuid" />
+                <ScalarProperty Name="nic" ColumnName="nic" />
+                <ScalarProperty Name="contactNo" ColumnName="contactNo" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="CompleteName" ColumnName="CompleteName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vendors">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.vendor">
+              <MappingFragment StoreEntitySet="vendor">
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="vendorName" ColumnName="vendorName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="warehouses">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.warehouse">
+              <MappingFragment StoreEntitySet="warehouse">
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="warehouse1" ColumnName="warehouse" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

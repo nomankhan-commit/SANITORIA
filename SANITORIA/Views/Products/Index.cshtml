@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+
+<div class="row" id="mainDiv">
+
+  
+
+</div>
+
+
+<script src="~/Content/Loginpage/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="~/Scripts/Lib/bem_common.js"></script>
+<script src="~/Scripts/Lib/bem_htmlHelper.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script src="~/Scripts/Lib/Products.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+
+
+
+<script>
+    $(function () {
+
+        //getAllProducts
+
+        Products.loadGrid();
+     
+       
+
+     
+    });
+</script>

@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+
+<div>
+
+
+
+
+    <form id="taxform">
+        <div class="row">
+            <input type="hidden" id="id" />
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Tax Name:</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Tax Type:</label>
+                    <select class="form-control" id="taxType">
+
+                        <option value="1">Purchase</option>
+                        <option value="2">Sales</option>
+
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Tax Computation:</label>
+                    <select class="form-control" id="texComputation">
+
+                        <option value="1">Fixed</option>
+                        <option value="2">Percentage of Price</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Tax Scope:</label>
+                    <select class="form-control" id="taxScope">
+
+                        <option value="1">Goods</option>
+                        @*<option value="2">Sales</option>*@
+
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">
+                        Active:
+                    </label>
+                    <input type="checkbox" class="form-control" id="active">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Tax Type:</label>
+                    <input type="number" class="form-control" id="amount">
+
+                </div>
+            </div>
+        </div>
+        <button type="button" id="save" class="btn btn-default">Submit</button>
+    </form>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/Tax.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+
+
+<script>
+
+    let data =  @Html.Raw(Json.Encode(ViewBag.data));
+    $(document).ready(function () {
+
+        if (data != null) {
+
+
+            $('#id').val(data.data1.id);
+            $('#name').val(data.data1.TaxName);
+            $('#amount').val(data.data1.amount);
+            $('#texComputation').val(data.data1.taxComputation);
+            $('#taxScope').val(data.data1.taxScope);
+            $('#taxType').val(data.data1.type);
+            document.getElementById('active').checked = data.data1.active;
+
+        }
+
+        $('#taxform').validate({
+            rules: {
+                Company: { required: true, }
+
+            },
+            messages: {
+                Company: { required: 'This field is required' }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+
+        $("#save").click(function () {
+
+            if ($('#taxform').valid()) {
+                Tax.save("/Products/addProductComapny");
+            }
+
+        })
+
+    })
+
+</script>
+

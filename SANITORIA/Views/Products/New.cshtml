@@ -1,0 +1,338 @@
+﻿
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<div>
+
+    <form>
+
+        <input type="hidden" id="id" value="0" />
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Product Name</label>
+                <input type="text" class="form-control" id="productname" name="productname" placeholder="Product name">
+            </div>
+
+
+            <div class="form-group col-md-2">
+                <button type="button" class="btn" id="openimage">Image</button>
+                <input type="file" style="display:none" id="filehiddeninput" accept="image/x-png,image/jpeg" >
+                <input type="hidden" id="hiddenImage">
+            </div>
+
+            <div class="form-group col-md-4">
+                <div id="imagebox"></div>
+            </div>
+
+        </div>
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">General Info</a></li>
+                <li><a href="#tabs-2">Attribute & Variants</a></li>
+                @*<li><a href="#tabs-3">Aenean lacinia</a></li>*@
+            </ul>
+            <div id="tabs-1">
+
+                <!--row 1-->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Product Type</label>
+                        <select class="form-control" id="productType">
+
+                            <option value="1">Consumable</option>
+                            <option value="2">Service</option>
+                            <option value="3">Storable Product</option>
+
+                        </select>
+                    </div>
+
+
+                    
+
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Customer Taxes</label>
+                        <div id="customertaxes"></div>
+
+                        <input type="hidden" id="hiddentax" />
+
+                    </div>
+
+                </div>
+
+
+                <!--row 2-->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Invoice  Pilicy</label>
+                        <select class="form-control" id="invoicePolicy">
+
+                            <option value="1">Ordered quantities</option>
+                            <option value="2">Deliverec quantities</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-md-3">
+                        <label for="inputEmail4">Sales Price</label>
+                        <input type="number" class="form-control" id="salesprice" placeholder="sales price">
+                    </div>
+
+
+                    <div class="form-group col-md-3">
+                        <label for="inputEmail4">Total</label>
+                        <input type="text" class="form-control" id="salepricewithTax" readonly>
+                    </div>
+
+                </div>
+
+
+                <!--row 3-->
+                <div class="form-row">
+                    <div class="form-group col-md-6"></div>
+
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Cost</label>
+                        <input type="number" class="form-control" id="cost" placeholder="Cost">
+
+                        <label for="inputEmail4">Category</label>
+
+                        <select class="form-control" id="category">
+                            @foreach (var item in ViewBag.Categories.data1)
+                            {
+                                <option value="@item.id"> @item.Category </option>
+                            }
+                        </select>
+
+
+
+                        <label for="inputEmail4">Brand</label>
+                        <select class="form-control" id="brand">
+                            @foreach (var item in ViewBag.Brands.data1)
+                            {
+                                <option value="@item.id"> @item.Brand1 </option>
+                            }
+                        </select>
+
+                        <label for="inputEmail4">Company</label>
+                        <select class="form-control" id="company">
+                            @foreach (var item in ViewBag.Company.data1)
+                            {
+                                <option value="@item.id"> @item.Comapny1 </option>
+                            }
+                        </select>
+
+                    </div>
+
+                </div>
+            </div>
+            <div id="tabs-2">
+
+                <div>
+                    <button type="button" id="addVariant" class="btn btn-primary">Add</button>
+                    <table class="table" id="variantTable">
+                        <thead>
+                            <tr>
+                                <th>Variant</th>
+                                <th>Value</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="variantTableBody">
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+            @*<div id="tabs-3"></div>*@
+
+            <button type="button" id="saveall" class="btn btn-primary">Save</button>
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+<script src="~/Content/Loginpage/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="~/Scripts/Lib/bem_common.js"></script>
+<script src="~/Scripts/Lib/bem_htmlHelper.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script src="~/Scripts/Lib/Products.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+
+
+<script>
+    $(function () {
+        $("#tabs").tabs();
+
+        //____________example__________//
+        //let dat1 = [{ id: 1, name: "Tax1" }, { id: 2, name: "Tax2" }, { id: 3, name: "Tax3" }];
+        //bem_htmlHelper.singleSelectDropdown("customertaxes", "customertaxes", dat1, 2, "id", "name");
+        //bem_htmlHelper.multiSelectDropdown("customertaxes", "customertaxes", dat1, [{ id: 2, name: "abs2" }, { id: 3, name: "abs1" }], "id", "name",'');
+
+
+
+        Products.variants =   @Html.Raw(Json.Encode(ViewBag.Variants));
+        Products.categories =   @Html.Raw(Json.Encode(ViewBag.Categories));
+        Products.tax =   @Html.Raw(Json.Encode(ViewBag.tax));
+        Products.id =  @Html.Raw(ViewBag.id);
+
+        
+
+        if (Products.id == 0)
+        {
+            bem_htmlHelper.multiSelectDropdown("customertaxes", "customertaxes", Products.tax.data1, [], "id", "TaxName", '');
+            Products.applyTaxDLLchange();
+        }
+        else
+        {
+            
+            Products.getProductsByid(Products.id);
+        }
+
+        
+
+
+        $('#saveall').click(function () {
+
+            Products.saveProduct();
+
+        })
+
+        $('#addVariant').click(function () {
+
+            if (Products != null && Products.variants.data1 != null) {
+
+                let opt = Products.variants.data1.map(x => ("<option  value='" + x.id + "' > " + x.VariantName + "  </option>")).join(' ');
+                let select = "<select class='form-control'>  '" + opt + "'  </select>";
+                let tbody = `<tr variantGuid='${bem_common.getGuid()}'>
+                            <td variantname> ${select}</td>
+                            <td variantvalue></td>
+                            <td> <button type="button" class="btn btn-primary" id='removevariant'>delete</button> </td>
+                            </tr>`;
+                $('#variantTableBody').append(tbody);
+                let td = $('#variantTableBody tr').last().find('td:nth-child(2)');
+                bem_htmlHelper.inputTextListWithTags(bem_common.getGuid(),'variantValue', td, null, null);
+
+            }
+
+        })
+
+        $('#salesprice').keyup(function () {
+
+            let tx = $('#hiddentax').val().split(',');
+            let salesprice =  $(this).val();
+            let total = [];
+            $.each(tx, (i, e) => {
+                debugger;
+                let tax_ = Products.tax.data1.filter(o => o.TaxName == e)[0];
+                //let tax_ = Products.tax.data1.filter(o => o.id == e);
+
+                // fixed = 1 , percentage = 2
+                if (tax_.taxComputation == 2) {
+                    let d = (parseFloat(salesprice) / 100) * tax_.amount;
+                     total.push(parseFloat(salesprice) + d);
+                }
+                else {
+                    let d = tax_.amount;
+                    total.push(d);
+
+                }
+
+
+            })
+
+            let txtotal = total.reduce((curr, next) => curr + next);
+
+            $('#salepricewithTax').val(
+                txtotal < parseFloat(salesprice)
+                    ? (parseFloat(salesprice) + txtotal)
+                    : txtotal
+            );
+            total = [];
+
+
+
+        })
+
+
+        $('body').on('click', '#removevariant', function () {
+
+            $(this).closest('tr').remove();
+
+        })
+
+
+        $('body').on('click', '#saveall', function () {
+
+            $(this).closest('tr').remove();
+
+        })
+
+
+        $('body').on('click', '#openimage', function () {
+
+            $('#filehiddeninput').trigger('click');
+
+        })
+
+        $('#filehiddeninput').on('change', function (e) {
+            var d = new Date().valueOf();
+            var n = d.toString();
+            var result = '';
+            var length = 32;
+            var p = 0;
+            var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            for (var i = length; i > 0; --i) {
+                result += ((i & 1) && n.charAt(p) ? n.charAt(p) : chars[Math.floor(Math.random() * chars.length)]);
+                if (i & 1) p++;
+            };
+            var files = e.target.files;
+            var myID = 3; //uncomment this to make sure the ajax URL works
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: '/imageUploader/uploadimage?id=' + myID + '&name=' + result + '&folder=ProductImages',
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () {
+                            $("#imagebox").html('<img src=/content/images/loading.gif style="width:200px">');
+                        },
+                        data: data,
+                        success: function (result) {
+                            debugger;
+                            $('#hiddenImage').val(result);
+                            $("#imagebox").html('<img src=/Content/ProductImages/' + result + '>');
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+
+    });
+</script>
