@@ -4,5 +4,49 @@
     Layout = "~/Views/Shared/myLayout.cshtml";
 }
 
-<h2>Index</h2>
+
+<a class="btn btn-dark" href="@Url.Action("Create", "Rfq")">Add</a>
+
+<div id="grid"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/Rfq.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+
+        rfq.company = @Html.Raw(Json.Encode(ViewBag.company));
+        rfq.vendor = @Html.Raw(Json.Encode(ViewBag.vendor));
+        rfq.warehouse = @Html.Raw(Json.Encode(ViewBag.warehouse));
+
+
+        rfq.loadGrid();
+        $('body').on('click', '.elm_edit', function () {
+
+            let id = $(this).attr('id');
+            window.location.href = fin_common.sitrurl + "/Rfq/edit/" + id;
+
+        })
+
+        $('body').on('click', '.elm_delete', function () {
+
+            let id = $(this).attr('id');
+            rfq.delete(id);
+
+        })
+
+
+
+
+    })
+
+
+</script>
+
+
 

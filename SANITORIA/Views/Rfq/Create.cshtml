@@ -10,7 +10,17 @@
 <div>
 
 
+    <div>
+        @if (ViewBag.id > 0)
+        {
+            <button class="btn btn-default" id="email">Email</button>
+            <button class="btn btn-default" id="conformorder">Confirm Order</button>
+        }
 
+
+
+
+    </div>
 
     <form id="taxform">
         <div class="row">
@@ -65,7 +75,15 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="email">Deliver To:</label>
-                    <input type="date" class="form-control" id="deliverto">
+                    @*<input type="date" class="form-control" id="deliverto">*@
+
+                    <select class="form-control" id="deliverto">
+                        @foreach (var item in ViewBag.warehouse.data1)
+                        {
+                            <option value="@item.id"> @item.warehouse1 </option>
+                        }
+                    </select>
+
                 </div>
             </div>
 
@@ -130,6 +148,12 @@
             rfq.getByid($('#id').val());
         }
 
+        //
+        $('#conformorder').click(function () {
+            
+            rfq.orderConform($('#id').val());
+
+        })
 
         $('#addproduct').click(function () {
 

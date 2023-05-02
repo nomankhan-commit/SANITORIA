@@ -91,10 +91,12 @@
           <Property Name="currenty" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="orderDeadLine" Type="datetime" Nullable="false" />
           <Property Name="RecieptDate" Type="datetime" Nullable="false" />
-          <Property Name="DeliverTo" Type="datetime" Nullable="false" />
+          <Property Name="DeliverTo" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="createAT" Type="datetime" />
           <Property Name="updateAt" Type="datetime" />
           <Property Name="createBy" Type="int" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
           <Property Name="updateBy" Type="int" />
         </EntityType>
         <EntityType Name="RfqProduct">
@@ -292,10 +294,12 @@
           <Property Name="currenty" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="orderDeadLine" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RecieptDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DeliverTo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeliverTo" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="createAT" Type="DateTime" Precision="3" />
           <Property Name="updateAt" Type="DateTime" Precision="3" />
           <Property Name="createBy" Type="Int32" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <Property Name="updateBy" Type="Int32" />
         </EntityType>
         <EntityType Name="RfqProduct">
@@ -463,9 +467,11 @@
             <EntityTypeMapping TypeName="SANITORIA_DBModel.RFQ">
               <MappingFragment StoreEntitySet="RFQ">
                 <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="createBy" ColumnName="createBy" />
                 <ScalarProperty Name="updateAt" ColumnName="updateAt" />
                 <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="DeliverTo" ColumnName="DeliverTo" />
                 <ScalarProperty Name="RecieptDate" ColumnName="RecieptDate" />
                 <ScalarProperty Name="orderDeadLine" ColumnName="orderDeadLine" />
