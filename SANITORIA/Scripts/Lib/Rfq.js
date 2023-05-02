@@ -1,5 +1,7 @@
 ﻿let rfq = {
     company:null,
+    vendor:null,
+    warehouse:null,
     tax:null,
     varient:null,
     products:null,
@@ -7,9 +9,60 @@
     loadGrid: function () {
 
         let columns = [
-            { dataField: 'rfqName', caption: "rfq" },
-            { dataField: 'email', caption: "Email" },
-            { dataField: 'phone', caption: "Phone" },
+            { dataField: 'RFQ_id', caption: "RFQ" },
+
+            {
+                dataField: 'company', caption: "Company", customizeText: function (cellInfo) {
+                    debugger;
+                    return rfq.company.data1.filter(e => { return e.id == cellInfo.value })[0].Comapny1;
+
+                }
+            },
+
+            {
+                dataField: 'vendor', caption: "Vendor", customizeText: function (cellInfo) {
+                    debugger;
+                    return rfq.vendor.data1.filter(e => { return e.id == cellInfo.value })[0].vendorName
+
+                }
+            },
+
+            {
+                dataField: 'RecieptDate', caption: "Reciept Date", customizeText: function (cellInfo) {
+                    debugger;
+                    
+                    return fin_common.convertDataToDatePicker(cellInfo.value);
+
+                }
+            },
+            {
+                dataField: 'orderDeadLine', caption: "Order Dead Line", customizeText: function (cellInfo) {
+                    debugger;
+                    return   fin_common.convertDataToDatePicker(cellInfo.value);
+
+                }
+            },
+            { dataField: 'currenty', caption: "Currency" },
+            {
+                dataField: 'Status', caption: "Status",
+
+                cellTemplate: function (container, options) {
+                    debugger
+                    let color = 'green';
+                    if (options.data.Status == "Purchase Order") {
+                        color = 'green';
+
+                    } else if (options.data.Status == "Rfq") {
+                        color = 'blue';
+                    } else {
+                        color = 'red';
+                    }
+                    
+                    $(`<p  style='color:${color}'> ${options.data.Status} </p>`).appendTo(container);
+                }
+            },
+           
+
             {
                 dataField: "Action", cellTemplate: function (container, options) {
                     debugger
@@ -17,7 +70,7 @@
                     var data_ = encodeURI(data);
                     $(`<div class="btn-group btn-group-sm">
               <button type="button" id="${options.data.id}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
-              <button type="button" id="${options.data.id}" class="btn delete elm_delete" title="Delete"><i class="far fa-trash-alt"></i></button>
+              <button type="button" id="${options.data.id}" class="btn delete elm_delete" title="Cancel"><i class="far fa-trash-alt"></i></button>
               </div>`).appendTo(container);
                 }
             }];
@@ -112,7 +165,7 @@
                 $('#company').val(data.data1.rfq.company);
                 $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.rfq.RecieptDate));
               
-                $('#deliverto').val(fin_common.convertDataToDatePicker(data.data1.rfq.DeliverTo));
+                $('#deliverto').val(data.data1.rfq.DeliverTo);
 
                 $.each(data.data1.rfqProducts, (i, e) => {
                     debugger;
@@ -139,6 +192,19 @@
 
         debugger;
         ajaxHealper.ajaxProcessor('/rfq/delete', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
+            debugger;
+
+            fin_common.showToast(1, e.message);
+            rfq.loadGrid();
+
+
+        });
+
+    },
+    orderConform: function (id) {
+
+        debugger;
+        ajaxHealper.ajaxProcessor('/rfq/ConformOrder', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
             debugger;
 
             fin_common.showToast(1, e.message);

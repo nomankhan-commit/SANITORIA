@@ -21,10 +21,12 @@ namespace SANITORIA.Models
         public string currenty { get; set; }
         public System.DateTime orderDeadLine { get; set; }
         public System.DateTime RecieptDate { get; set; }
-        public System.DateTime DeliverTo { get; set; }
+        public int DeliverTo { get; set; }
+        public string Status { get; set; }
         public Nullable<System.DateTime> createAT { get; set; }
         public Nullable<System.DateTime> updateAt { get; set; }
         public Nullable<int> createBy { get; set; }
+        public bool isDeleted { get; set; }
         public Nullable<int> updateBy { get; set; }
     }
 }
