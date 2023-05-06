@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+
+<a class="btn btn-dark" href="@Url.Action("Create", "Rfq")">Add</a>
+
+<div id="grid">
+
+
+
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/PO.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+
+        po.company = @Html.Raw(Json.Encode(ViewBag.company));
+        po.vendor = @Html.Raw(Json.Encode(ViewBag.vendor));
+        po.warehouse = @Html.Raw(Json.Encode(ViewBag.warehouse));
+
+
+        po.loadGrid();
+        $('body').on('click', '.elm_edit', function () {
+
+            let id = $(this).attr('id');
+            window.location.href = fin_common.sitrurl + "/PurchaseOrder/edit/" + id;
+
+        })
+
+        $('body').on('click', '.elm_delete', function () {
+
+            let id = $(this).attr('id');
+            po.delete(id);
+
+        })
+
+
+
+
+    })
+
+
+</script>
+
+
+

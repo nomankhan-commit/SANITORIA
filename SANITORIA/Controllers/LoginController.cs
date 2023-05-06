@@ -60,17 +60,13 @@ namespace SANITORIA.Controllers
 
         public ActionResult Logout()
         {
-            if (Session["Fin_Session"] != null)
-            {
+           
                 Session.RemoveAll();
                 Session.Abandon();
 
                 return RedirectToAction("Index", "Login");
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            
+           
 
         }
 

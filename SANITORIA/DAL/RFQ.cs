@@ -190,6 +190,45 @@ namespace SANITORIA.DAL
                 rfq.Status = "Purchase Order";
                 db.Entry(rfq).State = EntityState.Modified;
                 db.SaveChanges();
+
+
+                PurchaseOrder purchaseOrder = new PurchaseOrder();
+                purchaseOrder.RFQ_ID = rfq.RFQ_id;
+                purchaseOrder.vendor = rfq.vendor;
+                purchaseOrder.company = rfq.company;
+                purchaseOrder.currenty = rfq.currenty;
+                purchaseOrder.orderDeadLine = rfq.orderDeadLine;
+                purchaseOrder.RecieptDate = rfq.RecieptDate;
+                purchaseOrder.DeliverTo = rfq.DeliverTo;
+                purchaseOrder.Status = rfq.Status;
+                purchaseOrder.createAT = rfq.createAT;
+                purchaseOrder.isDeleted = false;
+                db.PurchaseOrders.Add(purchaseOrder);
+                db.SaveChanges();
+
+                var p = db.PO_Product.Where(x => x.po_id == purchaseOrder.id).ToList();
+                db.PO_Product.RemoveRange(p);
+                db.SaveChanges();
+
+                var rfqp = db.RfqProducts.Where(x => x.rfqid == id).ToList();
+
+                foreach (var item in rfqp)
+                {
+
+                    PO_Product pO_Product = new PO_Product();
+
+                    pO_Product.po_id = purchaseOrder.id;
+                    pO_Product.product = item.product;
+                    pO_Product.varient = item.varient;
+                    pO_Product.qty = item.qty;
+                    pO_Product.unitprice = item.unitprice;
+                    pO_Product.taxes = item.taxes;
+                    pO_Product.subtotal = item.subtotal;
+                    
+                    db.PO_Product.Add(pO_Product);
+                    db.SaveChanges();
+                }
+
                 Response response = new Response();
                 response.status = 1;
                 response.message = "Order confirm successfully.";

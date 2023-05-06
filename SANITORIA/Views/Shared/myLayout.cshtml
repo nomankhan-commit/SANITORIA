@@ -264,6 +264,34 @@
                                     </ul>
                                 </li>
                             </ul>
+
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-chart-pie"></i>
+                                        <p>
+                                            Order
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("index", "Rfq")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>RFQ</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("index", "PurchaseOrder")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Purchase Order</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
                         </li>
 
 
@@ -344,6 +372,7 @@
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
             <a href="@Url.Action("index", "Users")">Manage Users</a>
+            <a href="@Url.Action("Logout", "Login")">LogOut</a>
         </aside>
         <!-- /.control-sidebar -->
     </div>

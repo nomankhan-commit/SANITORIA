@@ -28,10 +28,12 @@ namespace SANITORIA.Models
         public virtual DbSet<BankAccoutn> BankAccoutns { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Comapny> Comapnies { get; set; }
+        public virtual DbSet<PO_Product> PO_Product { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductsCategory> ProductsCategories { get; set; }
         public virtual DbSet<ProductsVariant_> ProductsVariant_ { get; set; }
         public virtual DbSet<ProductVariant> ProductVariants { get; set; }
+        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual DbSet<RFQ> RFQs { get; set; }
         public virtual DbSet<RfqProduct> RfqProducts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }

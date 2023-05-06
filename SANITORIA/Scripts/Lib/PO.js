@@ -1,20 +1,21 @@
-﻿let rfq = {
-    company:null,
-    vendor:null,
-    warehouse:null,
-    tax:null,
-    varient:null,
-    products:null,
-    productsVarient:null,
+﻿let po = {
+    company: null,
+    vendor: null,
+    warehouse: null,
+    tax: null,
+    varient: null,
+    products: null,
+    productsVarient: null,
     loadGrid: function () {
 
         let columns = [
-            { dataField: 'RFQ_id', caption: "RFQ" },
+            { dataField: 'PO_id', caption: "PO Id" },
+            { dataField: 'RFQ_ID', caption: "RFQ ID" },
 
             {
                 dataField: 'company', caption: "Company", customizeText: function (cellInfo) {
                     debugger;
-                    return rfq.company.data1.filter(e => { return e.id == cellInfo.value })[0].Comapny1;
+                    return po.company.data1.filter(e => { return e.id == cellInfo.value })[0].Comapny1;
 
                 }
             },
@@ -22,7 +23,7 @@
             {
                 dataField: 'vendor', caption: "Vendor", customizeText: function (cellInfo) {
                     debugger;
-                    return rfq.vendor.data1.filter(e => { return e.id == cellInfo.value })[0].vendorName
+                    return po.vendor.data1.filter(e => { return e.id == cellInfo.value })[0].vendorName
 
                 }
             },
@@ -30,7 +31,7 @@
             {
                 dataField: 'RecieptDate', caption: "Reciept Date", customizeText: function (cellInfo) {
                     debugger;
-                    
+
                     return fin_common.convertDataToDatePicker(cellInfo.value);
 
                 }
@@ -38,7 +39,7 @@
             {
                 dataField: 'orderDeadLine', caption: "Order Dead Line", customizeText: function (cellInfo) {
                     debugger;
-                    return   fin_common.convertDataToDatePicker(cellInfo.value);
+                    return fin_common.convertDataToDatePicker(cellInfo.value);
 
                 }
             },
@@ -52,16 +53,20 @@
                     if (options.data.Status == "Purchase Order") {
                         color = 'green';
 
-                    } else if (options.data.Status == "Rfq") {
+                    } else if (options.data.Status == "po") {
                         color = 'blue';
-                    } else {
+                    }
+                    else if (options.data.Status == "Nothing to bill") {
+                        color = 'gray';
+                    }
+                    else {
                         color = 'red';
                     }
-                    
+
                     $(`<p  style='color:${color}'> ${options.data.Status} </p>`).appendTo(container);
                 }
             },
-           
+
 
             {
                 dataField: "Action", cellTemplate: function (container, options) {
@@ -74,7 +79,7 @@
               </div>`).appendTo(container);
                 }
             }];
-        let url = "/rfq/getAll";
+        let url = "/PurchaseOrder/getAll";
         ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (e) => {
             debugger;
 
@@ -103,15 +108,15 @@
 
         let data = {
             data: obj,
-            product: rfq.getAllProductsDetails()
+            product: po.getAllProductsDetails()
         }
 
 
-        ajaxHealper.ajaxProcessor('/Rfq/Create', "json", "POST", JSON.stringify(data), true, (e) => {
+        ajaxHealper.ajaxProcessor('/PurchaseOrder/Create', "json", "POST", JSON.stringify(data), true, (e) => {
             debugger;
             if (e.status != 2) {
                 fin_common.showToast(1, e.message);
-                window.location.href = fin_common.sitrurl + "rfq/Index";
+                window.location.href = fin_common.sitrurl + "po/Index";
             }
             else {
                 fin_common.showToast(2, e.message);
@@ -149,7 +154,7 @@
     },
     getByid: function (id) {
 
-        let url = "/rfq/getbyid/" + id;
+        let url = "/PurchaseOrder/getbyid/" + id;
         ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (data) => {
             debugger;
 
@@ -164,10 +169,22 @@
                 $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.rfq.orderDeadLine));
                 $('#company').val(data.data1.rfq.company);
                 $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.rfq.RecieptDate));
-              
+
                 $('#deliverto').val(data.data1.rfq.DeliverTo);
                 $('#status_').html(data.data1.rfq.Status);
-                $('#rfqid_').html(data.data1.rfq.RFQ_id);
+                $('#poid_').html(data.data1.rfq.PO_id);
+
+
+                if (data.data1.rfq.Status == "Nothing to bill") {
+
+                    $('#conformorder').hide()
+                    $('#receivedorder').show()
+
+                } else {
+                    $('#conformorder').show()
+                    $('#receivedorder').hide()
+                }
+
 
                 $.each(data.data1.rfqProducts, (i, e) => {
                     debugger;
@@ -193,11 +210,11 @@
     delete: function (id) {
 
         debugger;
-        ajaxHealper.ajaxProcessor('/rfq/delete', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
+        ajaxHealper.ajaxProcessor('/PurchaseOrder/delete', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
             debugger;
 
             fin_common.showToast(1, e.message);
-            rfq.loadGrid();
+            po.loadGrid();
 
 
         });
@@ -206,13 +223,17 @@
     orderConform: function (id) {
 
         debugger;
-        ajaxHealper.ajaxProcessor('/rfq/ConformOrder', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
+        ajaxHealper.ajaxProcessor('/PurchaseOrder/ConformOrder', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
             debugger;
 
-
-            $('#status_').html('Purchase order')
             fin_common.showToast(1, e.message);
-            //rfq.loadGrid();
+            $('#status_').html('Nothing to bill')
+
+
+            $('#conformorder').hide();
+            $('#receivedorder').show();
+
+            //po.loadGrid();
 
 
         });
@@ -233,7 +254,7 @@
             let total = [];
             $.each(tx, (i, e) => {
                 debugger;
-                let tax_ = rfq.tax.data1.filter(o => o.id == e)[0];
+                let tax_ = po.tax.data1.filter(o => o.id == e)[0];
 
                 if (tax_.taxComputation == 2) {
                     let d = (parseFloat(salesprice) / 100) * tax_.amount;
@@ -255,12 +276,11 @@
             total = [];
             $(tis).closest('tr').find('td[subtotal] .subtotal').val(finalToal);
         }
-        else
-        {
+        else {
             $(tis).closest('tr').find('td[subtotal] .subtotal').val(sumtotal);
         }
-        
-       
+
+
 
     }
 

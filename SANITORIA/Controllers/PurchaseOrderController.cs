@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Common;
+using SANITORIA.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Common;
-using SANITORIA.Models;
-
 
 namespace SANITORIA.Controllers
 {
 
     [sessionExpire]
-    public class RfqController : Controller
+    public class PurchaseOrderController : Controller
     {
-        // GET: Rfq
+        // GET: PurchaseOrder
         public ActionResult Index()
         {
 
@@ -26,7 +25,8 @@ namespace SANITORIA.Controllers
             return View();
         }
 
-        public ActionResult Create() {
+        public ActionResult Create()
+        {
 
             ViewBag.id = 0;
             DAL.Product prd = new DAL.Product();
@@ -42,10 +42,11 @@ namespace SANITORIA.Controllers
             ViewBag.productvarient = prd.GetAllProductVarient();
             ViewBag.warehouse = warehouse.GetAll();
             return View();
-        
+
         }
 
-        public ActionResult Edit(int id) {
+        public ActionResult Edit(int id)
+        {
 
             ViewBag.id = id;
             DAL.Product prd = new DAL.Product();
@@ -64,11 +65,11 @@ namespace SANITORIA.Controllers
 
 
         [HttpPost]
-        public JsonResult Create(RFQ data, List<RfqProduct> product)
+        public JsonResult Create(PurchaseOrder data, List<RfqProduct> product)
         {
 
             Response response = new Response();
-            DAL.RFQ rfq = new DAL.RFQ();
+            DAL.PurchaseOrder_ rfq = new DAL.PurchaseOrder_();
             response = rfq.Add(data, product);
             return Json(response, JsonRequestBehavior.AllowGet);
 
@@ -80,7 +81,7 @@ namespace SANITORIA.Controllers
         {
 
             Response response = new Response();
-            DAL.RFQ rfq = new DAL.RFQ();
+            DAL.PurchaseOrder_ rfq = new DAL.PurchaseOrder_();
             response = rfq.GetAll();
             return Json(response, JsonRequestBehavior.AllowGet);
 
@@ -92,7 +93,7 @@ namespace SANITORIA.Controllers
         {
 
             Response response = new Response();
-            DAL.RFQ rfq = new DAL.RFQ();
+            DAL.PurchaseOrder_ rfq = new DAL.PurchaseOrder_();
             response = rfq.GetByid(id);
             return Json(response, JsonRequestBehavior.AllowGet);
 
@@ -104,43 +105,22 @@ namespace SANITORIA.Controllers
         {
 
             Response response = new Response();
-            DAL.RFQ rfq = new DAL.RFQ();
+            DAL.PurchaseOrder_ rfq = new DAL.PurchaseOrder_();
             response = rfq.cancel(id);
             return Json(response, JsonRequestBehavior.AllowGet);
 
         }
-        
-        
+
+
         [HttpPost]
         public JsonResult ConformOrder(int id)
         {
 
             Response response = new Response();
-            DAL.RFQ rfq = new DAL.RFQ();
+            DAL.PurchaseOrder_ rfq = new DAL.PurchaseOrder_();
             response = rfq.conforOrder(id);
             return Json(response, JsonRequestBehavior.AllowGet);
 
         }
-
-
-        [HttpPost]
-
-        public JsonResult Email(string rfqid)
-        {
-
-            EmailController emailController = new EmailController();
-            bool send = emailController.Email("sub","rec","msg");
-            Response response = new Response();
-            response.status = 1;
-            response.message = "Email send successfully.";
-            if (!send)
-            {
-                response.status = 2;
-                response.message = "Email did not send.";
-            }
-            return Json(response, JsonRequestBehavior.AllowGet);
-
-        }
-
     }
 }

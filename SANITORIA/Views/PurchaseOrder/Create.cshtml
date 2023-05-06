@@ -9,38 +9,28 @@
 
 <div>
 
-    <h4>Request for Quation  :   <span id="rfqid_"></span> </h4>
-   
-
+    <h4>Purchase Order :   <span id="poid_"></span></h4>
     <div class="row">
-        
+
         <div class="col-md-6">
             <div>
                 @if (ViewBag.id > 0)
                 {
                     <button class="btn btn-default" id="email">Email</button>
                     <button class="btn btn-default" id="conformorder">Confirm Order</button>
+                    <button class="btn btn-default" id="receivedorder" style="display:none">Received Order</button>
                 }
-
-
-            
 
             </div>
 
         </div>
 
-
         <div class="col-md-6">
-           
 
-                <h4 id="status_">status</h4>
-
-         
-
+            <h4 id="status_">status</h4>
         </div>
 
     </div>
-
 
     <form id="taxform">
         <div class="row">
@@ -149,7 +139,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 <script src="~/Scripts/MyScripts/devExhelper.js"></script>
 <script src="~/Scripts/MyScripts/fin_common.js"></script>
-<script src="~/Scripts/Lib/Rfq.js"></script>
+<script src="~/Scripts/Lib/PO.js"></script>
 <script src="~/Scripts/Lib/bem_common.js"></script>
 <script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
 
@@ -157,21 +147,21 @@
 
     $(document).ready(function () {
 
-      
 
-        rfq.varient = @Html.Raw(Json.Encode(ViewBag.varient));
-        rfq.tax = @Html.Raw(Json.Encode(ViewBag.tax));
-        rfq.products = @Html.Raw(Json.Encode(ViewBag.products));
-        rfq.productsVarient = @Html.Raw(Json.Encode(ViewBag.productvarient));
+
+        po.varient = @Html.Raw(Json.Encode(ViewBag.varient));
+        po.tax = @Html.Raw(Json.Encode(ViewBag.tax));
+        po.products = @Html.Raw(Json.Encode(ViewBag.products));
+        po.productsVarient = @Html.Raw(Json.Encode(ViewBag.productvarient));
 
         if ($('#id').val() > 0) {
-            rfq.getByid($('#id').val());
+            po.getByid($('#id').val());
         }
 
         //
         $('#conformorder').click(function () {
-            
-            rfq.orderConform($('#id').val());
+
+            po.orderConform($('#id').val());
 
         })
 
@@ -179,18 +169,18 @@
 
             debugger;
 
-            let product = rfq.products.data1.map(e => ("<option  value='" + e.pid + "'  tax='" + e.p_tax+"' >  " + e.P_name + "  </option>")).join('');
-            let tax = rfq.tax.data1.map(e => ("<option value='" + e.id + "'>   " + e.TaxName + "  </option>")).join('');
+            let product = po.products.data1.map(e => ("<option  value='" + e.pid + "'  tax='" + e.p_tax+"' >  " + e.P_name + "  </option>")).join('');
+            let tax = po.tax.data1.map(e => ("<option value='" + e.id + "'>   " + e.TaxName + "  </option>")).join('');
 
             let taxguid = "id"+bem_common.getGuid();
             tax = "<select class='form-control tax' id='" + taxguid +"' multiple>  " + tax + "  </select>";
             product = "<select class='form-control product'>  " + product + "  </select>";
 
-            let qty = "<input type='number' onkeyup='rfq.calculate(this)' class='qty form-control'>";
-            let unitprice = "<input type='number' onkeyup='rfq.calculate(this)' class='unitprice form-control'>";
+            let qty = "<input type='number' onkeyup='po.calculate(this)' class='qty form-control'>";
+            let unitprice = "<input type='number' onkeyup='po.calculate(this)' class='unitprice form-control'>";
             let subtotal = "<input type='text' readonly class='subtotal form-control'>";
             let btn = "<button class='form-control btn removevProduct' type='button'>delete</button>";
-            
+
             let tbody = `<tr Guid='${bem_common.getGuid()}'>
                             <td product> ${product}</td>
                             <td varient>   </td>
@@ -208,7 +198,7 @@
 
             }, 100)
 
-          
+
         })
 
         $('body').on('click', '.removevProduct', function () {
@@ -220,14 +210,14 @@
 
         $('body').on('click', '#save', function () {
 
-            rfq.save();
+            po.save();
 
         })
 
-        
+
         $('body').on('change', '.tax', function () {
 
-            rfq.calculate(this);
+            po.calculate(this);
 
         })
 
@@ -236,14 +226,14 @@
 
             let id = $(this).val();
 
-            if (rfq.productsVarient.data1 != null && rfq.productsVarient.data1.length > 0) {
-                let vari = rfq.productsVarient.data1.filter(x => { return x.p_id == id })[0].variantValues;
+            if (po.productsVarient.data1 != null && po.productsVarient.data1.length > 0) {
+                let vari = po.productsVarient.data1.filter(x => { return x.p_id == id })[0].variantValues;
 
                 if (vari!=null && vari.length>0) {
 
                     let g = bem_common.getGuid();
 
-                   let opt = rfq.productsVarient.data1
+                   let opt = po.productsVarient.data1
                         .filter(x => { return x.p_id == id })
                         .map(e => (e.variantValues)).join(',').split(',')
                         .map(o => ('<option>  ' + o + ' </option>')).join(' ');
@@ -258,21 +248,21 @@
                     }, 100)
                 }
 
-                if (rfq.products.data1 != null && rfq.products.data1.length > 0)
+                if (po.products.data1 != null && po.products.data1.length > 0)
                 {
-                   let cost = rfq.products.data1.filter(e => (e.pid == id))[0].cost;
+                   let cost = po.products.data1.filter(e => (e.pid == id))[0].cost;
                     $(this).closest('tr').find('td[unitprice] .unitprice').val(cost);
                     $(this).closest('tr').find('td[subtotal] .subtotal').val('');
                     $(this).closest('tr').find('td[qty] .qty').val('');
                 }
-               
+
             }
 
             debugger;
 
         })
 
-        
+
 
     })
 

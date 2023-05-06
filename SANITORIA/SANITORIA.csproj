@@ -135,16 +135,19 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\imageUploaderController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\RfqController.cs" />
     <Compile Include="Controllers\TaxController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\vendorController.cs" />
     <Compile Include="Controllers\WarehouseController.cs" />
     <Compile Include="DAL\Product.cs" />
+    <Compile Include="DAL\PurchaseOrder_.cs" />
     <Compile Include="DAL\RFQ.cs" />
     <Compile Include="DAL\Tax_.cs" />
     <Compile Include="DAL\UserAccess.cs" />
@@ -177,6 +180,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PO_Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -187,6 +193,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductVariant.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrder.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RFQ.cs">
@@ -2134,6 +2143,7 @@
     <Content Include="Scripts\Lib\Brand.js" />
     <Content Include="Scripts\Lib\Category.js" />
     <Content Include="Scripts\Lib\Comapny.js" />
+    <Content Include="Scripts\Lib\PO.js" />
     <Content Include="Scripts\Lib\Products.js" />
     <Content Include="Scripts\Lib\Rfq.js" />
     <Content Include="Scripts\Lib\Tax.js" />
@@ -2183,11 +2193,14 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Rfq\Index.cshtml" />
     <Content Include="Views\Rfq\Create.cshtml" />
+    <Content Include="Views\PurchaseOrder\Create.cshtml" />
+    <Content Include="Views\PurchaseOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\NewFolder1\" />
     <Folder Include="Content\ProductImages\" />
+    <Folder Include="Views\Email\" />
     <Folder Include="Views\imageUploader\" />
   </ItemGroup>
   <ItemGroup>
