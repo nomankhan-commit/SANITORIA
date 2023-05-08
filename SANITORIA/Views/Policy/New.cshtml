@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <h2 class="text-left" style="background-color:blue"></h2>
+
+    <form id="form_">
+        <input type="hidden" id="id" name="id" value="0" />
+        <div class="form-group">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label for="date">Policy Title</label>
+                    <input class="form-control" type="text" id="title" name="title" />
+                </div>
+                <div class="col-md-4">
+
+                    @* <label for="project">Users</label>*@
+
+                    @*<select class="form-control width-sm js-example-basic-multiple select2" id="projectDropdown" multiple="multiple" name="projects" style="width:23.75em">*@
+
+                    @*<select class="form-control select2"  id="Users" name="Users">
+
+                            @foreach (var item in users)
+                            {
+                                <option value="@item.User_ID">@item.User_Name</option>
+                            }
+                        </select>*@
+
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+
+
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top: 19px;">
+
+
+                <div class="col-md-4">
+
+                    @*<div class="form-check">
+                            <input class="form-check-input" type="checkbox"  name="isPageBlock" id="isPageBlock">
+                            <label class="form-check-label" for="isPageBlock">
+                                isPageBlock
+                            </label>
+                        </div>*@
+
+                </div>
+
+            </div>
+
+
+            <div class=" row">
+
+                <div class="col-md-12">
+                    <button type="button" class="Float_right" id="additemRow"> <i class="fas fa-plus"></i> </button>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                @*<th style="width:7%">ITEM #</th>*@
+                                <th style="width:25%">Controller</th>
+                                <th>Method</th>
+                                <th>Restrictions</th>
+                                <th>Page Block</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemTablebody">
+                            @*<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>*@
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <button type="button" class="btn btn-primary" id="submitForm">Save</button>
+    </form>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/policy.js"></script>
+<script src="~/Scripts/Lib/bem_common.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+
+
+<script>
+
+
+    var editdata = @Html.Raw(Json.Encode(ViewBag.data))
+    var policylist = @Html.Raw(Json.Encode(ViewBag.policylist))
+    var userid = @Html.Raw(Json.Encode(ViewBag.id))
+        $(document).ready(function () {
+       
+       
+            $("#additemRow").click(function () {
+
+                var controller = fin_common.guid();
+                var action = fin_common.guid();
+                var eventsAccess = fin_common.guid();
+                var ispageblock = fin_common.guid();
+                var eventsdropdown = fin_common.guid();
+
+                var dropdown = `<select class='form-control' id='${eventsdropdown}' multiple='multiple'>
+                    <option value="Add">Add</option>
+                    <option value="Edit">Edit</option>
+                    <option value="Submit">Cancel</option>
+                    <option value="Move">Conform Order</option>
+                    <option value="Cancel">Email</option>
+                    <option value="Delete">Received Order</option>
+                </select>`;
+
+
+               
+                var row = `<tr>
+
+                <td> <input class="form-control controller" id="${controller}"         required    name="${controller}"           type="text"/> </td>
+                <td> <input class="form-control action"         id="${action}"         required    name="${action}"    type="text"/> </td>
+                <td> ${dropdown} </td>
+                <td> <input class="form-control ispageblock"   id="${ispageblock}" name="${ispageblock}" type="checkbox"/> </td>
+                <td><button type="button" class="dltRow"> <i class="far fa-trash-alt"></i> </button></td>
+            </tr>`;
+
+                $('#itemTablebody').html(row);
+              
+                setTimeout((e) => {
+
+                    $("#" + eventsdropdown).select2();
+
+                }, 1000)
+              
+
+                
+
+            })
+
+            $("body").on('click', '.dltRow', function () {
+                debugger;
+                var tr = $(this).closest('tr');
+                $(tr).remove()
+            })
+
+            if (editdata != null)
+            {
+                policy.bindDataonEdit(editdata);
+            }
+            else
+            {
+                $('#additemRow').trigger('click');
+            }
+
+    })
+
+</script>
+
+
+
+
+

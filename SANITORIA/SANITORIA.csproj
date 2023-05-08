@@ -134,13 +134,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccessdeniedController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\imageUploaderController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PolicyController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="Controllers\ReccievdController.cs" />
     <Compile Include="Controllers\RfqController.cs" />
     <Compile Include="Controllers\TaxController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -148,6 +151,7 @@
     <Compile Include="Controllers\WarehouseController.cs" />
     <Compile Include="DAL\Product.cs" />
     <Compile Include="DAL\PurchaseOrder_.cs" />
+    <Compile Include="DAL\Reccievd.cs" />
     <Compile Include="DAL\RFQ.cs" />
     <Compile Include="DAL\Tax_.cs" />
     <Compile Include="DAL\UserAccess.cs" />
@@ -157,6 +161,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BankAccoutn.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bill_Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Brand.cs">
@@ -180,6 +187,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\policylist.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PO_Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -195,13 +205,25 @@
     <Compile Include="Models\ProductVariant.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PurchaseBill.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PurchaseOrder.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RECEIVED_ORDER.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RECV_Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RFQ.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RfqProduct.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\securityPolicy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sessionDetails.cs" />
@@ -2144,7 +2166,9 @@
     <Content Include="Scripts\Lib\Category.js" />
     <Content Include="Scripts\Lib\Comapny.js" />
     <Content Include="Scripts\Lib\PO.js" />
+    <Content Include="Scripts\Lib\policy.js" />
     <Content Include="Scripts\Lib\Products.js" />
+    <Content Include="Scripts\Lib\Received.js" />
     <Content Include="Scripts\Lib\Rfq.js" />
     <Content Include="Scripts\Lib\Tax.js" />
     <Content Include="Scripts\Lib\User.js" />
@@ -2195,6 +2219,11 @@
     <Content Include="Views\Rfq\Create.cshtml" />
     <Content Include="Views\PurchaseOrder\Create.cshtml" />
     <Content Include="Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="Views\Accessdenied\Index.cshtml" />
+    <Content Include="Views\Policy\Index.cshtml" />
+    <Content Include="Views\Policy\New.cshtml" />
+    <Content Include="Views\Policy\Edit.cshtml" />
+    <Content Include="Views\Reccievd\PoReceived.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

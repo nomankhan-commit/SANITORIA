@@ -137,6 +137,67 @@
 
         $('body').on('click', '#save', function () {
 
+            let vname = $('#vname');
+            let phone = $('#phone');
+            let email = $('#email');
+            let website = $('#website');
+            let zipcode = $('#zipcode');
+            let address = $('#address');
+
+            debugger;
+            let valid = true;
+
+            if (vname.val().trim() == '') {
+                $(vname).addClass('inputborder');
+                valid = false;
+            } else {
+                $(vname).removeClass('inputborder');
+            }
+
+
+            if (phone.val().trim() == '') {
+                $(phone).addClass('inputborder');
+                valid = false;
+            } else {
+                $(phone).removeClass('inputborder');
+            }
+
+            if (email.val().trim() == '' || fin_common.validateEmail(email.val()) == false) {
+                $(email).addClass('inputborder');
+                valid = false;
+            } else {
+                $(email).removeClass('inputborder');
+            }
+
+
+            if (website.val().trim() == '') {
+                $(website).addClass('inputborder');
+                valid = false;
+            } else {
+                $(website).removeClass('inputborder');
+            }
+
+            if (zipcode.val().trim() == '') {
+                $(zipcode).addClass('inputborder');
+                valid = false;
+            } else {
+                $(zipcode).removeClass('inputborder');
+            }
+
+            if (address.val().trim() == '') {
+                $(address).addClass('inputborder');
+                valid = false;
+            } else {
+                $(address).removeClass('inputborder');
+            }
+
+            if (!valid) {
+                fin_common.showToast(2, 'Please fill all inputs.');
+                return;
+            }
+
+
+
             vendor.save();
 
         })

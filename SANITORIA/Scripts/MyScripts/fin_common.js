@@ -515,6 +515,21 @@ var fin_common = {
 
         return yyyy + "-" + (mm > 10 ? mm : "0"+mm) + "-" + dd;
 
+    },
+    validateEmail: function (email) {
+
+        if (email==null) {
+            return false;
+        }
+
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+            return (true)
+        } else {
+            return (false)
+        }
+        
+        
+
     }
 }
 

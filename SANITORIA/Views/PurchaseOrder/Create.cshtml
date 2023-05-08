@@ -210,6 +210,32 @@
 
         $('body').on('click', '#save', function () {
 
+            let orderdeadline = $('#orderdeadline');
+            let receiptdate = $('#receiptdate');
+
+            debugger;
+            let valid = true;
+
+            if (orderdeadline.val().trim() == '') {
+                $(orderdeadline).addClass('inputborder');
+                valid = false;
+            } else {
+                $(orderdeadline).removeClass('inputborder');
+            }
+
+            if (receiptdate.val().trim() == '') {
+                $(receiptdate).addClass('inputborder');
+                valid = false;
+            } else {
+                $(receiptdate).removeClass('inputborder');
+            }
+
+            if (!valid) {
+                fin_common.showToast(2, 'Please fill all inputs.');
+                return;
+            }
+
+
             po.save();
 
         })
@@ -219,6 +245,13 @@
 
             po.calculate(this);
 
+        })
+
+
+        $('body').on('change', '#receivedorder', function () {
+            debugger;
+           let poid  =  $('#poid_').text();
+            window.location.href = fin_common.sitrurl + "/Reccievd/PoReceived?poid=" + poid;
         })
 
 

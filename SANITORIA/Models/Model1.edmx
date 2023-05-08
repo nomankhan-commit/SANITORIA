@@ -15,6 +15,29 @@
           <Property Name="v_id" Type="int" Nullable="false" />
           <Property Name="bankGudi" Type="varchar" MaxLength="500" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Bill_Product">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="product" />
+            <PropertyRef Name="varient" />
+            <PropertyRef Name="qty" />
+            <PropertyRef Name="REC_qty" />
+            <PropertyRef Name="unitprice" />
+            <PropertyRef Name="taxes" />
+            <PropertyRef Name="subtotal" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rec_id" Type="int" />
+          <Property Name="product" Type="int" Nullable="false" />
+          <Property Name="varient" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="qty" Type="int" Nullable="false" />
+          <Property Name="REC_qty" Type="int" Nullable="false" />
+          <Property Name="unitprice" Type="int" Nullable="false" />
+          <Property Name="taxes" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="subtotal" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="id" />
@@ -41,6 +64,21 @@
           <Property Name="unitprice" Type="int" Nullable="false" />
           <Property Name="taxes" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="subtotal" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="policylist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="policyid" Type="int" />
+          <Property Name="controller" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="action" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="eventAccess" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ispageBlock" Type="bit" />
+          <Property Name="createAT" Type="datetime" />
+          <Property Name="updateAt" Type="datetime" />
+          <Property Name="createBy" Type="varchar" MaxLength="255" />
+          <Property Name="updateBy" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -93,6 +131,17 @@
           <Property Name="values" Type="varchar" MaxLength="500" />
           <Property Name="isMultiList" Type="bit" />
         </EntityType>
+        <EntityType Name="PurchaseBill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rec_id" Type="varchar" MaxLength="50" />
+          <Property Name="billAmount" Type="bigint" />
+          <Property Name="ispaidTrue" Type="bit" />
+          <Property Name="createBy" Type="int" />
+          <Property Name="createAT" Type="datetime" />
+        </EntityType>
         <EntityType Name="PurchaseOrder">
           <Key>
             <PropertyRef Name="id" />
@@ -112,6 +161,41 @@
           <Property Name="createBy" Type="int" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
           <Property Name="updateBy" Type="int" />
+        </EntityType>
+        <EntityType Name="RECEIVED_ORDER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="REC_id" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
+          <Property Name="RFQ_ID" Type="varchar" MaxLength="50" />
+          <Property Name="PO_ID" Type="varchar" MaxLength="50" />
+          <Property Name="vendor" Type="int" Nullable="false" />
+          <Property Name="company" Type="int" Nullable="false" />
+          <Property Name="currenty" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="orderDeadLine" Type="datetime" Nullable="false" />
+          <Property Name="RecieptDate" Type="datetime" Nullable="false" />
+          <Property Name="DeliverTo" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="createAT" Type="datetime" />
+          <Property Name="updateAt" Type="datetime" />
+          <Property Name="createBy" Type="int" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="updateBy" Type="int" />
+        </EntityType>
+        <EntityType Name="RECV_Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="po_id" Type="int" />
+          <Property Name="product" Type="int" Nullable="false" />
+          <Property Name="varient" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="qty" Type="int" Nullable="false" />
+          <Property Name="REC_qty" Type="int" Nullable="false" />
+          <Property Name="unitprice" Type="int" Nullable="false" />
+          <Property Name="taxes" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="subtotal" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="RFQ">
           <Key>
@@ -144,6 +228,18 @@
           <Property Name="unitprice" Type="int" Nullable="false" />
           <Property Name="taxes" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="subtotal" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="securityPolicy">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="users" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="createAT" Type="datetime" />
+          <Property Name="updateAt" Type="datetime" />
+          <Property Name="createBy" Type="varchar" MaxLength="255" />
+          <Property Name="updateBy" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -210,18 +306,36 @@
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comapny" EntityType="Self.Comapny" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PO_Product" EntityType="Self.PO_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="policylist" EntityType="Self.policylist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsCategory" EntityType="Self.ProductsCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsVariant_" EntityType="Self.ProductsVariant_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductVariants" EntityType="Self.ProductVariants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseBill" EntityType="Self.PurchaseBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PurchaseOrder" EntityType="Self.PurchaseOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECEIVED_ORDER" EntityType="Self.RECEIVED_ORDER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECV_Product" EntityType="Self.RECV_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RFQ" EntityType="Self.RFQ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RfqProduct" EntityType="Self.RfqProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="securityPolicy" EntityType="Self.securityPolicy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendor" EntityType="Self.vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="warehouse" EntityType="Self.warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill_Product" EntityType="Self.Bill_Product" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Bill_Product].[id] AS [id], 
+    [Bill_Product].[Rec_id] AS [Rec_id], 
+    [Bill_Product].[product] AS [product], 
+    [Bill_Product].[varient] AS [varient], 
+    [Bill_Product].[qty] AS [qty], 
+    [Bill_Product].[REC_qty] AS [REC_qty], 
+    [Bill_Product].[unitprice] AS [unitprice], 
+    [Bill_Product].[taxes] AS [taxes], 
+    [Bill_Product].[subtotal] AS [subtotal]
+    FROM [dbo].[Bill_Product] AS [Bill_Product]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -232,18 +346,24 @@
           <EntitySet Name="Brands" EntityType="SANITORIA_DBModel.Brand" />
           <EntitySet Name="Comapnies" EntityType="SANITORIA_DBModel.Comapny" />
           <EntitySet Name="PO_Product" EntityType="SANITORIA_DBModel.PO_Product" />
+          <EntitySet Name="policylists" EntityType="SANITORIA_DBModel.policylist" />
           <EntitySet Name="Products" EntityType="SANITORIA_DBModel.Product" />
           <EntitySet Name="ProductsCategories" EntityType="SANITORIA_DBModel.ProductsCategory" />
           <EntitySet Name="ProductsVariant_" EntityType="SANITORIA_DBModel.ProductsVariant_" />
           <EntitySet Name="ProductVariants" EntityType="SANITORIA_DBModel.ProductVariant" />
+          <EntitySet Name="PurchaseBills" EntityType="SANITORIA_DBModel.PurchaseBill" />
           <EntitySet Name="PurchaseOrders" EntityType="SANITORIA_DBModel.PurchaseOrder" />
+          <EntitySet Name="RECEIVED_ORDER" EntityType="SANITORIA_DBModel.RECEIVED_ORDER" />
+          <EntitySet Name="RECV_Product" EntityType="SANITORIA_DBModel.RECV_Product" />
           <EntitySet Name="RFQs" EntityType="SANITORIA_DBModel.RFQ" />
           <EntitySet Name="RfqProducts" EntityType="SANITORIA_DBModel.RfqProduct" />
+          <EntitySet Name="securityPolicies" EntityType="SANITORIA_DBModel.securityPolicy" />
           <EntitySet Name="sysdiagrams" EntityType="SANITORIA_DBModel.sysdiagram" />
           <EntitySet Name="Taxes" EntityType="SANITORIA_DBModel.Tax" />
           <EntitySet Name="USERS" EntityType="SANITORIA_DBModel.USER" />
           <EntitySet Name="vendors" EntityType="SANITORIA_DBModel.vendor" />
           <EntitySet Name="warehouses" EntityType="SANITORIA_DBModel.warehouse" />
+          <EntitySet Name="Bill_Product" EntityType="SANITORIA_DBModel.Bill_Product" />
         </EntityContainer>
         <EntityType Name="BankAccoutn">
           <Key>
@@ -281,6 +401,21 @@
           <Property Name="unitprice" Type="Int32" Nullable="false" />
           <Property Name="taxes" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="subtotal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="policylist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="policyid" Type="Int32" />
+          <Property Name="controller" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="eventAccess" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ispageBlock" Type="Boolean" />
+          <Property Name="createAT" Type="DateTime" Precision="3" />
+          <Property Name="updateAt" Type="DateTime" Precision="3" />
+          <Property Name="createBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="updateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -333,6 +468,17 @@
           <Property Name="values" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="isMultiList" Type="Boolean" />
         </EntityType>
+        <EntityType Name="PurchaseBill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rec_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billAmount" Type="Int64" />
+          <Property Name="ispaidTrue" Type="Boolean" />
+          <Property Name="createBy" Type="Int32" />
+          <Property Name="createAT" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="PurchaseOrder">
           <Key>
             <PropertyRef Name="id" />
@@ -352,6 +498,41 @@
           <Property Name="createBy" Type="Int32" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <Property Name="updateBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RECEIVED_ORDER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="REC_id" Type="String" MaxLength="7" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="RFQ_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PO_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vendor" Type="Int32" Nullable="false" />
+          <Property Name="company" Type="Int32" Nullable="false" />
+          <Property Name="currenty" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="orderDeadLine" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RecieptDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeliverTo" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createAT" Type="DateTime" Precision="3" />
+          <Property Name="updateAt" Type="DateTime" Precision="3" />
+          <Property Name="createBy" Type="Int32" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="updateBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RECV_Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="po_id" Type="Int32" />
+          <Property Name="product" Type="Int32" Nullable="false" />
+          <Property Name="varient" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" Nullable="false" />
+          <Property Name="REC_qty" Type="Int32" Nullable="false" />
+          <Property Name="unitprice" Type="Int32" Nullable="false" />
+          <Property Name="taxes" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="subtotal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="RFQ">
           <Key>
@@ -384,6 +565,18 @@
           <Property Name="unitprice" Type="Int32" Nullable="false" />
           <Property Name="taxes" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="subtotal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="securityPolicy">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="users" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createAT" Type="DateTime" Precision="3" />
+          <Property Name="updateAt" Type="DateTime" Precision="3" />
+          <Property Name="createBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="updateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -445,6 +638,27 @@
           <Property Name="warehouse1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Bill_Product">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="product" />
+            <PropertyRef Name="varient" />
+            <PropertyRef Name="qty" />
+            <PropertyRef Name="REC_qty" />
+            <PropertyRef Name="unitprice" />
+            <PropertyRef Name="taxes" />
+            <PropertyRef Name="subtotal" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rec_id" Type="Int32" />
+          <Property Name="product" Type="Int32" Nullable="false" />
+          <Property Name="varient" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" Nullable="false" />
+          <Property Name="REC_qty" Type="Int32" Nullable="false" />
+          <Property Name="unitprice" Type="Int32" Nullable="false" />
+          <Property Name="taxes" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="subtotal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -488,6 +702,22 @@
                 <ScalarProperty Name="varient" ColumnName="varient" />
                 <ScalarProperty Name="product" ColumnName="product" />
                 <ScalarProperty Name="po_id" ColumnName="po_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="policylists">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.policylist">
+              <MappingFragment StoreEntitySet="policylist">
+                <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="ispageBlock" ColumnName="ispageBlock" />
+                <ScalarProperty Name="eventAccess" ColumnName="eventAccess" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+                <ScalarProperty Name="policyid" ColumnName="policyid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -547,6 +777,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseBills">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.PurchaseBill">
+              <MappingFragment StoreEntitySet="PurchaseBill">
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="ispaidTrue" ColumnName="ispaidTrue" />
+                <ScalarProperty Name="billAmount" ColumnName="billAmount" />
+                <ScalarProperty Name="Rec_id" ColumnName="Rec_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PurchaseOrders">
             <EntityTypeMapping TypeName="SANITORIA_DBModel.PurchaseOrder">
               <MappingFragment StoreEntitySet="PurchaseOrder">
@@ -564,6 +806,43 @@
                 <ScalarProperty Name="vendor" ColumnName="vendor" />
                 <ScalarProperty Name="RFQ_ID" ColumnName="RFQ_ID" />
                 <ScalarProperty Name="PO_id" ColumnName="PO_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECEIVED_ORDER">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.RECEIVED_ORDER">
+              <MappingFragment StoreEntitySet="RECEIVED_ORDER">
+                <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DeliverTo" ColumnName="DeliverTo" />
+                <ScalarProperty Name="RecieptDate" ColumnName="RecieptDate" />
+                <ScalarProperty Name="orderDeadLine" ColumnName="orderDeadLine" />
+                <ScalarProperty Name="currenty" ColumnName="currenty" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="PO_ID" ColumnName="PO_ID" />
+                <ScalarProperty Name="RFQ_ID" ColumnName="RFQ_ID" />
+                <ScalarProperty Name="REC_id" ColumnName="REC_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECV_Product">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.RECV_Product">
+              <MappingFragment StoreEntitySet="RECV_Product">
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="taxes" ColumnName="taxes" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="REC_qty" ColumnName="REC_qty" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="po_id" ColumnName="po_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -598,6 +877,19 @@
                 <ScalarProperty Name="varient" ColumnName="varient" />
                 <ScalarProperty Name="product" ColumnName="product" />
                 <ScalarProperty Name="rfqid" ColumnName="rfqid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="securityPolicies">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.securityPolicy">
+              <MappingFragment StoreEntitySet="securityPolicy">
+                <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="users" ColumnName="users" />
+                <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -663,6 +955,21 @@
               <MappingFragment StoreEntitySet="warehouse">
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="warehouse1" ColumnName="warehouse" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bill_Product">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.Bill_Product">
+              <MappingFragment StoreEntitySet="Bill_Product">
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="taxes" ColumnName="taxes" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="REC_qty" ColumnName="REC_qty" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="Rec_id" ColumnName="Rec_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

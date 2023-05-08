@@ -207,7 +207,56 @@
 
         $('#saveall').click(function () {
 
-            Products.saveProduct();
+            let productname = $('#productname');
+            let hiddentax = $('#hiddentax');
+            let salesprice = $('#salesprice');
+            let cost = $('#cost');
+            let salepricewithTax = $('#salepricewithTax');
+            let valid = true;
+           
+            if (productname.val().trim() == '') {
+                $(productname).addClass('inputborder');
+                valid = false;
+            } else {
+                $(productname).removeClass('inputborder');
+            }
+
+
+            if (hiddentax.val().trim() == '') {
+                $('#customertaxesCmb').addClass('inputborder');
+                valid = false;
+            } else {
+                $('#customertaxesCmb').removeClass('inputborder');
+            }
+
+
+            if (salepricewithTax.val().trim() == '') {
+                $('#salepricewithTax').addClass('inputborder');
+                valid = false;
+            } else {
+                $('#salepricewithTax').removeClass('inputborder');
+            }
+
+            if (salesprice.val().trim() == '') {
+                $(salesprice).addClass('inputborder');
+                valid = false;
+            } else {
+                $(salesprice).removeClass('inputborder');
+            }
+
+            if (cost.val().trim() == '') {
+                $(cost).addClass('inputborder');
+                valid = false;
+            } else {
+                $(cost).removeClass('inputborder');
+            }
+
+            if (valid) {
+                Products.saveProduct();
+            } else {
+                fin_common.showToast(2,'Please fill all inputs.');
+            }
+            
 
         })
 

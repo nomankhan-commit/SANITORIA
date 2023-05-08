@@ -35,7 +35,7 @@ namespace SANITORIA.DAL
                     po.orderDeadLine = data.orderDeadLine;
                     po.RecieptDate = data.RecieptDate;
                     po.DeliverTo = data.DeliverTo;
-                    po.Status = data.Status;
+                   // po.Status = data.Status;
                     po.createAT = data.createAT;
                     po.updateAt = data.updateAt;
                     po.createBy = data.createBy;
@@ -72,6 +72,12 @@ namespace SANITORIA.DAL
                 {
                     PO_Product pO_Product = new PO_Product();
                     pO_Product.po_id = data.id;
+                    pO_Product.product = item.product;
+                    pO_Product.varient = item.varient;
+                    pO_Product.qty = item.qty;
+                    pO_Product.unitprice = item.unitprice;
+                    pO_Product.taxes = item.taxes;
+                    pO_Product.subtotal = item.subtotal;
                     db.PO_Product.Add(pO_Product);
                     db.SaveChanges();
                 }

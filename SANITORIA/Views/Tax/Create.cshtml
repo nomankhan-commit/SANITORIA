@@ -70,7 +70,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="email">Tax Type:</label>
+                    <label for="email">Amount:</label>
                     <input type="number" class="form-control" id="amount">
 
                 </div>
@@ -130,6 +130,34 @@
 
 
         $("#save").click(function () {
+
+
+            let name = $('#name');
+            let amount = $('#amount');
+
+
+            let valid = true;
+
+            if (name.val().trim() == '') {
+                $(name).addClass('inputborder');
+                valid = false;
+            } else {
+                $(name).removeClass('inputborder');
+            }
+
+
+            if (amount.val().trim() == '') {
+                $(amount).addClass('inputborder');
+                valid = false;
+            } else {
+                $(amount).removeClass('inputborder');
+            }
+
+            if (!valid) {
+                fin_common.showToast(2, 'Please fill all inputs.');
+                return;
+            }
+
 
             if ($('#taxform').valid()) {
                 Tax.save("/Products/addProductComapny");

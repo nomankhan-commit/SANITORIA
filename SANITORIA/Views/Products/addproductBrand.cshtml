@@ -66,9 +66,29 @@
 
         $("#save").click(function () {
 
-            if ($('#BrandForm').valid()) {
-                Brand.save("/Products/addProductBrand");
+
+            let Brand = $('#Brand');
+
+
+            let valid = true;
+
+            if (Brand.val().trim() == '') {
+                $(Brand).addClass('inputborder');
+                valid = false;
+            } else {
+                $(Brand).removeClass('inputborder');
             }
+
+
+            if (valid) {
+                if ($('#BrandForm').valid()) {
+                    Brand.save("/Products/addProductBrand");
+                }
+            } else {
+                fin_common.showToast(2, 'Please fill all inputs.');
+            }
+
+           
 
         })
 

@@ -66,6 +66,25 @@
 
         $("#save").click(function () {
 
+
+            let Company_ = $('#Company');
+
+
+            let valid = true;
+
+            if (Company_.val().trim() == '') {
+                $(Company).addClass('inputborder');
+                valid = false;
+            } else {
+                $(Company_).removeClass('inputborder');
+            }
+
+            if (!valid) {
+                fin_common.showToast(2, 'Please fill all inputs.');
+                return;
+            }
+
+
             if ($('#CompanyForm').valid()) {
                 Company.save("/Products/addProductComapny");
             }

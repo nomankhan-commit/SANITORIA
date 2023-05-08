@@ -96,10 +96,39 @@
 
         $("#save").click(function () {
 
-            if ($('#variantform').valid()) {
-                variants.save("/Products/addProductvariants");
+            let attributename = $('#attributename');
+            let values = bem_htmlHelper.getTagboxValues('attributevalues', []);
+
+         
+            let valid = true;
+
+            if (attributename.val().trim() == '') {
+                $(attributename).addClass('inputborder');
+                valid = false;
+            } else {
+                $(attributename).removeClass('inputborder');
             }
 
+
+            if (values == null) {
+                
+                valid = false;
+            } else {
+                
+            }
+
+
+            if (values) {
+
+                if ($('#variantform').valid()) {
+                    variants.save("/Products/addProductvariants");
+                }
+
+            } else {
+                fin_common.showToast(2, 'Please fill all inputs.');
+            }
+
+          
         })
 
     })

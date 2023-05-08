@@ -1,4 +1,4 @@
-﻿let po = {
+﻿let Received = {
     company: null,
     vendor: null,
     warehouse: null,
@@ -9,13 +9,13 @@
     loadGrid: function () {
 
         let columns = [
-            { dataField: 'PO_id', caption: "PO Id" },
+            { dataField: 'Received_id', caption: "Received Id" },
             { dataField: 'RFQ_ID', caption: "RFQ ID" },
 
             {
                 dataField: 'company', caption: "Company", customizeText: function (cellInfo) {
                     debugger;
-                    return po.company.data1.filter(e => { return e.id == cellInfo.value })[0].Comapny1;
+                    return Received.company.data1.filter(e => { return e.id == cellInfo.value })[0].Comapny1;
 
                 }
             },
@@ -23,7 +23,7 @@
             {
                 dataField: 'vendor', caption: "Vendor", customizeText: function (cellInfo) {
                     debugger;
-                    return po.vendor.data1.filter(e => { return e.id == cellInfo.value })[0].vendorName
+                    return Received.vendor.data1.filter(e => { return e.id == cellInfo.value })[0].vendorName
 
                 }
             },
@@ -53,7 +53,7 @@
                     if (options.data.Status == "Purchase Order") {
                         color = 'green';
 
-                    } else if (options.data.Status == "po") {
+                    } else if (options.data.Status == "Received") {
                         color = 'blue';
                     }
                     else if (options.data.Status == "Nothing to bill") {
@@ -80,7 +80,7 @@
                 }
             }];
         let url = "/PurchaseOrder/getAll";
-        ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (e) => {
+        ajaxHealper.ajaxProcessor(url, "json", "ReceivedST", null, true, (e) => {
             debugger;
 
             if (e.status == 1) {
@@ -108,11 +108,11 @@
 
         let data = {
             data: obj,
-            product: po.getAllProductsDetails()
+            product: Received.getAllProductsDetails()
         }
 
 
-        ajaxHealper.ajaxProcessor('/PurchaseOrder/Create', "json", "POST", JSON.stringify(data), true, (e) => {
+        ajaxHealper.ajaxProcessor('/PurchaseOrder/Create', "json", "ReceivedST", JSON.stringify(data), true, (e) => {
             debugger;
             if (e.status != 2) {
                 fin_common.showToast(1, e.message);
@@ -155,7 +155,7 @@
     getByid: function (id) {
 
         let url = "/PurchaseOrder/getbyid/" + id;
-        ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (data) => {
+        ajaxHealper.ajaxProcessor(url, "json", "ReceivedST", null, true, (data) => {
             debugger;
 
             if (data.status == 1) {
@@ -172,7 +172,7 @@
 
                 $('#deliverto').val(data.data1.rfq.DeliverTo);
                 $('#status_').html(data.data1.rfq.Status);
-                $('#poid_').html(data.data1.rfq.PO_id);
+                $('#Receivedid_').html(data.data1.rfq.Received_id);
 
 
                 if (data.data1.rfq.Status == "Nothing to bill") {
@@ -210,11 +210,11 @@
     delete: function (id) {
 
         debugger;
-        ajaxHealper.ajaxProcessor('/PurchaseOrder/delete', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
+        ajaxHealper.ajaxProcessor('/PurchaseOrder/delete', "json", "ReceivedST", JSON.stringify({ id: id }), true, (e) => {
             debugger;
 
             fin_common.showToast(1, e.message);
-            po.loadGrid();
+            Received.loadGrid();
 
 
         });
@@ -223,7 +223,7 @@
     orderConform: function (id) {
 
         debugger;
-        ajaxHealper.ajaxProcessor('/PurchaseOrder/ConformOrder', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
+        ajaxHealper.ajaxProcessor('/PurchaseOrder/ConformOrder', "json", "ReceivedST", JSON.stringify({ id: id }), true, (e) => {
             debugger;
 
             fin_common.showToast(1, e.message);
@@ -233,7 +233,7 @@
             $('#conformorder').hide();
             $('#receivedorder').show();
 
-            //po.loadGrid();
+            //Received.loadGrid();
 
 
         });
@@ -254,7 +254,7 @@
             let total = [];
             $.each(tx, (i, e) => {
                 debugger;
-                let tax_ = po.tax.data1.filter(o => o.id == e)[0];
+                let tax_ = Received.tax.data1.filter(o => o.id == e)[0];
 
                 if (tax_.taxComputation == 2) {
                     let d = (parseFloat(salesprice) / 100) * tax_.amount;

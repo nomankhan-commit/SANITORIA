@@ -69,8 +69,8 @@ namespace SANITORIA.Controllers
         {
 
             Response response = new Response();
-            DAL.PurchaseOrder_ rfq = new DAL.PurchaseOrder_();
-            response = rfq.Add(data, product);
+            DAL.PurchaseOrder_ po = new DAL.PurchaseOrder_();
+            response = po.Add(data, product);
             return Json(response, JsonRequestBehavior.AllowGet);
 
         }

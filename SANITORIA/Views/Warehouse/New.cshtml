@@ -80,6 +80,36 @@
       
         $('body').on('click', '#save', function () {
 
+
+            let warehouse_ = $('#warehouse');
+            let address = $('#address');
+          
+            debugger;
+            let valid = true;
+
+            if (warehouse_.val().trim() == '') {
+                $(warehouse_).addClass('inputborder');
+                valid = false;
+            } else {
+                $(warehouse_).removeClass('inputborder');
+            }
+
+
+            if (address.val().trim() == '') {
+                $(address).addClass('inputborder');
+                valid = false;
+            } else {
+                $(address).removeClass('inputborder');
+            }
+
+            
+
+            if (!valid) {
+                fin_common.showToast(2, 'Please fill all inputs.');
+                return;
+            }
+
+
             warehouse.save();
 
         })

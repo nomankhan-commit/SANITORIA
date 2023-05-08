@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+
+    SANITORIA.Models.SessionObj sessionObj = new SANITORIA.Models.SessionObj();
+    string name = "";
+    int uuserid = 0;
+    if (sessionObj!=null)
+    {
+        name =  sessionObj.CSession.userData[0].CompleteName;
+        
+    }
+
+
+
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     @*<script src="~/Content/ThemeContent/plugins/bootstrap/js/bootstrap.bundle.js"></script>*@
@@ -39,6 +54,16 @@
 
     <!-- Toastr -->
     <link rel="stylesheet" href="~/Content/ThemeContent/plugins/toastr/toastr.min.css">
+
+    <style>
+
+        .inputborder {
+            border: 1px red solid;
+        }
+
+
+    </style>
+
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -183,7 +208,7 @@
                         <img src="~/Content/ThemeContent/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">@name</a>
                     </div>
                 </div>
 

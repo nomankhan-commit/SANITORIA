@@ -219,13 +219,74 @@
 
         $("#saveuser").click(function () {
 
-            if ($('#userform').valid()) {
-                if ($('#id').val() > 0) {
-                    user.save("/Users/Edit");
-                } else {
-                    user.save("/Users/New_");
+            let email = $('#email');
+            let completename = $('#completename');
+            let password = $('#password');
+            let Cpassword = $('#Cpassword');
+            let contactno = $('#contactno');
+            let nic = $('#nic');
+
+            let isvalid =  true;
+            debugger;
+            if (email.val().trim() == "" || fin_common.validateEmail(email.val()) == false) {
+                $(email).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(email).removeClass('inputborder')
+            }
+
+
+            if (completename.val().trim() == "") {
+                $(completename).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(completename).removeClass('inputborder')
+            }
+
+
+            if (password.val().trim() == "") {
+                $(password).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(password).removeClass('inputborder')
+            }
+
+
+            if (Cpassword.val().trim() == "") {
+                $(Cpassword).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(Cpassword).removeClass('inputborder')
+            }
+
+
+            if (contactno.val().trim() == "") {
+                $(contactno).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(contactno).removeClass('inputborder')
+            }
+
+
+            if (nic.val().trim() == "") {
+                $(nic).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(nic).removeClass('inputborder')
+            }
+
+
+            if (isvalid) {
+                if ($('#userform').valid()) {
+                    if ($('#id').val() > 0) {
+                        user.save("/Users/Edit");
+                    } else {
+                        user.save("/Users/New_");
+                    }
                 }
             }
+
+        
            
         })
 
