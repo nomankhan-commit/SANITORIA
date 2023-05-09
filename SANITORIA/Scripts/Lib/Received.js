@@ -80,7 +80,7 @@
                 }
             }];
         let url = "/PurchaseOrder/getAll";
-        ajaxHealper.ajaxProcessor(url, "json", "ReceivedST", null, true, (e) => {
+        ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (e) => {
             debugger;
 
             if (e.status == 1) {
@@ -99,6 +99,7 @@
 
         let obj = {};
         obj.id = $('#id').val();
+        obj.PO_ID = $('#poidhidden').val();
         obj.vendor = $('#vendor').val();
         obj.orderDeadLine = $('#orderdeadline').val();
         obj.company = $('#company').val();
@@ -112,7 +113,7 @@
         }
 
 
-        ajaxHealper.ajaxProcessor('/PurchaseOrder/Create', "json", "ReceivedST", JSON.stringify(data), true, (e) => {
+        ajaxHealper.ajaxProcessor('/Reccievd/Create', "json", "POST", JSON.stringify(data), true, (e) => {
             debugger;
             if (e.status != 2) {
                 fin_common.showToast(1, e.message);
@@ -135,6 +136,7 @@
             let product = $(e).find('td[product] .product').val();
             let varient = $(e).find('td[varient] .varient').val();
             let qty = $(e).find('td[qty] .qty').val();
+            let recqty = $(e).find('td[RECqty] .RECqty').val();
             let unitprice = $(e).find('td[unitprice] .unitprice').val();
             let taxes = $(e).find('td[taxes] .tax').val();
             let subtotal = $(e).find('td[subtotal] .subtotal').val();
@@ -144,6 +146,7 @@
             obj.product = product;
             obj.varient = varient.join(',');
             obj.qty = qty;
+            obj.REC_qty = recqty;
             obj.unitprice = unitprice;
             obj.taxes = taxes.join(',');
             obj.subtotal = subtotal;
@@ -155,7 +158,7 @@
     getByid: function (id) {
 
         let url = "/PurchaseOrder/getbyid/" + id;
-        ajaxHealper.ajaxProcessor(url, "json", "ReceivedST", null, true, (data) => {
+        ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (data) => {
             debugger;
 
             if (data.status == 1) {
@@ -164,15 +167,15 @@
                 //'2023-04-07'
 
 
-                $('#id').val(data.data1.rfq.id);
-                $('#vendor').val(data.data1.rfq.vendor);
-                $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.rfq.orderDeadLine));
-                $('#company').val(data.data1.rfq.company);
-                $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.rfq.RecieptDate));
+                //$('#id').val(data.data1.rfq.id);
+                $('#vendor').val(data.data1.rfq.vendor).prop("disabled", true);;
+                $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.rfq.orderDeadLine)).prop("disabled", true);;
+                $('#company').val(data.data1.rfq.company).prop("disabled", true);;
+                $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.rfq.RecieptDate)).prop("disabled", true);;
 
-                $('#deliverto').val(data.data1.rfq.DeliverTo);
-                $('#status_').html(data.data1.rfq.Status);
-                $('#Receivedid_').html(data.data1.rfq.Received_id);
+                $('#deliverto').val(data.data1.rfq.DeliverTo).prop("disabled", true);;
+                $('#status_').html(data.data1.rfq.Status).prop("disabled", true);;
+                $('#Receivedid_').html(data.data1.rfq.Received_id).prop("disabled", true);;
 
 
                 if (data.data1.rfq.Status == "Nothing to bill") {
@@ -191,12 +194,12 @@
                     $('#addproduct').trigger('click');
                     let lastTR = $('#productTable tr').last();
 
-                    $(lastTR).find('td[product] .product').val(e.product).trigger('change');
-                    $(lastTR).find('td[varient] .varient').val(e.varient.split(','));
-                    $(lastTR).find('td[qty] .qty').val(e.qty);
-                    $(lastTR).find('td[unitprice] .unitprice').val(e.unitprice);
-                    $(lastTR).find('td[taxes] .tax').val(e.taxes.split(','));
-                    $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal);
+                    $(lastTR).find('td[product] .product').val(e.product).trigger('change').prop("disabled", true);
+                    $(lastTR).find('td[varient] .varient').val(e.varient.split(',')).prop("disabled", true);
+                    $(lastTR).find('td[qty] .qty').val(e.qty).prop("disabled", true);
+                    $(lastTR).find('td[unitprice] .unitprice').val(e.unitprice).prop("disabled", true);;
+                    $(lastTR).find('td[taxes] .tax').val(e.taxes.split(',')).prop("disabled", true);;
+                    $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal).prop("disabled", true);;
 
                 })
 
@@ -210,7 +213,7 @@
     delete: function (id) {
 
         debugger;
-        ajaxHealper.ajaxProcessor('/PurchaseOrder/delete', "json", "ReceivedST", JSON.stringify({ id: id }), true, (e) => {
+        ajaxHealper.ajaxProcessor('/PurchaseOrder/delete', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
             debugger;
 
             fin_common.showToast(1, e.message);
@@ -223,7 +226,7 @@
     orderConform: function (id) {
 
         debugger;
-        ajaxHealper.ajaxProcessor('/PurchaseOrder/ConformOrder', "json", "ReceivedST", JSON.stringify({ id: id }), true, (e) => {
+        ajaxHealper.ajaxProcessor('/PurchaseOrder/ConformOrder', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
             debugger;
 
             fin_common.showToast(1, e.message);
@@ -243,10 +246,11 @@
 
         debugger;
         let qty = $(tis).closest('tr').find('td[qty] .qty').val();
+        let RECqty = $(tis).closest('tr').find('td[RECqty] .RECqty').val();
         let unitprice = $(tis).closest('tr').find('td[unitprice] .unitprice').val();
         let tax = $(tis).closest('tr').find('td[taxes] .tax').val();
 
-        let sumtotal = parseFloat(qty) * parseFloat(unitprice);
+        let sumtotal = parseFloat(RECqty) * parseFloat(unitprice);
 
         if (tax != null && tax != undefined && tax.length > 0) {
             let tx = tax;

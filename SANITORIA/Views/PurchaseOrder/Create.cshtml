@@ -248,9 +248,9 @@
         })
 
 
-        $('body').on('change', '#receivedorder', function () {
+        $('body').on('click', '#receivedorder', function () {
             debugger;
-           let poid  =  $('#poid_').text();
+           let poid  =  $('#id').val()
             window.location.href = fin_common.sitrurl + "/Reccievd/PoReceived?poid=" + poid;
         })
 

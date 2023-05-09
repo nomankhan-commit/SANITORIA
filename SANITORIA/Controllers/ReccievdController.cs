@@ -21,7 +21,8 @@ namespace SANITORIA.Controllers
         public ActionResult PoReceived(int poid)
         {
 
-            ViewBag.id = poid;
+            ViewBag.recid = 0;
+            ViewBag.poid = poid;
             DAL.Product prd = new DAL.Product();
             DAL.warehouse warehouse = new DAL.warehouse();
 
@@ -37,6 +38,17 @@ namespace SANITORIA.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public JsonResult Create(RECEIVED_ORDER data, List<RECV_Product> product)
+        {
+
+            Response response = new Response();
+            DAL.Reccievd REC = new DAL.Reccievd();
+            response = REC.Add(data, product);
+            return Json(response, JsonRequestBehavior.AllowGet);
+
+        }
 
         public ActionResult loadPoIntoRecv(int poid)
         {

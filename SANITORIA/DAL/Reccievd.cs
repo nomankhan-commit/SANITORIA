@@ -16,7 +16,7 @@ namespace SANITORIA.DAL
 
        
 
-        public Response Add(Models.PurchaseOrder data, List<PO_Product> po_Product)
+        public Response Add(Models.RECEIVED_ORDER data, List<RECV_Product> rec_Product)
         {
 
             try
@@ -29,25 +29,23 @@ namespace SANITORIA.DAL
 
 
 
-                    var rfq = db.PurchaseOrders.Find(data.id);
-                    rfq.vendor = data.vendor;
-                    rfq.PO_id = data.PO_id;
-                    rfq.company = data.company;
-                    rfq.currenty = data.currenty;
-                    rfq.orderDeadLine = data.orderDeadLine;
-                    rfq.RecieptDate = data.RecieptDate;
-                    rfq.DeliverTo = data.DeliverTo;
-                    //rfq.Status = data.Status;
-                    rfq.createAT = data.createAT;
-                    rfq.updateAt = data.updateAt;
-                    rfq.createBy = data.createBy;
-                    rfq.updateBy = data.updateBy;
-                    rfq.updateAt = DateTime.Now;
-                    rfq.isDeleted = false;
-                    db.Entry(rfq).State = EntityState.Modified;
+                    var rec = db.RECEIVED_ORDER.Find(data.id);
+                    rec.vendor = data.vendor;
+                    rec.PO_ID = data.PO_ID;
+                    rec.company = data.company;
+                    rec.currenty = data.currenty;
+                    rec.orderDeadLine = data.orderDeadLine;
+                    rec.RecieptDate = data.RecieptDate;
+                    rec.DeliverTo = data.DeliverTo;
+                    rec.Status = data.Status;
+                    rec.createAT = data.createAT;
+                    rec.updateAt = data.updateAt;
+                    rec.createBy = data.createBy;
+                    rec.updateBy = data.updateBy;
+                    rec.updateAt = DateTime.Now;
+                    rec.isDeleted = false;
+                    db.Entry(rec).State = EntityState.Modified;
                     db.SaveChanges();
-                    response.message = "updated successfully.";
-                    response.status = 1;
                     response.message = "updated successfully.";
                     response.status = 1;
 
@@ -60,33 +58,27 @@ namespace SANITORIA.DAL
                 {
 
 
-                    var po = db.PurchaseOrders.Find(data.id);
-                    rECEIVED_ORDER.vendor = po.vendor;
-                    rECEIVED_ORDER.PO_ID = po.PO_id;
-                    rECEIVED_ORDER.company = po.company;
-                    rECEIVED_ORDER.currenty = po.currenty;
-                    rECEIVED_ORDER.orderDeadLine = po.orderDeadLine;
-                    rECEIVED_ORDER.RecieptDate = po.RecieptDate;
-                    rECEIVED_ORDER.DeliverTo = po.DeliverTo;
-                    //pofq.Status = data.Status;
-                    rECEIVED_ORDER.createAT = DateTime.Now;
-                    rECEIVED_ORDER.updateAt = DateTime.Now;
-                    rECEIVED_ORDER.createBy = 1;
-                    rECEIVED_ORDER.updateBy = 0;
-                    rECEIVED_ORDER.isDeleted = false;
+                  
+                    data.createAT = DateTime.Now;
+                    data.updateAt = DateTime.Now;
+                    data.createBy = 1;
+                    data.updateBy = 0;
+                    data.isDeleted = false;
 
-                    db.RECEIVED_ORDER.Add(rECEIVED_ORDER);
+                    db.RECEIVED_ORDER.Add(data);
                     db.SaveChanges();
-                    response.message = "updated successfully.";
+                    response.message = "Received successfully.";
                     response.status = 1;
 
                 }
 
-                var po_ = db.PurchaseOrders.Find(data.id);
-                var rp = db.RECV_Product.Where(x=>x.id==rECEIVED_ORDER.id);
+                int poind = Convert.ToInt32(data.PO_ID);
+
+                var po_ = db.PurchaseOrders.Where(x => x.id == poind).FirstOrDefault();
+                var rp = db.RECV_Product.Where(x=>x.id==data.id);
                 db.RECV_Product.RemoveRange(rp);
                 db.SaveChanges();
-                foreach (var item in po_Product)
+                foreach (var item in rec_Product)
                 {
                  
                     RECV_Product RECV_Product = new RECV_Product();
