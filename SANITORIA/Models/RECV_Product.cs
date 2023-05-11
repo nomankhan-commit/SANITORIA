@@ -15,6 +15,7 @@ namespace SANITORIA.Models
     public partial class RECV_Product
     {
         public int id { get; set; }
+        public Nullable<int> Recid { get; set; }
         public Nullable<int> po_id { get; set; }
         public int product { get; set; }
         public string varient { get; set; }

@@ -36,12 +36,12 @@ namespace SANITORIA.DAL
                         rfq.orderDeadLine = data.orderDeadLine;
                         rfq.RecieptDate = data.RecieptDate;
                         rfq.DeliverTo = data.DeliverTo;
-                        rfq.Status = data.Status;
-                         rfq.createAT = data.createAT;
+                        //rfq.Status = data.Status;
+                        rfq.createAT = data.createAT;
                         rfq.updateAt = data.updateAt;
                         rfq.createBy = data.createBy;
                         rfq.updateBy = data.updateBy;
-                         rfq.updateAt = DateTime.Now;
+                        rfq.updateAt = DateTime.Now;
                     rfq.isDeleted = false;
                     db.Entry(rfq).State = EntityState.Modified;
                         db.SaveChanges();

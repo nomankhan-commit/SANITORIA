@@ -9,7 +9,7 @@
 
 <div>
 
-    <h4>Purchase Order :   <span id="Receivedid_"></span></h4>
+    <h4>Reveive # :   <span id="Receivedid_"></span></h4>
     <div class="row">
 
         <div class="col-md-6">
@@ -17,8 +17,8 @@
                 @if (ViewBag.id > 0)
                 {
                     @*<button class="btn btn-default" id="email">Email</button>
-                    <button class="btn btn-default" id="conformorder">Confirm Order</button>
-                    <button class="btn btn-default" id="receivedorder" style="display:none">Received Order</button>*@
+                        <button class="btn btn-default" id="conformorder">Confirm Order</button>
+                        <button class="btn btn-default" id="receivedorder" style="display:none">Received Order</button>*@
                 }
 
             </div>
@@ -126,6 +126,7 @@
             </div>
 
             <button type="button" id="save" class="btn btn-default">Received</button>
+            <button type="button" id="bill" class="btn btn-primary" style="display:none">Bill</button>
 
         </div>
 
@@ -133,7 +134,61 @@
 
 
 </div>
-<input type="hidden" id="poidhidden" value="@ViewBag.poid"/>
+<input type="hidden" id="poidhidden" value="@ViewBag.poid" />
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="billpopup" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" id="addproduct" class="btn btn-primary" style="display:none">Add</button>
+                        <table class="table" id="productTablebill">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Varient</th>
+                                    <th>QTY</th>
+                                    <th>RECV QTY</th>
+                                    <th>Unit Price</th>
+                                    <th>Taxes</th>
+                                    <th>Sub Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="producttablebody_bill">
+                            </tbody>
+                        </table>
+
+
+                        <span id="sumtotal"><strong>Sum Total : </strong></span>
+                    </div>
+
+
+
+                </div>
+
+                <input type="radio" id="html" class="paymethod" name="paymethod" value="cash">
+                <label for="html">Cash</label><br>
+                <input type="radio" id="css" class="paymethod" name="paymethod" value="bank">
+                <label for="css">Bank</label><br>
+
+                <button class="btn btn-primary" id="paybill">Pay Bill</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -156,10 +211,37 @@
         Received.productsVarient = @Html.Raw(Json.Encode(ViewBag.productvarient));
 
         if ($('#id').val() > 0) {
-            //Received.getByid($('#poidhidden').val());
-        } else {
+
+            if (window.location.href.toLowerCase().indexOf('edit') != -1)
+            {
+                Received.getByidonedit($('#id').val());
+
+            }
+            else
+            {
+                Received.getByid($('#poidhidden').val());
+            }
+
+
+        }
+        else {
             Received.getByid($('#poidhidden').val());
         }
+
+
+        $('#bill').click(function () {
+
+            $('#billpopup').modal('show');
+
+        })
+
+
+        $('#paybill').click(function () {
+
+            Received.paybill();
+
+        })
+
 
         $('#addproduct').click(function () {
 
@@ -206,7 +288,7 @@
 
         $('body').on('click', '#save', function () {
 
-           
+
             Received.save();
 
         })

@@ -15,6 +15,22 @@
           <Property Name="v_id" Type="int" Nullable="false" />
           <Property Name="bankGudi" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bill_id" Type="varchar" MaxLength="11" StoreGeneratedPattern="Computed" />
+          <Property Name="rfq" Type="varchar" MaxLength="50" />
+          <Property Name="po" Type="varchar" MaxLength="50" />
+          <Property Name="rec" Type="varchar" MaxLength="50" />
+          <Property Name="payMethod" Type="varchar" MaxLength="50" />
+          <Property Name="totalAmount" Type="bigint" />
+          <Property Name="createat" Type="datetime" />
+          <Property Name="updateat" Type="datetime" />
+          <Property Name="createby" Type="int" />
+          <Property Name="updatedBy" Type="int" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Bill_Product">
@@ -188,6 +204,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Recid" Type="int" />
           <Property Name="po_id" Type="int" />
           <Property Name="product" Type="int" Nullable="false" />
           <Property Name="varient" Type="varchar" MaxLength="200" Nullable="false" />
@@ -303,6 +320,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
         </EntityType>
         <EntityContainer Name="SANITORIA_DBModelStoreContainer">
           <EntitySet Name="BankAccoutn" EntityType="Self.BankAccoutn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comapny" EntityType="Self.Comapny" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PO_Product" EntityType="Self.PO_Product" Schema="dbo" store:Type="Tables" />
@@ -343,6 +361,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
       <Schema Namespace="SANITORIA_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SANITORIA_DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BankAccoutns" EntityType="SANITORIA_DBModel.BankAccoutn" />
+          <EntitySet Name="Bills" EntityType="SANITORIA_DBModel.Bill" />
           <EntitySet Name="Brands" EntityType="SANITORIA_DBModel.Brand" />
           <EntitySet Name="Comapnies" EntityType="SANITORIA_DBModel.Comapny" />
           <EntitySet Name="PO_Product" EntityType="SANITORIA_DBModel.PO_Product" />
@@ -374,6 +393,22 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="account" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="v_id" Type="Int32" Nullable="false" />
           <Property Name="bankGudi" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bill_id" Type="String" MaxLength="11" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="rfq" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="po" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rec" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="totalAmount" Type="Int64" />
+          <Property Name="createat" Type="DateTime" Precision="3" />
+          <Property Name="updateat" Type="DateTime" Precision="3" />
+          <Property Name="createby" Type="Int32" />
+          <Property Name="updatedBy" Type="Int32" />
         </EntityType>
         <EntityType Name="Brand">
           <Key>
@@ -525,6 +560,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Recid" Type="Int32" />
           <Property Name="po_id" Type="Int32" />
           <Property Name="product" Type="Int32" Nullable="false" />
           <Property Name="varient" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -673,6 +709,23 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
                 <ScalarProperty Name="account" ColumnName="account" />
                 <ScalarProperty Name="bankName" ColumnName="bankName" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="createby" ColumnName="createby" />
+                <ScalarProperty Name="updateat" ColumnName="updateat" />
+                <ScalarProperty Name="createat" ColumnName="createat" />
+                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+                <ScalarProperty Name="payMethod" ColumnName="payMethod" />
+                <ScalarProperty Name="rec" ColumnName="rec" />
+                <ScalarProperty Name="po" ColumnName="po" />
+                <ScalarProperty Name="rfq" ColumnName="rfq" />
+                <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -843,6 +896,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
                 <ScalarProperty Name="varient" ColumnName="varient" />
                 <ScalarProperty Name="product" ColumnName="product" />
                 <ScalarProperty Name="po_id" ColumnName="po_id" />
+                <ScalarProperty Name="Recid" ColumnName="Recid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

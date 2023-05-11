@@ -26,6 +26,7 @@ namespace SANITORIA.Models
         }
     
         public virtual DbSet<BankAccoutn> BankAccoutns { get; set; }
+        public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Comapny> Comapnies { get; set; }
         public virtual DbSet<PO_Product> PO_Product { get; set; }

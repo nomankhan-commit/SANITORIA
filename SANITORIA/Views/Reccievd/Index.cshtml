@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+
+@*<a class="btn btn-dark" href="@Url.Action("Create", "Reccievd")">Add</a>*@
+
+<div id="grid">
+
+
+
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/Received.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+
+        Received.company = @Html.Raw(Json.Encode(ViewBag.company));
+        Received.vendor = @Html.Raw(Json.Encode(ViewBag.vendor));
+        Received.warehouse = @Html.Raw(Json.Encode(ViewBag.warehouse));
+
+
+        Received.loadGrid();
+        $('body').on('click', '.elm_edit', function () {
+
+            let id = $(this).attr('id');
+            window.location.href = fin_common.sitrurl + "/Reccievd/EDIT/" + id;
+
+        })
+
+        //$('body').on('click', '.elm_delete', function () {
+
+        //    let id = $(this).attr('id');
+        //    Received.delete(id);
+
+        //})
+
+
+
+
+    })
+
+
+</script>
+
+
+

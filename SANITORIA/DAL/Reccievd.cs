@@ -37,7 +37,7 @@ namespace SANITORIA.DAL
                     rec.orderDeadLine = data.orderDeadLine;
                     rec.RecieptDate = data.RecieptDate;
                     rec.DeliverTo = data.DeliverTo;
-                    rec.Status = data.Status;
+                    rec.Status = "waiting for bill";
                     rec.createAT = data.createAT;
                     rec.updateAt = data.updateAt;
                     rec.createBy = data.createBy;
@@ -64,7 +64,7 @@ namespace SANITORIA.DAL
                     data.createBy = 1;
                     data.updateBy = 0;
                     data.isDeleted = false;
-
+                    data.Status = "waiting for bill";
                     db.RECEIVED_ORDER.Add(data);
                     db.SaveChanges();
                     response.message = "Received successfully.";
@@ -75,17 +75,23 @@ namespace SANITORIA.DAL
                 int poind = Convert.ToInt32(data.PO_ID);
 
                 var po_ = db.PurchaseOrders.Where(x => x.id == poind).FirstOrDefault();
-                var rp = db.RECV_Product.Where(x=>x.id==data.id);
+                po_.Status = "waiting for bill";
+                db.Entry(po_).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var rp = db.RECV_Product.Where(x=>x.Recid==data.id).ToList();
                 db.RECV_Product.RemoveRange(rp);
                 db.SaveChanges();
                 foreach (var item in rec_Product)
                 {
                  
                     RECV_Product RECV_Product = new RECV_Product();
+                    RECV_Product.Recid = data.id;
                     RECV_Product.po_id = po_.id;
                     RECV_Product.product = item.product;
                     RECV_Product.varient = item.varient;
                     RECV_Product.qty = item.qty;
+                    RECV_Product.REC_qty = item.REC_qty;
                     RECV_Product.unitprice = item.unitprice;
                     RECV_Product.taxes = item.taxes;
                     RECV_Product.subtotal = item.subtotal;
@@ -135,7 +141,7 @@ namespace SANITORIA.DAL
                     {
 
                         rfq = db.RECEIVED_ORDER.Find(id),
-                        rfqProducts = db.RECV_Product.Where(x => x.id == id).ToList()
+                        rfqProducts = db.RECV_Product.Where(x => x.Recid == id).ToList()
                     };
                 response.status = 1;
                 response.message = "Loaded successfully.";
@@ -301,6 +307,50 @@ namespace SANITORIA.DAL
                 Response response = new Response();
                 response.status = 1;
                 response.message = "Cancel successfully.";
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+        }
+
+        public Response paybill(Bill data)
+        {
+
+            try
+            {
+
+                var rec = db.RECEIVED_ORDER.Where(x=>x.REC_id == data.rec).FirstOrDefault();
+                rec.updateAt = DateTime.Now;
+                rec.Status = "close";
+                db.Entry(rec).State = EntityState.Modified;
+                db.SaveChanges();
+
+                rec.PO_ID =  "PO_"+rec.PO_ID;
+                var po = db.PurchaseOrders.Where(x => x.PO_id == rec.PO_ID).FirstOrDefault();
+                rec.updateAt = DateTime.Now;
+                rec.Status = "close";
+                db.Entry(po).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var rfq = db.RFQs.Where(x => x.RFQ_id == po.RFQ_ID).FirstOrDefault();
+                rec.updateAt = DateTime.Now;
+                rec.Status = "close";
+                db.Entry(rfq).State = EntityState.Modified;
+                db.SaveChanges();
+
+
+                db.Bills.Add(data);
+                db.SaveChanges();
+
+
+                Response response = new Response();
+                response.status = 1;
+                response.message = "Billing completed successfully.";
                 return response;
             }
             catch (Exception ex)

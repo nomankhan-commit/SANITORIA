@@ -194,6 +194,7 @@
                     $(lastTR).find('td[product] .product').val(e.product).trigger('change');
                     $(lastTR).find('td[varient] .varient').val(e.varient.split(','));
                     $(lastTR).find('td[qty] .qty').val(e.qty);
+                  
                     $(lastTR).find('td[unitprice] .unitprice').val(e.unitprice);
                     $(lastTR).find('td[taxes] .tax').val(e.taxes.split(','));
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal);
