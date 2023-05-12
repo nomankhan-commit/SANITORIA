@@ -183,7 +183,13 @@
 
                 })
 
+                if (data.data1.rfq.Status != "Rfq") {
+                    $('input').prop("disabled", true);
+                    $('select').prop("disabled", true);
+                    $('button').prop("disabled", true);
+                }
 
+                
                 fin_common.showToast(1, "successfully.");
             }
 
@@ -196,6 +202,7 @@
         ajaxHealper.ajaxProcessor('/rfq/delete', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
             debugger;
 
+            $('#status_').text('Cancel')
             fin_common.showToast(1, e.message);
             rfq.loadGrid();
 
@@ -211,6 +218,11 @@
 
 
             $('#status_').html('Purchase order')
+            $('input').prop("disabled", true);
+            $('select').prop("disabled", true);
+            $('button').prop("disabled", true);
+            $('#cancel').show().prop("disabled", false);;
+            $('#conformorder').hide();
             fin_common.showToast(1, e.message);
             //rfq.loadGrid();
 

@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccessdeniedController.cs" />
+    <Compile Include="Controllers\BillsController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2165,6 +2166,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Lib\bem_common.js" />
     <Content Include="Scripts\Lib\bem_htmlHelper.js" />
+    <Content Include="Scripts\Lib\Bills.js" />
     <Content Include="Scripts\Lib\Brand.js" />
     <Content Include="Scripts\Lib\Category.js" />
     <Content Include="Scripts\Lib\Comapny.js" />
@@ -2228,6 +2230,7 @@
     <Content Include="Views\Policy\Edit.cshtml" />
     <Content Include="Views\Reccievd\PoReceived.cshtml" />
     <Content Include="Views\Reccievd\Index.cshtml" />
+    <Content Include="Views\Bills\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

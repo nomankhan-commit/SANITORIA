@@ -175,15 +175,7 @@
                 $('#poid_').html(data.data1.rfq.PO_id);
 
 
-                if (data.data1.rfq.Status == "Nothing to bill") {
-
-                    $('#conformorder').hide()
-                    $('#receivedorder').show()
-
-                } else {
-                    $('#conformorder').show()
-                    $('#receivedorder').hide()
-                }
+               
 
 
                 $.each(data.data1.rfqProducts, (i, e) => {
@@ -200,6 +192,29 @@
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal);
 
                 })
+
+                if (data.data1.rfq.Status == "Nothing to bill") {
+
+                    $('#conformorder').hide()
+                    $('#receivedorder').show()
+                    $('input').prop("disabled", true);
+                    $('select').prop("disabled", true);
+                    $('.qty, .unitprice').prop("disabled", false);
+
+                } else {
+                    $('#conformorder').show()
+                    $('#receivedorder').hide()
+                }
+
+                if (data.data1.rfq.Status == "Cancel") {
+                    $('#conformorder').hide()
+                    $('#receivedorder').hide()
+                    $('#save').hide()
+                    $('#email').hide()
+                    $('#addproduct').hide()
+                    $('input').prop("disabled", true);
+                    $('select').prop("disabled", true);
+                }
 
 
                 fin_common.showToast(1, "successfully.");
@@ -229,7 +244,9 @@
 
             fin_common.showToast(1, e.message);
             $('#status_').html('Nothing to bill')
-
+            $('input').prop("disabled", true);
+            $('select').prop("disabled", true);
+            $('.qty, .unitprice').prop("disabled", false);
 
             $('#conformorder').hide();
             $('#receivedorder').show();

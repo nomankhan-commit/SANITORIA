@@ -20,6 +20,7 @@
                 {
                     <button class="btn btn-default" id="email">Email</button>
                     <button class="btn btn-default" id="conformorder">Confirm Order</button>
+                    <button class="btn btn-default" id="cancel" style="display:none">Cancel</button>
                 }
 
 
@@ -172,6 +173,13 @@
         $('#conformorder').click(function () {
             
             rfq.orderConform($('#id').val());
+
+        })
+
+
+        $('#cancel').click(function () {
+
+            rfq.delete($('#id').val());
 
         })
 
