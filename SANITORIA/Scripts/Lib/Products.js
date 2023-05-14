@@ -55,9 +55,20 @@ let Products = {
         obj.cost = $('#cost').val();
         obj.category = $('#category').val();
         obj.brand = $('#brand').val();
-        obj.company = $('#company').val();
+        obj.company = "";//$('#company').val();
 
-       
+
+        if (Products.getAllVariants().length <= 0) {
+            fin_common.showToast(2, "Please add atleast one varient.");
+            return;
+        }
+
+        if (fin_common.hasDuplicateinJson(Products.getAllVariants(), 'variantID')) {
+            fin_common.showToast(2, "Varient can not be duplicate.");
+            return;
+        }
+
+
         let data = {
             product: obj,
             productsVariant_s: Products.getAllVariants()
@@ -81,18 +92,25 @@ let Products = {
         let variants = [];
 
         $('#variantTableBody tr').each((i, e) => {
-            debugger;
-          let guid =  $(e).attr('variantguid');
-          let variatnID =  $(e).find('td[variantname] select').val();
-          let id = $(e).find('td[variantvalue] div').attr('id');
-          let value = bem_htmlHelper.getTagboxValues(id, []).join(',');
 
-            let obj = {};
-            obj.p_id = $('#id').val();
-            obj.variantID = variatnID;
-            obj.variantValues = value;
-            obj.variantGuid = guid;
-            variants.push(obj);
+            try {
+                debugger;
+                let guid = $(e).attr('variantguid');
+                let variatnID = $(e).find('td[variantname] select').val();
+                let id = $(e).find('td[variantvalue] div').attr('id');
+                let value = bem_htmlHelper.getTagboxValues(id, []).join(',');
+
+                let obj = {};
+                obj.p_id = $('#id').val();
+                obj.variantID = variatnID;
+                obj.variantValues = value;
+                obj.variantGuid = guid;
+                variants.push(obj);
+            } catch (e) {
+                fin_common.showToast(2, e);
+            }
+
+         
 
         })
         return variants;

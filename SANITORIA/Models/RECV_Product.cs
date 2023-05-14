@@ -18,6 +18,7 @@ namespace SANITORIA.Models
         public Nullable<int> Recid { get; set; }
         public Nullable<int> po_id { get; set; }
         public int product { get; set; }
+        public string varientID { get; set; }
         public string varient { get; set; }
         public int qty { get; set; }
         public int REC_qty { get; set; }

@@ -17,6 +17,7 @@ namespace SANITORIA.Models
         public int id { get; set; }
         public Nullable<int> rfqid { get; set; }
         public int product { get; set; }
+        public string varientID { get; set; }
         public string varient { get; set; }
         public int qty { get; set; }
         public int unitprice { get; set; }

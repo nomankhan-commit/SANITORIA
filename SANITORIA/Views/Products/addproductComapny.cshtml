@@ -11,7 +11,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputEmail4">Company</label>
-            <input type="text" class="form-control" id="Company" name="Company" required>
+            <input type="text" class="form-control" id="Company" name="Company" required maxlength = "20">
         </div>
     </div>
 
@@ -72,7 +72,8 @@
 
             let valid = true;
 
-            if (Company_.val().trim() == '') {
+            if (Company_.val().trim() == '' || fin_common.allLetter(Company_.val()) == false) {
+                fin_common.showToast(2, 'Company is required. </br> Company can not have any special characters and numeric value. ');
                 $(Company).addClass('inputborder');
                 valid = false;
             } else {

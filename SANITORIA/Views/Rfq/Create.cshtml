@@ -122,6 +122,7 @@
                     <thead>
                         <tr>
                             <th>Product</th>
+                            @*<th>Var Name</th>*@
                             <th>Varient</th>
                             <th>QTY</th>
                             <th>Unit Price</th>
@@ -135,7 +136,7 @@
                 </table>
             </div>
 
-            <button type="button" id="save" class="btn btn-default">Submit</button>
+            <button type="button" id="save" class="btn btn-default">Save</button>
 
         </div>
 
@@ -248,6 +249,15 @@
                 $(receiptdate).removeClass('inputborder');
             }
 
+            if (fin_common.getDifferenceInDays(orderdeadline.val(), receiptdate.val()) <= 30) {
+
+            } else {
+                fin_common.showToast(2, 'Select b/w 1 to 30 days.');
+                valid = false;
+            }
+
+
+
             if (!valid) {
                 fin_common.showToast(2, 'Please fill all inputs.');
                 return;
@@ -268,25 +278,42 @@
         $('body').on('change', '.product', function () {
 
             let id = $(this).val();
-
+            debugger;
             if (rfq.productsVarient.data1 != null && rfq.productsVarient.data1.length > 0) {
                 let vari = rfq.productsVarient.data1.filter(x => { return x.p_id == id })[0].variantValues;
 
                 if (vari!=null && vari.length>0) {
 
                     let g = bem_common.getGuid();
-
-                   let opt = rfq.productsVarient.data1
+                   let pvar = rfq.productsVarient.data1
                         .filter(x => { return x.p_id == id })
-                        .map(e => (e.variantValues)).join(',').split(',')
-                        .map(o => ('<option>  ' + o + ' </option>')).join(' ');
-                    let sel = "<select class='form-control varient' id='"+g+"' multiple>  " + opt + "  </select>";
+                        .map(e => (e.variantID)).join(',').split(',');
+                    let grpopt = "";
+                    for (var i = 0; i < pvar.length; i++) {
 
-                    $(this).closest('tr').find('td[varient]').html(sel);
+                      var varients = rfq.productsVarient.data1.
+                          filter(e => { return e.p_id == id && e.variantID == pvar[i] })[0]
+                                        .variantValues.split(',');
+                        let opts = "";
+
+                        for (var j = 0; j < varients.length; j++) {
+                            opts += `<option value="${varients[j]}">  ${varients[j]}  </option>`;
+                        }
+
+                       let varname = rfq.varient.data1.filter(e => { return e.id == pvar[i] })[0].VariantName
+                        grpopt += `<optgroup label="${varname}">  ${opts}  </optgroup>`;
+
+                    }
+
+                    let finalSelect = `<select class="varient" id="${g}" multiple> ${grpopt} </select>`;
+                    $(this).closest('tr').find('td[varient]').html(finalSelect);
+                    
+                    //$(".js-example-basic-multiple-limit").val(['HI', 'CA']).trigger('change')
+
 
                     setTimeout((e) => {
 
-                        $("#" + g).select2();
+                        $("#" + g).select2({ maximumSelectionLength: pvar.length });
 
                     }, 100)
                 }

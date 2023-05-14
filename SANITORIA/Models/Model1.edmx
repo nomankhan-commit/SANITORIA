@@ -75,6 +75,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="po_id" Type="int" />
           <Property Name="product" Type="int" Nullable="false" />
+          <Property Name="varientID" Type="varchar" MaxLength="50" />
           <Property Name="varient" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="qty" Type="int" Nullable="false" />
           <Property Name="unitprice" Type="int" Nullable="false" />
@@ -207,6 +208,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="Recid" Type="int" />
           <Property Name="po_id" Type="int" />
           <Property Name="product" Type="int" Nullable="false" />
+          <Property Name="varientID" Type="varchar" MaxLength="50" />
           <Property Name="varient" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="qty" Type="int" Nullable="false" />
           <Property Name="REC_qty" Type="int" Nullable="false" />
@@ -240,6 +242,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="rfqid" Type="int" />
           <Property Name="product" Type="int" Nullable="false" />
+          <Property Name="varientID" Type="varchar" MaxLength="50" />
           <Property Name="varient" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="qty" Type="int" Nullable="false" />
           <Property Name="unitprice" Type="int" Nullable="false" />
@@ -431,6 +434,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="po_id" Type="Int32" />
           <Property Name="product" Type="Int32" Nullable="false" />
+          <Property Name="varientID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="varient" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="qty" Type="Int32" Nullable="false" />
           <Property Name="unitprice" Type="Int32" Nullable="false" />
@@ -563,6 +567,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="Recid" Type="Int32" />
           <Property Name="po_id" Type="Int32" />
           <Property Name="product" Type="Int32" Nullable="false" />
+          <Property Name="varientID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="varient" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="qty" Type="Int32" Nullable="false" />
           <Property Name="REC_qty" Type="Int32" Nullable="false" />
@@ -596,6 +601,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="rfqid" Type="Int32" />
           <Property Name="product" Type="Int32" Nullable="false" />
+          <Property Name="varientID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="varient" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="qty" Type="Int32" Nullable="false" />
           <Property Name="unitprice" Type="Int32" Nullable="false" />
@@ -753,6 +759,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
                 <ScalarProperty Name="unitprice" ColumnName="unitprice" />
                 <ScalarProperty Name="qty" ColumnName="qty" />
                 <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="varientID" ColumnName="varientID" />
                 <ScalarProperty Name="product" ColumnName="product" />
                 <ScalarProperty Name="po_id" ColumnName="po_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -894,6 +901,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
                 <ScalarProperty Name="REC_qty" ColumnName="REC_qty" />
                 <ScalarProperty Name="qty" ColumnName="qty" />
                 <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="varientID" ColumnName="varientID" />
                 <ScalarProperty Name="product" ColumnName="product" />
                 <ScalarProperty Name="po_id" ColumnName="po_id" />
                 <ScalarProperty Name="Recid" ColumnName="Recid" />
@@ -929,6 +937,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
                 <ScalarProperty Name="unitprice" ColumnName="unitprice" />
                 <ScalarProperty Name="qty" ColumnName="qty" />
                 <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="varientID" ColumnName="varientID" />
                 <ScalarProperty Name="product" ColumnName="product" />
                 <ScalarProperty Name="rfqid" ColumnName="rfqid" />
                 <ScalarProperty Name="id" ColumnName="id" />

@@ -530,6 +530,33 @@ var fin_common = {
         
         
 
+    },
+    allLetter:function(inputtxt)
+    {
+    //var letters = /^[A-Za-z]+$/;
+        var letters = /^[A-Za-z\s]*$/;
+    if (inputtxt.match(letters)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+    },
+    hasDuplicateinJson: function(arrayObj, colName) {
+        var hash = Object.create(null);
+        return arrayObj.some((arr) => {
+            return arr[colName] && (hash[arr[colName]] || !(hash[arr[colName]] = true));
+        });
+    },
+    getDifferenceInDays: function (_date2, _date1) {
+
+        //const date1 = new Date('7/13/2010');
+        //const date2 = new Date('12/15/2010');
+        const date1 = new Date(_date2);
+        const date2 = new Date(_date1);
+        const diffInMs = Math.abs(date2 - date1);
+        return diffInMs / (1000 * 60 * 60 * 24);
+
     }
 }
 

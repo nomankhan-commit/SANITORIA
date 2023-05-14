@@ -335,18 +335,31 @@
 
                         </li>
 
-
+                        
 
                         <li class="nav-item has-treeview">
-                            <a href="@Url.Action("Index", "vendor")" class="nav-link">
-                                <i class="nav-icon fas fa-circle"></i>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
-                                    Vendor
+                                    Company / Vendor
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="@Url.Action("index", "vendor")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Vendor</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("producComapny", "Products")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Company</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-
 
                         <li class="nav-item has-treeview">
                             <a href="@Url.Action("Index", "Warehouse")" class="nav-link">
@@ -361,7 +374,7 @@
 
 
                     </ul>
-                </nav>
+</nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->

@@ -15,13 +15,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="email">Vendor Name:</label>
-                    <input type="text" class="form-control" id="vname">
+                    <input type="text" class="form-control" id="vname" maxlength = "20">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="email">Phone:</label>
-                    <input type="text" class="form-control" id="phone">
+                    <input type="text" class="form-control" id="phone" value="+1 __,___,__">
                 </div>
             </div>
         </div>
@@ -44,7 +44,10 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="email">Zip Code:</label>
-                    <input type="number" class="form-control" id="zipcode">
+                    <input type="number" class="form-control" id="zipcode"
+                           maxlength = "5" 
+                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                           >
                 </div>
             </div>
 
@@ -147,7 +150,8 @@
             debugger;
             let valid = true;
 
-            if (vname.val().trim() == '') {
+            if (vname.val().trim() == '' || fin_common.allLetter(vname.val()) == false) {
+                fin_common.showToast(2, 'Vender name is required. </br> Vender name can not have any special characters and numeric value. ');
                 $(vname).addClass('inputborder');
                 valid = false;
             } else {
@@ -177,7 +181,8 @@
                 $(website).removeClass('inputborder');
             }
 
-            if (zipcode.val().trim() == '') {
+            if (zipcode.val().trim() == '' || zipcode.val() <= 0) {
+                fin_common.showToast(2, 'Zipcode is required. </br> Zipcode must be greater than 0. ');
                 $(zipcode).addClass('inputborder');
                 valid = false;
             } else {

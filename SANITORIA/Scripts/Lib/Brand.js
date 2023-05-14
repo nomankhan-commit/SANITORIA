@@ -30,7 +30,7 @@
 
     },
     save: function (url) {
-
+        debugger;
         let obj = {};
         obj.id = $('#id').val();
         obj.Brand1 = $('#Brand').val();
