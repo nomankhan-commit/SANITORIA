@@ -21,7 +21,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="email">Phone:</label>
-                    <input type="text" class="form-control" id="phone" value="+1 __,___,__">
+                    <input type="text" class="form-control" id="phone" placeholder="+1 (697) 673-3955">
                 </div>
             </div>
         </div>
@@ -150,6 +150,13 @@
             debugger;
             let valid = true;
 
+            
+            if (!validatePhone('phone')) {
+                valid = false;
+                fin_common.showToast(2, 'Invalid phone number. ');
+                return 
+            }
+
             if (vname.val().trim() == '' || fin_common.allLetter(vname.val()) == false) {
                 fin_common.showToast(2, 'Vender name is required. </br> Vender name can not have any special characters and numeric value. ');
                 $(vname).addClass('inputborder');
@@ -210,5 +217,14 @@
     })
 
 
-
+    function validatePhone(txtPhone) {
+        var a = document.getElementById(txtPhone).value;
+        var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+        if (filter.test(a)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 </script>

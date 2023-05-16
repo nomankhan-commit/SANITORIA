@@ -68,9 +68,12 @@
                     debugger
                     var data = JSON.stringify(options.data);
                     var data_ = encodeURI(data);
+                    let styl = options.data.Status == "Purchase Order" ? 'style="display: none"' : "";
+                    
+
                     $(`<div class="btn-group btn-group-sm">
-              <button type="button" id="${options.data.id}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
-              <button type="button" id="${options.data.id}" class="btn delete elm_delete" title="Cancel"><i class="far fa-trash-alt"></i></button>
+              <button type="button" id="${options.data.id}"  class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
+              <button type="button" id="${options.data.id}" ${styl} class="btn delete elm_delete" title="Cancel"><i class="far fa-trash-alt"></i></button>
               </div>`).appendTo(container);
                 }
             }];

@@ -165,15 +165,16 @@
 
         })
 
+
         $('#addproduct').click(function () {
 
             debugger;
 
-            let product = po.products.data1.map(e => ("<option  value='" + e.pid + "'  tax='" + e.p_tax+"' >  " + e.P_name + "  </option>")).join('');
+            let product = po.products.data1.map(e => ("<option  value='" + e.pid + "'  tax='" + e.p_tax + "' >  " + e.P_name + "  </option>")).join('');
             let tax = po.tax.data1.map(e => ("<option value='" + e.id + "'>   " + e.TaxName + "  </option>")).join('');
 
-            let taxguid = "id"+bem_common.getGuid();
-            tax = "<select class='form-control tax' id='" + taxguid +"' multiple>  " + tax + "  </select>";
+            let taxguid = "id" + bem_common.getGuid();
+            tax = "<select class='form-control tax' id='" + taxguid + "' multiple>  " + tax + "  </select>";
             product = "<select class='form-control product'>  " + product + "  </select>";
 
             let qty = "<input type='number' onkeyup='po.calculate(this)' class='qty form-control'>";
@@ -192,7 +193,7 @@
                             </tr>`;
             $('#producttablebody').append(tbody);
 
-            setTimeout((e) =>{
+            setTimeout((e) => {
 
                 $("#" + taxguid).select2();
 
@@ -200,6 +201,43 @@
 
 
         })
+
+
+        //$('#addproduct').click(function () {
+
+        //    debugger;
+
+        //    let product = po.products.data1.map(e => ("<option  value='" + e.pid + "'  tax='" + e.p_tax+"' >  " + e.P_name + "  </option>")).join('');
+        //    let tax = po.tax.data1.map(e => ("<option value='" + e.id + "'>   " + e.TaxName + "  </option>")).join('');
+
+        //    let taxguid = "id"+bem_common.getGuid();
+        //    tax = "<select class='form-control tax' id='" + taxguid +"' multiple>  " + tax + "  </select>";
+        //    product = "<select class='form-control product'>  " + product + "  </select>";
+
+        //    let qty = "<input type='number' onkeyup='po.calculate(this)' class='qty form-control'>";
+        //    let unitprice = "<input type='number' onkeyup='po.calculate(this)' class='unitprice form-control'>";
+        //    let subtotal = "<input type='text' readonly class='subtotal form-control'>";
+        //    let btn = "<button class='form-control btn removevProduct' type='button'>delete</button>";
+
+        //    let tbody = `<tr Guid='${bem_common.getGuid()}'>
+        //                    <td product> ${product}</td>
+        //                    <td varient>   </td>
+        //                    <td qty> ${qty} </td>
+        //                    <td unitprice>  ${unitprice} </td>
+        //                    <td taxes> ${tax}  </td>
+        //                    <td subtotal> ${subtotal}  </td>
+        //                    <td> ${btn}  </td>
+        //                    </tr>`;
+        //    $('#producttablebody').append(tbody);
+
+        //    setTimeout((e) =>{
+
+        //        $("#" + taxguid).select2();
+
+        //    }, 100)
+
+
+        //})
 
         $('body').on('click', '.removevProduct', function () {
 
@@ -258,32 +296,48 @@
         $('body').on('change', '.product', function () {
 
             let id = $(this).val();
-
+            debugger;
             if (po.productsVarient.data1 != null && po.productsVarient.data1.length > 0) {
                 let vari = po.productsVarient.data1.filter(x => { return x.p_id == id })[0].variantValues;
 
-                if (vari!=null && vari.length>0) {
+                if (vari != null && vari.length > 0) {
 
                     let g = bem_common.getGuid();
-
-                   let opt = po.productsVarient.data1
+                    let pvar = po.productsVarient.data1
                         .filter(x => { return x.p_id == id })
-                        .map(e => (e.variantValues)).join(',').split(',')
-                        .map(o => ('<option>  ' + o + ' </option>')).join(' ');
-                    let sel = "<select class='form-control varient' id='"+g+"' multiple>  " + opt + "  </select>";
+                        .map(e => (e.variantID)).join(',').split(',');
+                    let grpopt = "";
+                    for (var i = 0; i < pvar.length; i++) {
 
-                    $(this).closest('tr').find('td[varient]').html(sel);
+                        var varients = po.productsVarient.data1.
+                            filter(e => { return e.p_id == id && e.variantID == pvar[i] })[0]
+                            .variantValues.split(',');
+                        let opts = "";
+
+                        for (var j = 0; j < varients.length; j++) {
+                            opts += `<option value="${varients[j]}">  ${varients[j]}  </option>`;
+                        }
+
+                        let varname = po.varient.data1.filter(e => { return e.id == pvar[i] })[0].VariantName
+                        grpopt += `<optgroup label="${varname}">  ${opts}  </optgroup>`;
+
+                    }
+
+                    let finalSelect = `<select class="varient" id="${g}" multiple> ${grpopt} </select>`;
+                    $(this).closest('tr').find('td[varient]').html(finalSelect);
+
+
+
 
                     setTimeout((e) => {
 
-                        $("#" + g).select2();
+                        $("#" + g).select2({ maximumSelectionLength: pvar.length });
 
                     }, 100)
                 }
 
-                if (po.products.data1 != null && po.products.data1.length > 0)
-                {
-                   let cost = po.products.data1.filter(e => (e.pid == id))[0].cost;
+                if (po.products.data1 != null && po.products.data1.length > 0) {
+                    let cost = po.products.data1.filter(e => (e.pid == id))[0].cost;
                     $(this).closest('tr').find('td[unitprice] .unitprice').val(cost);
                     $(this).closest('tr').find('td[subtotal] .subtotal').val('');
                     $(this).closest('tr').find('td[qty] .qty').val('');
@@ -294,6 +348,47 @@
             debugger;
 
         })
+
+
+        //$('body').on('change', '.product', function () {
+
+        //    let id = $(this).val();
+
+        //    if (po.productsVarient.data1 != null && po.productsVarient.data1.length > 0) {
+        //        let vari = po.productsVarient.data1.filter(x => { return x.p_id == id })[0].variantValues;
+
+        //        if (vari!=null && vari.length>0) {
+
+        //            let g = bem_common.getGuid();
+
+        //           let opt = po.productsVarient.data1
+        //                .filter(x => { return x.p_id == id })
+        //                .map(e => (e.variantValues)).join(',').split(',')
+        //                .map(o => ('<option>  ' + o + ' </option>')).join(' ');
+        //            let sel = "<select class='form-control varient' id='"+g+"' multiple>  " + opt + "  </select>";
+
+        //            $(this).closest('tr').find('td[varient]').html(sel);
+
+        //            setTimeout((e) => {
+
+        //                $("#" + g).select2();
+
+        //            }, 100)
+        //        }
+
+        //        if (po.products.data1 != null && po.products.data1.length > 0)
+        //        {
+        //           let cost = po.products.data1.filter(e => (e.pid == id))[0].cost;
+        //            $(this).closest('tr').find('td[unitprice] .unitprice').val(cost);
+        //            $(this).closest('tr').find('td[subtotal] .subtotal').val('');
+        //            $(this).closest('tr').find('td[qty] .qty').val('');
+        //        }
+
+        //    }
+
+        //    debugger;
+
+        //})
 
 
 

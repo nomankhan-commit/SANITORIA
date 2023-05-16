@@ -18,7 +18,7 @@
             <div>
                 @if (ViewBag.id > 0)
                 {
-                    <button class="btn btn-default" id="email">Email</button>
+                    <button class="btn btn-default"  id="email">Email</button>
                     <button class="btn btn-default" id="conformorder">Confirm Order</button>
                     <button class="btn btn-default" id="cancel" style="display:none">Cancel</button>
                 }
@@ -308,7 +308,7 @@
                     let finalSelect = `<select class="varient" id="${g}" multiple> ${grpopt} </select>`;
                     $(this).closest('tr').find('td[varient]').html(finalSelect);
                     
-                    //$(".js-example-basic-multiple-limit").val(['HI', 'CA']).trigger('change')
+                   
 
 
                     setTimeout((e) => {
