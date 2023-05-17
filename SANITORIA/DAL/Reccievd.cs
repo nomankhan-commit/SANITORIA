@@ -69,6 +69,7 @@ namespace SANITORIA.DAL
                     db.SaveChanges();
                     response.message = "Received successfully.";
                     response.status = 1;
+                    response.data1 = data.id;
 
                 }
 

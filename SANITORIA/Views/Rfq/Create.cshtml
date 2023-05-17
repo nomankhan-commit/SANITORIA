@@ -136,7 +136,10 @@
                 </table>
             </div>
 
-            <button type="button" id="save" class="btn btn-default">Save</button>
+            <div class="col-md-6"><button type="button" id="save" class="btn btn-default">Save</button></div>
+            <div class="col-md-6"><h4 id="overallsum"></h4></div>
+
+            
 
         </div>
 
@@ -172,7 +175,42 @@
 
         //
         $('#conformorder').click(function () {
-            
+
+
+            let orderdeadline = $('#orderdeadline');
+            let receiptdate = $('#receiptdate');
+
+            debugger;
+            let valid = true;
+
+            if (orderdeadline.val().trim() == '') {
+                $(orderdeadline).addClass('inputborder');
+                valid = false;
+            } else {
+                $(orderdeadline).removeClass('inputborder');
+            }
+
+            if (receiptdate.val().trim() == '') {
+                $(receiptdate).addClass('inputborder');
+                valid = false;
+            } else {
+                $(receiptdate).removeClass('inputborder');
+            }
+
+            if (fin_common.getDifferenceInDays(orderdeadline.val(), receiptdate.val()) <= 30) {
+
+            } else {
+                fin_common.showToast(2, 'Select b/w 1 to 30 days.');
+                valid = false;
+            }
+
+
+
+            if (!valid) {
+                fin_common.showToast(2, 'Please fill all inputs.');
+                return;
+            }
+
             rfq.orderConform($('#id').val());
 
         })
@@ -195,9 +233,14 @@
             tax = "<select class='form-control tax' id='" + taxguid +"' multiple>  " + tax + "  </select>";
             product = "<select class='form-control product'>  " + product + "  </select>";
 
-            let qty = "<input type='number' onkeyup='rfq.calculate(this)' class='qty form-control'>";
-            let unitprice = "<input type='number' onkeyup='rfq.calculate(this)' class='unitprice form-control'>";
+            let qty = `<input type='number' onkeyup='rfq.calculate(this)' class='qty form-control' maxLength='5' min="0"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"  >`;
+
+            let unitprice = `<input type='number' onkeyup='rfq.calculate(this)' class='unitprice form-control' min="0"
+                            maxLength='5' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">`;
+
             let subtotal = "<input type='text' readonly class='subtotal form-control'>";
+
             let btn = "<button class='form-control btn removevProduct' type='button'>delete</button>";
             
             let tbody = `<tr Guid='${bem_common.getGuid()}'>

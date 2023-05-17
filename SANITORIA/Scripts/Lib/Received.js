@@ -73,9 +73,18 @@
                     debugger
                     var data = JSON.stringify(options.data);
                     var data_ = encodeURI(data);
+
+                    
+                    let styl = "";
+
+                    if (options.data.Status == "waiting for bill" || options.data.Status == "close")
+                    {
+                        styl = 'style="display: none"';
+                    }
+
                     $(`<div class="btn-group btn-group-sm">
               <button type="button" id="${options.data.id}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
-              <button type="button" id="${options.data.id}" class="btn delete elm_delete" title="Cancel"><i class="far fa-trash-alt"></i></button>
+              <button type="button" id="${options.data.id}" ${styl} class="btn delete elm_delete" title="Cancel"><i class="far fa-trash-alt"></i></button>
               </div>`).appendTo(container);
                 }
             }];
@@ -118,8 +127,8 @@
             if (e.status != 2) {
                 $('#status_').html('waiting for bill');
                 fin_common.showToast(1, e.message);
-               // window.location.href = fin_common.sitrurl + "/Reccievd/Index";
-
+                //window.location.href = fin_common.sitrurl + "/Reccievd/Index";
+                $('#Receivedid_').html("REC_"+e.data1)
                 let p = Received.getAllProductsDetails();
                 let sutotalarray = Received.getAllProductsDetails().map(e => (e.subtotal));
 
@@ -202,22 +211,22 @@
                 //'2023-04-07'
 
 
-                //$('#id').val(data.data1.rfq.id);
-                $('#vendor').val(data.data1.rfq.vendor).prop("disabled", true);;
-                $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.rfq.orderDeadLine)).prop("disabled", true);;
-                $('#company').val(data.data1.rfq.company).prop("disabled", true);;
-                $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.rfq.RecieptDate)).prop("disabled", true);;
+                //$('#id').val(data.data1.po.id);
+                $('#vendor').val(data.data1.po.vendor).prop("disabled", true);;
+                $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.po.orderDeadLine)).prop("disabled", true);;
+                $('#company').val(data.data1.po.company).prop("disabled", true);;
+                $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.po.RecieptDate)).prop("disabled", true);;
 
-                $('#deliverto').val(data.data1.rfq.DeliverTo).prop("disabled", true);;
-                $('#status_').html(data.data1.rfq.Status).prop("disabled", true);
-                $('#Receivedid_').html(data.data1.rfq.Received_id).prop("disabled", true);;
+                $('#deliverto').val(data.data1.po.DeliverTo).prop("disabled", true);;
+                $('#status_').html(data.data1.po.Status).prop("disabled", true);
+                $('#Receivedid_').html(data.data1.po.Received_id).prop("disabled", true);;
 
-                if (data.data1.rfq.Status == 'close')
+                if (data.data1.po.Status == 'close')
                 {
                     $('#save, #bill').remove();
                 }
 
-                if (data.data1.rfq.Status == "Nothing to bill") {
+                if (data.data1.po.Status == "Nothing to bill") {
 
                     $('#conformorder').hide()
                     $('#receivedorder').show()
@@ -228,7 +237,7 @@
                 }
 
 
-                $.each(data.data1.rfqProducts, (i, e) => {
+                $.each(data.data1.poProducts, (i, e) => {
                     debugger;
                     $('#addproduct').trigger('click');
                     let lastTR = $('#productTable tr').last();
@@ -242,7 +251,7 @@
                     
                 })
 
-
+                
                 fin_common.showToast(1, "successfully.");
             }
 
@@ -275,6 +284,9 @@
                     $('#save, #bill').remove();
                 }
 
+                //if (data.data1.rfq.Status == "waiting for bill") { $('#bill').show();}
+
+
                 if (data.data1.rfq.Status == "Nothing to bill") {
 
                     $('#conformorder').hide()
@@ -299,7 +311,7 @@
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal).prop("disabled", true);;
                     $(lastTR).find('td[recqty] .RECqty').val(e.REC_qty);
                 })
-
+                $('.qty').trigger('keyup')
 
                 fin_common.showToast(1, "successfully.");
             }
@@ -326,6 +338,11 @@
         let paymethod = $("input[name='paymethod']:checked").val();
         let Receivedid = $('#Receivedid_').text();
 
+        if (paymethod == null || paymethod == undefined) {
+            fin_common.showToast(2, 'Please select Cash or Bank.');
+            return;
+        }
+
         let sutotalarray = Received.getAllProductsDetails().map(e => (e.subtotal));
         let array = sutotalarray;
         let sum = array.reduce((a, b) => { return parseInt(a) + parseInt(b) });
@@ -335,7 +352,7 @@
         ajaxHealper.ajaxProcessor('/Reccievd/paybill', "json", "POST", JSON.stringify({ data: obj }), true, (e) => {
             debugger;
             fin_common.showToast(1, e.message);
-            window.location.reload();
+            window.location.href = fin_common.sitrurl + "/Reccievd/Index";
         });
 
     },
@@ -365,6 +382,12 @@
         let RECqty = $(tis).closest('tr').find('td[RECqty] .RECqty').val();
         let unitprice = $(tis).closest('tr').find('td[unitprice] .unitprice').val();
         let tax = $(tis).closest('tr').find('td[taxes] .tax').val();
+
+        if (parseInt(RECqty) > parseInt(qty)) {
+            fin_common.showToast(2, 'Receive quentity can not be greater than Actual quantity.');
+            return;
+        }
+
 
         let sumtotal = parseFloat(RECqty) * parseFloat(unitprice);
 
@@ -400,9 +423,15 @@
             $(tis).closest('tr').find('td[subtotal] .subtotal').val(sumtotal);
         }
 
+        $('#overallsum').html("SumTotal: " + Received.overAllSum())
 
+    },
+    overAllSum: function () {
 
+        var ov = Received.getAllProductsDetails().map(x => (x.subtotal));
+        return ov.reduce((curr, next) => parseInt(curr) + parseInt(next));
     }
+
 
 
 

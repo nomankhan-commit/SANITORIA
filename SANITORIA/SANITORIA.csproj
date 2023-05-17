@@ -2231,6 +2231,7 @@
     <Content Include="Views\Reccievd\PoReceived.cshtml" />
     <Content Include="Views\Reccievd\Index.cshtml" />
     <Content Include="Views\Bills\Index.cshtml" />
+    <Content Include="Views\Bills\bill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

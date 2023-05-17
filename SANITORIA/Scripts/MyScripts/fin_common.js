@@ -557,6 +557,16 @@ var fin_common = {
         const diffInMs = Math.abs(date2 - date1);
         return diffInMs / (1000 * 60 * 60 * 24);
 
+    },
+    validatePhone : function(txtPhone) {
+        var a = document.getElementById(txtPhone).value;
+var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+if (filter.test(a)) {
+    return true;
+}
+else {
+    return false;
+}
     }
 }
 

@@ -122,8 +122,8 @@ namespace SANITORIA.DAL
                     new
                     {
 
-                        rfq = db.PurchaseOrders.Find(id),
-                        rfqProducts = db.PO_Product.Where(x => x.po_id == id).ToList()
+                        po = db.PurchaseOrders.Find(id),
+                        poProducts = db.PO_Product.Where(x => x.po_id == id).ToList()
                     };
                 response.status = 1;
                 response.message = "Loaded successfully.";

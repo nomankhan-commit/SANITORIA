@@ -21,6 +21,11 @@ namespace SANITORIA.Controllers
             return View();
         }
 
+        public ActionResult bill(int id)
+        {
+            ViewBag.id = id;
+            return View();
+        }
 
         public JsonResult GetAll()
         {
@@ -29,7 +34,11 @@ namespace SANITORIA.Controllers
 
         public ActionResult Getbyid(int id)
         {
-            return View();
+
+           var bil = db.Bills.Find(id);
+           var rec = db.RECEIVED_ORDER.Where(e => e.REC_id == bil.rec).FirstOrDefault();
+           dynamic dyn = new {bill= db.Bills.Find(id), details = db.RECV_Product.Where(x=>x.Recid == rec.id).ToList() };
+           return Json(dyn, JsonRequestBehavior.AllowGet);
         }
     }
 }

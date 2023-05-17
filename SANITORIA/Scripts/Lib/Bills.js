@@ -13,7 +13,7 @@
                     var data = JSON.stringify(options.data);
                     var data_ = encodeURI(data);
                     $(`<div class="btn-group btn-group-sm">
-              <button type="button" id="${options.data.id}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
+              <button type="button" id="${options.data.ID}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
               </div>`).appendTo(container);
                 }
             }];
@@ -28,109 +28,66 @@
         });
 
     },
-    save: function (url) {
-        debugger;
-        let obj = {};
-        obj.id = $('#id').val();
-        obj.vendorName = $('#vname').val();
-        obj.phone = $('#phone').val();
-        obj.email = $('#email').val();
-        obj.website = $('#website').val();
-        obj.address = $('#address').val();
-        obj.zipcode = $('#zipcode').val();
-
-
-
-        let data = {
-            data: obj,
-            account: Bills.getAllBankDetails()
-        }
-
-
-        ajaxHealper.ajaxProcessor('/Bills/Create', "json", "POST", JSON.stringify(data), true, (e) => {
-            debugger;
-            if (e.status != 2) {
-                fin_common.showToast(1, e.message);
-                window.location.href = fin_common.sitrurl + "Bills/Index";
-            }
-            else {
-                fin_common.showToast(2, e.message);
-            }
-
-        });
-
-    },
-    getAllBankDetails: function () {
-
-        let bank = [];
-
-        $('#bankaccountBody tr').each((i, e) => {
-            debugger;
-            let guid = $(e).attr('bankGuid');
-            let bankName = $(e).find('td[bankname] .bankname').val();
-            let account = $(e).find('td[accountnumber] .account').val();
-
-            let obj = {};
-            obj.v_id = $('#id').val();
-            obj.bankname = bankName;
-            obj.account = account;
-            obj.bankGudi = guid;
-            bank.push(obj);
-
-        })
-        return bank;
-
-
-    },
     getByid: function (id) {
 
         let url = "/Bills/getbyid/" + id;
         ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (data) => {
             debugger;
 
-            if (data.status == 1) {
+            
 
-                $('#id').val(data.data1.vendor_.id);
-                $('#vname').val(data.data1.vendor_.vendorName);
-                $('#phone').val(data.data1.vendor_.phone);
-                $('#email').val(data.data1.vendor_.email);
-                $('#website').val(data.data1.vendor_.website);
+                //
+                //data.bill
+                //['id', 'Recid', 'po_id', 'product', 'varientID', 'varient', 'qty', 'REC_qty', 'unitprice', 'taxes', 'subtotal']
+                // ['ID', 'bill_id', 'rfq', 'po', 'rec', 'payMethod', 'totalAmount', 'createat', 'updateat', 'createby', 'updatedBy']
 
-                document.getElementById('address').textContent = data.data1.vendor_.address;
+            $('#billid').html(data.bill.bill_id)
+                let columns = [
+                    //{ dataField: 'id', caption: "Bill Id" },
+                    {
+                        dataField: 'Recid', caption: "Receive ID", cellTemplate: function (container, options) {
+                            debugger
 
-                $('#zipcode').val(data.data1.vendor_.zipcode);
+                            $(`<span"> REC_${options.data.Recid}</span>`).appendTo(container);
+                        }
+                    },
+                    {
+                        dataField: 'po_id', caption: "PO ID", cellTemplate: function (container, options) {
+                            debugger
 
-                //$("#imagebox").html('<img src=/Content/ProductImages/' + data.data1.product.image + '>');
+                            $(`<span"> PO_${options.data.po_id}</span>`).appendTo(container);
+                        }
+                    },
+                    { dataField: 'product', caption: "Product" },
+                    //{ dataField: 'varientID', caption: "Varients" },
+                    { dataField: 'varient', caption: "Varients" },
+                    { dataField: 'qty', caption: "Quantity" },
+                    { dataField: 'REC_qty', caption: "Rec Qty" },
+                    { dataField: 'unitprice', caption: "Unit Price" },
+                    { dataField: 'taxes', caption: "Taxes" },
+                    { dataField: 'subtotal', caption: "Total" },
+                   ];
 
-                $.each(data.data1.bankaccount, (i, e) => {
-                    debugger;
-                    $('#addbankaccount').trigger('click');
-                    let lastTR = $('#bankaccountBody tr').last();
-                    $(lastTR).find('td[bankname] .bankname').val(e.bankName);
-                    $(lastTR).find('td[accountnumber] .account').val(e.account);
-                    $(lastTR).attr('variantguid', e.bankGudi);
 
-                })
+            var SUM = summary = [
+                
+                {
+                    column: 'subtotal',
+                    summaryType: 'sum',
+                    //valueFormat: ",##0.###"
+                }
+               
 
+            ]
+
+            devExHelper.bindGrid("#grid", data.details, columns, null, null, SUM, true);
 
                 fin_common.showToast(1, "successfully.");
-            }
+            
 
         });
 
     },
-    delete: function (id) {
-
-        debugger;
-        ajaxHealper.ajaxProcessor('/Bills/delete', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
-            debugger;
-
-            fin_common.showToast(1, e.message);
-            Bills.loadGrid();
-
-
-        });
-
-    }
+  
 
 }

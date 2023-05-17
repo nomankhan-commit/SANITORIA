@@ -125,8 +125,14 @@
                 </table>
             </div>
 
-            <button type="button" id="save" class="btn btn-default">Received</button>
-            <button type="button" id="bill" class="btn btn-primary" style="display:none">Bill</button>
+           
+
+            <div class="col-md-6">
+                <button type="button" id="save" class="btn btn-default">Received</button>
+                <button type="button" id="bill" class="btn btn-primary" style="display:none">Bill</button>
+            </div>
+            <div class="col-md-6"><h4 id="overallsum"></h4></div>
+
 
         </div>
 
@@ -255,7 +261,8 @@
             product = "<select class='form-control product'>  " + product + "  </select>";
 
             let qty = "<input type='number' onkeyup='Received.calculate(this)' class='qty form-control'>";
-            let RECqty = "<input type='number' onkeyup='Received.calculate(this)' class='RECqty form-control'>";
+            let RECqty = `<input type='number' onkeyup='Received.calculate(this)' class='RECqty form-control'
+                           min="0" maxLength='5' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">`;
             let unitprice = "<input type='number' onkeyup='Received.calculate(this)' class='unitprice form-control'>";
             let subtotal = "<input type='text' readonly class='subtotal form-control'>";
             let btn = "<button class='form-control btn removevProduct' type='button'>delete</button>";

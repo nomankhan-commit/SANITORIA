@@ -185,7 +185,7 @@
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal);
 
                 })
-
+                $('.qty').trigger('keyup')
                 if (data.data1.rfq.Status != "Rfq") {
                     $('input').prop("disabled", true);
                     $('select').prop("disabled", true);
@@ -274,11 +274,16 @@
         {
             $(tis).closest('tr').find('td[subtotal] .subtotal').val(sumtotal);
         }
-        
+
+        $('#overallsum').html("SumTotal: "+  rfq.overAllSum())
        
 
-    }
+    },
+    overAllSum: function () {
 
+        var ov = rfq.getAllProductsDetails().map(x => (x.subtotal));
+        return ov.reduce((curr, next) => parseInt(curr) + parseInt(next));
+    }
 
 
 }

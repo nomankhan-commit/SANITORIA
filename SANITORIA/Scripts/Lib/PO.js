@@ -1,4 +1,6 @@
-﻿let po = {
+﻿
+
+let po = {
     company: null,
     vendor: null,
     warehouse: null,
@@ -10,7 +12,7 @@
 
         let columns = [
             { dataField: 'PO_id', caption: "PO Id" },
-            { dataField: 'RFQ_ID', caption: "RFQ ID" },
+            { dataField: 'RFQ_ID', caption: "po ID" },
 
             {
                 dataField: 'company', caption: "Company", customizeText: function (cellInfo) {
@@ -73,9 +75,11 @@
                     debugger
                     var data = JSON.stringify(options.data);
                     var data_ = encodeURI(data);
+                    let styl = options.data.Status == "Nothing to bill" ? 'style="display: none"' : "";
+
                     $(`<div class="btn-group btn-group-sm">
               <button type="button" id="${options.data.id}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
-              <button type="button" id="${options.data.id}" class="btn delete elm_delete" title="Cancel"><i class="far fa-trash-alt"></i></button>
+              <button type="button" id="${options.data.id}" ${styl} class="btn delete elm_delete" title="Cancel"><i class="far fa-trash-alt"></i></button>
               </div>`).appendTo(container);
                 }
             }];
@@ -164,21 +168,18 @@
                 //'2023-04-07'
 
 
-                $('#id').val(data.data1.rfq.id);
-                $('#vendor').val(data.data1.rfq.vendor);
-                $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.rfq.orderDeadLine));
-                $('#company').val(data.data1.rfq.company);
-                $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.rfq.RecieptDate));
+                $('#id').val(data.data1.po.id);
+                $('#vendor').val(data.data1.po.vendor);
+                $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.po.orderDeadLine));
+                $('#company').val(data.data1.po.company);
+                $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.po.RecieptDate));
 
-                $('#deliverto').val(data.data1.rfq.DeliverTo);
-                $('#status_').html(data.data1.rfq.Status);
-                $('#poid_').html(data.data1.rfq.PO_id);
-
-
-               
+                $('#deliverto').val(data.data1.po.DeliverTo);
+                $('#status_').html(data.data1.po.Status);
+                $('#poid_').html(data.data1.po.PO_id);
 
 
-                $.each(data.data1.rfqProducts, (i, e) => {
+                $.each(data.data1.poProducts, (i, e) => {
                     debugger;
                     $('#addproduct').trigger('click');
                     let lastTR = $('#productTable tr').last();
@@ -192,8 +193,8 @@
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal);
 
                 })
-
-                if (data.data1.rfq.Status == "Nothing to bill") {
+                $('.qty').trigger('keyup')
+                if (data.data1.po.Status == "Nothing to bill") {
 
                     $('#conformorder').hide()
                     $('#receivedorder').show()
@@ -201,12 +202,21 @@
                     $('select').prop("disabled", true);
                     $('.qty, .unitprice').prop("disabled", false);
 
-                } else {
+                }
+                else
+                {
                     $('#conformorder').show()
                     $('#receivedorder').hide()
+
+                    $('#conformorder').hide()
+                    $('#receivedorder').show()
+                    $('input').prop("disabled", true);
+                    $('select').prop("disabled", true);
+                    $('.qty, .unitprice, #orderdeadline, #receiptdate').prop("disabled", false);
+
                 }
 
-                if (data.data1.rfq.Status == "Cancel") {
+                if (data.data1.po.Status == "Cancel") {
                     $('#conformorder').hide()
                     $('#receivedorder').hide()
                     $('#save').hide()
@@ -298,10 +308,14 @@
             $(tis).closest('tr').find('td[subtotal] .subtotal').val(sumtotal);
         }
 
+        $('#overallsum').html("SumTotal: " + po.overAllSum())
 
+    },
+    overAllSum: function () {
 
+        var ov = po.getAllProductsDetails().map(x => (x.subtotal));
+        return ov.reduce((curr, next) => parseInt(curr) + parseInt(next));
     }
-
 
 
 }

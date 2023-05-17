@@ -21,9 +21,9 @@
     $(document).ready(function () {
         Bills.loadGrid();
         $('body').on('click', '.elm_edit', function () {
-
+            debugger;
             let id = $(this).attr('id');
-            window.location.href = fin_common.sitrurl + "/Vendor/edit/" + id;
+            window.location.href = fin_common.sitrurl + "/Bills/bill/" + id;
 
         })
 

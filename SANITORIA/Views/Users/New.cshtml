@@ -92,7 +92,7 @@
 
                 <div class="form-group">
                     <label>NIC:</label>
-                    <input type="text" class="form-control" id="nic" placeholder="nic" name="nic" required>
+                    <input type="text" class="form-control" id="nic" placeholder="nic" name="nic" required min="10" maxlength="15">
                     <div class="valid-feedback">Valid.</div>
                 </div>
 
@@ -235,6 +235,11 @@
                 $(email).removeClass('inputborder')
             }
 
+            if (!fin_common.validatePhone('nic')) {
+                valid = false;
+                fin_common.showToast(2, 'Invalid nic number. ');
+                return
+            }
 
             if (completename.val().trim() == "") {
                 $(completename).addClass('inputborder')
