@@ -104,6 +104,26 @@
         debugger;
 
         //'2023-04-07'
+        if (Received.getAllProductsDetails() == null || Received.getAllProductsDetails() == undefined || Received.getAllProductsDetails().length == 0) {
+            fin_common.showToast(2, 'Please add product.');
+            return;
+        }
+
+        if (!Received.getAllProductsDetailsValidation()) {
+            fin_common.showToast(2, 'Please fill all inputs fields.');
+            return;
+        }
+
+        if (!Received.checkNegative()) {
+            fin_common.showToast(2, 'Value can not be negative.');
+            return;
+        }
+
+        if (!Received.checkGreater()) {
+            fin_common.showToast(2, 'Rec quantity can not be greter than actual quantity.');
+            return;
+        }
+
 
 
         let obj = {};
@@ -198,6 +218,66 @@
 
         })
         return data;
+    },
+    getAllProductsDetailsValidation: function () {
+
+        let isvalid = true;
+
+        $('#producttablebody tr').each((i, e) => {
+            debugger;
+         
+            let recqty = $(e).find('td[RECqty] .RECqty')
+
+            if (recqty.val() == undefined || recqty.val() == null || recqty.val().length == 0) {
+                $(recqty).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(recqty).removeClass('inputborder')
+            }
+
+        })
+        return isvalid;
+    },
+    checkNegative: function () {
+
+        let isvalid = true;
+
+        $('#producttablebody tr').each((i, e) => {
+            debugger;
+
+            let recqty = $(e).find('td[RECqty] .RECqty')
+
+            if (parseInt(recqty.val()) < 0) {
+                isvalid = false;
+                $(recqty).addClass('inputborder')
+            }
+            else {
+                $(recqty).removeClass('inputborder')
+            }
+
+        })
+        return isvalid;
+    },
+    checkGreater: function () {
+
+        let isvalid = true;
+
+        $('#producttablebody tr').each((i, e) => {
+            debugger;
+
+            let recqty = $(e).find('td[RECqty] .RECqty')
+            let qty = $(e).find('td[qty] .qty')
+
+            if (parseInt(recqty.val()) > parseInt(qty.val()) ) {
+                isvalid = false;
+                $(recqty).addClass('inputborder')
+            }
+            else {
+                $(recqty).removeClass('inputborder')
+            }
+
+        })
+        return isvalid;
     },
     getByid: function (id) {
 

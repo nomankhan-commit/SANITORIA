@@ -342,6 +342,21 @@
             }
 
 
+            if (po.getAllProductsDetails() == null || po.getAllProductsDetails() == undefined || po.getAllProductsDetails().length == 0) {
+                fin_common.showToast(2, 'Please add product.');
+                return;
+            }
+
+            if (!po.getAllProductsDetailsValidation()) {
+                fin_common.showToast(2, 'Please fill all inputs fields.');
+                return;
+            }
+
+            if (!po.checkNegative()) {
+                fin_common.showToast(2, 'Value can not be negative.');
+                return;
+            }
+
 
            let poid  =  $('#id').val()
             window.location.href = fin_common.sitrurl + "/Reccievd/PoReceived?poid=" + poid;

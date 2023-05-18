@@ -94,6 +94,22 @@
 
         //'2023-04-07'
 
+        if (rfq.getAllProductsDetails() == null || rfq.getAllProductsDetails() == undefined || rfq.getAllProductsDetails().length == 0) {
+            fin_common.showToast(2, 'Please add product.');
+            return;
+        }
+
+        if (!rfq.getAllProductsDetailsValidation()) {
+            fin_common.showToast(2, 'Please fill all inputs fields.');
+            return;
+        }
+
+        if (!rfq.checkNegative()) {
+            fin_common.showToast(2, 'Value can not be negative.');
+            return;
+        }
+
+
 
         let obj = {};
         obj.id = $('#id').val();
@@ -140,15 +156,107 @@
             let obj = {};
             obj.id = $('#id').val();
             obj.product = product;
-            obj.varient = varient.join(',');
+            obj.varient = varient == undefined ? "" : varient.join(',');
             obj.qty = qty;
             obj.unitprice = unitprice;
-            obj.taxes = taxes.join(',');
+            obj.taxes = taxes == undefined ? "" : taxes.join(',');
             obj.subtotal = subtotal;
             data.push(obj);
 
         })
         return data;
+    },
+    getAllProductsDetailsValidation: function () {
+
+        let isvalid = true;
+
+        $('#producttablebody tr').each((i, e) => {
+            debugger;
+            let guid = $(e).attr('bankGuid');
+            let product = $(e).find('td[product] .product')
+            let varient = $(e).find('td[varient] .varient')
+            let qty = $(e).find('td[qty] .qty')
+            let unitprice = $(e).find('td[unitprice] .unitprice')
+            let taxes = $(e).find('td[taxes] .tax')
+            let subtotal = $(e).find('td[subtotal] .subtotal')
+
+            if (varient.val() == undefined || varient.val() == null || varient.val().length == 0)
+            {
+                $(varient).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(varient).removeClass('inputborder')
+            }
+
+            if (qty.val() == '')
+            {
+                isvalid = false;
+                $(qty).addClass('inputborder')
+            } else {
+                $(qty).removeClass('inputborder')
+            }
+
+            if (unitprice.val() == '')
+            {
+                isvalid = false;
+                $(unitprice).addClass('inputborder')
+            } else {
+                $(unitprice).removeClass('inputborder')
+            }
+
+            if (taxes.val().length==0)
+            {
+                isvalid = false;
+                $(taxes).addClass('inputborder')
+            } else {
+                $(taxes).removeClass('inputborder')
+            }
+
+            if (subtotal.val() == '')
+            {
+                isvalid = false;
+                $(subtotal).addClass('inputborder')
+            } else {
+                $(subtotal).removeClass('inputborder')
+            }
+
+
+        })
+        return isvalid;
+    },
+    checkNegative: function () {
+
+        let isvalid = true;
+
+        $('#producttablebody tr').each((i, e) => {
+            debugger;
+           
+            let qty = $(e).find('td[qty] .qty')
+            let unitprice = $(e).find('td[unitprice] .unitprice')
+
+            if (parseInt(qty.val()) < 0) {
+                $(qty).addClass('inputborder')
+                isvalid = false;
+            }
+            else
+            {
+                $(qty).removeClass('inputborder')
+            }
+
+            if (parseInt(unitprice.val()) < 0) {
+                isvalid = false;
+                $(unitprice).addClass('inputborder')
+            }
+            else
+            {
+                $(unitprice).removeClass('inputborder')
+            }
+
+            
+
+
+        })
+        return isvalid;
     },
     getByid: function (id) {
 
@@ -214,6 +322,23 @@
 
     },
     orderConform: function (id) {
+
+
+        if (rfq.getAllProductsDetails() == null || rfq.getAllProductsDetails() == undefined || rfq.getAllProductsDetails().length == 0) {
+            fin_common.showToast(2, 'Please add product.');
+            return;
+        }
+
+        if (!rfq.getAllProductsDetailsValidation()) {
+            fin_common.showToast(2, 'Please fill all inputs fields.');
+            return;
+        }
+
+        if (!rfq.checkNegative()) {
+            fin_common.showToast(2, 'Value can not be negative.');
+            return;
+        }
+
 
         debugger;
         ajaxHealper.ajaxProcessor('/rfq/ConformOrder', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
