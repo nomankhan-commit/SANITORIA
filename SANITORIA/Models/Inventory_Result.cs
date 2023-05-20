@@ -10,10 +10,20 @@
 namespace SANITORIA.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Inventory_Result
     {
+        public int id { get; set; }
+        public Nullable<int> Recid { get; set; }
+        public Nullable<int> po_id { get; set; }
+        public int product { get; set; }
+        public string varientID { get; set; }
+        public string varient { get; set; }
+        public int qty { get; set; }
+        public int REC_qty { get; set; }
+        public int unitprice { get; set; }
+        public string taxes { get; set; }
+        public string subtotal { get; set; }
         public int pid { get; set; }
         public string P_name { get; set; }
         public string p_des { get; set; }

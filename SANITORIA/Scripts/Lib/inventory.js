@@ -1,6 +1,6 @@
 ﻿
 
-let po = {
+let inventory = {
     company: null,
     vendor: null,
     warehouse: null,
@@ -10,87 +10,35 @@ let po = {
     productsVarient: null,
     loadGrid: function () {
 
+        //['Recid', 'po_id', 'product', 'varientID', 'varient', 'qty', 'REC_qty', 'unitprice',
+        //    'taxes', 'subtotal', 'pid', 'P_name', 'p_des', 'p_type', 'p_tax', 'invoicingPolicy',
+        //    'salesPrice', 'cost', 'total', 'subCategory', 'unit', 'category', 'brand', 'company',
+        //    'createAT', 'updateAt', 'createdBy', 'updatedBy', 'image', 'isActive']
+
         let columns = [
-            { dataField: 'PO_id', caption: "PO Id" },
-            { dataField: 'RFQ_ID', caption: "po ID" },
-
-            {
-                dataField: 'company', caption: "Company", customizeText: function (cellInfo) {
-                    debugger;
-                    return po.company.data1.filter(e => { return e.id == cellInfo.value })[0].Comapny1;
-
-                }
-            },
-
-            {
-                dataField: 'vendor', caption: "Vendor", customizeText: function (cellInfo) {
-                    debugger;
-                    return po.vendor.data1.filter(e => { return e.id == cellInfo.value })[0].vendorName
-
-                }
-            },
-
-            {
-                dataField: 'RecieptDate', caption: "Reciept Date", customizeText: function (cellInfo) {
-                    debugger;
-
-                    return fin_common.convertDataToDatePicker(cellInfo.value);
-
-                }
-            },
-            {
-                dataField: 'orderDeadLine', caption: "Order Dead Line", customizeText: function (cellInfo) {
-                    debugger;
-                    return fin_common.convertDataToDatePicker(cellInfo.value);
-
-                }
-            },
-            { dataField: 'currenty', caption: "Currency" },
-            {
-                dataField: 'Status', caption: "Status",
-
-                cellTemplate: function (container, options) {
-                    debugger
-                    let color = 'green';
-                    if (options.data.Status == "Purchase Order") {
-                        color = 'green';
-
-                    } else if (options.data.Status == "po") {
-                        color = 'blue';
-                    }
-                    else if (options.data.Status == "Nothing to bill") {
-                        color = 'gray';
-                    }
-                    else {
-                        color = 'red';
-                    }
-
-                    $(`<p  style='color:${color}'> ${options.data.Status} </p>`).appendTo(container);
-                }
-            },
-
-
-            {
-                dataField: "Action", cellTemplate: function (container, options) {
-                    debugger
-                    var data = JSON.stringify(options.data);
-                    var data_ = encodeURI(data);
-                    let styl = options.data.Status == "Nothing to bill" ? 'style="display: none"' : "";
-
-                    $(`<div class="btn-group btn-group-sm">
-              <button type="button" id="${options.data.id}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
-              <button type="button" id="${options.data.id}" ${styl} class="btn delete elm_delete" title="Cancel"><i class="far fa-trash-alt"></i></button>
-              </div>`).appendTo(container);
-                }
-            }];
-        let url = "/PurchaseOrder/getAll";
+            { dataField: 'Recid', caption: "Rec Id" },
+            //{ dataField: 'po_id', caption: "PO Id" },
+            { dataField: 'product', caption: "Product Id" },
+            { dataField: 'P_name', caption: "P-Name" },
+            { dataField: 'varient', caption: "varient" },
+            { dataField: 'REC_qty', caption: "onHand" },
+            { dataField: 'unitprice', caption: "unit price" },
+            { dataField: 'unit', caption: "Unit" },
+            { dataField: 'subCategory', caption: "subCategory" },
+         
+            //{ dataField: 'Recid', caption: "inventory Id" },
+            //{ dataField: 'Recid', caption: "inventory Id" },
+            //{ dataField: 'Recid', caption: "inventory Id" },
+            //{ dataField: 'Recid', caption: "inventory Id" },
+            
+           ];
+        let url = "/inventory/getAll";
         ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (e) => {
             debugger;
 
-            if (e.status == 1) {
                 fin_common.showToast(1, "loades successfully.");
-                devExHelper.bindGrid("#grid", e.data1, columns, null, null, null, true);
-            }
+                devExHelper.bindGrid("#grid", e, columns, null, null, null, true);
+            
 
         });
 
@@ -99,17 +47,17 @@ let po = {
         debugger;
 
         //'2023-04-07'
-        if (po.getAllProductsDetails() == null || po.getAllProductsDetails() == undefined || po.getAllProductsDetails().length == 0) {
+        if (inventory.getAllProductsDetails() == null || inventory.getAllProductsDetails() == undefined || inventory.getAllProductsDetails().length == 0) {
             fin_common.showToast(2, 'Please add product.');
             return;
         }
 
-        if (!po.getAllProductsDetailsValidation()) {
+        if (!inventory.getAllProductsDetailsValidation()) {
             fin_common.showToast(2, 'Please fill all inputs fields.');
             return;
         }
 
-        if (!po.checkNegative()) {
+        if (!inventory.checkNegative()) {
             fin_common.showToast(2, 'Value can not be negative.');
             return;
         }
@@ -125,7 +73,7 @@ let po = {
 
         let data = {
             data: obj,
-            product: po.getAllProductsDetails()
+            product: inventory.getAllProductsDetails()
         }
 
 
@@ -181,15 +129,15 @@ let po = {
                 //'2023-04-07'
 
 
-                $('#id').val(data.data1.po.id);
-                $('#vendor').val(data.data1.po.vendor);
-                $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.po.orderDeadLine));
-                $('#company').val(data.data1.po.company);
-                $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.po.RecieptDate));
+                $('#id').val(data.data1.inventory.id);
+                $('#vendor').val(data.data1.inventory.vendor);
+                $('#orderdeadline').val(fin_common.convertDataToDatePicker(data.data1.inventory.orderDeadLine));
+                $('#company').val(data.data1.inventory.company);
+                $('#receiptdate').val(fin_common.convertDataToDatePicker(data.data1.inventory.RecieptDate));
 
-                $('#deliverto').val(data.data1.po.DeliverTo);
-                $('#status_').html(data.data1.po.Status);
-                $('#poid_').html(data.data1.po.PO_id);
+                $('#deliverto').val(data.data1.inventory.DeliverTo);
+                $('#status_').html(data.data1.inventory.Status);
+                $('#poid_').html(data.data1.inventory.PO_id);
 
 
                 $.each(data.data1.poProducts, (i, e) => {
@@ -200,14 +148,14 @@ let po = {
                     $(lastTR).find('td[product] .product').val(e.product).trigger('change');
                     $(lastTR).find('td[varient] .varient').val(e.varient.split(','));
                     $(lastTR).find('td[qty] .qty').val(e.qty);
-                  
+
                     $(lastTR).find('td[unitprice] .unitprice').val(e.unitprice);
                     $(lastTR).find('td[taxes] .tax').val(e.taxes.split(','));
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal);
 
                 })
                 $('.qty').trigger('keyup')
-                if (data.data1.po.Status == "Nothing to bill") {
+                if (data.data1.inventory.Status == "Nothing to bill") {
 
                     $('#conformorder').hide()
                     $('#receivedorder').show()
@@ -216,8 +164,7 @@ let po = {
                     $('.qty, .unitprice').prop("disabled", false);
 
                 }
-                else
-                {
+                else {
                     $('#conformorder').show()
                     $('#receivedorder').hide()
 
@@ -229,7 +176,7 @@ let po = {
 
                 }
 
-                if (data.data1.po.Status == "Cancel") {
+                if (data.data1.inventory.Status == "Cancel") {
                     $('#conformorder').hide()
                     $('#receivedorder').hide()
                     $('#save').hide()
@@ -253,7 +200,7 @@ let po = {
             debugger;
 
             fin_common.showToast(1, e.message);
-            po.loadGrid();
+            inventory.loadGrid();
 
 
         });
@@ -261,17 +208,17 @@ let po = {
     },
     orderConform: function (id) {
 
-        if (po.getAllProductsDetails() == null || po.getAllProductsDetails() == undefined || po.getAllProductsDetails().length == 0) {
+        if (inventory.getAllProductsDetails() == null || inventory.getAllProductsDetails() == undefined || inventory.getAllProductsDetails().length == 0) {
             fin_common.showToast(2, 'Please add product.');
             return;
         }
 
-        if (!po.getAllProductsDetailsValidation()) {
+        if (!inventory.getAllProductsDetailsValidation()) {
             fin_common.showToast(2, 'Please fill all inputs fields.');
             return;
         }
 
-        if (!po.checkNegative()) {
+        if (!inventory.checkNegative()) {
             fin_common.showToast(2, 'Value can not be negative.');
             return;
         }
@@ -290,7 +237,7 @@ let po = {
             $('#conformorder').hide();
             $('#receivedorder').show();
 
-            //po.loadGrid();
+            //inventory.loadGrid();
 
 
         });
@@ -311,7 +258,7 @@ let po = {
             let total = [];
             $.each(tx, (i, e) => {
                 debugger;
-                let tax_ = po.tax.data1.filter(o => o.id == e)[0];
+                let tax_ = inventory.tax.data1.filter(o => o.id == e)[0];
 
                 if (tax_.taxComputation == 2) {
                     let d = (parseFloat(salesprice) / 100) * tax_.amount;
@@ -337,12 +284,12 @@ let po = {
             $(tis).closest('tr').find('td[subtotal] .subtotal').val(sumtotal);
         }
 
-        $('#overallsum').html("SumTotal: " + po.overAllSum())
+        $('#overallsum').html("SumTotal: " + inventory.overAllSum())
 
     },
     overAllSum: function () {
 
-        var ov = po.getAllProductsDetails().map(x => (x.subtotal));
+        var ov = inventory.getAllProductsDetails().map(x => (x.subtotal));
         return ov.reduce((curr, next) => parseInt(curr) + parseInt(next));
     },
     getAllProductsDetailsValidation: function () {

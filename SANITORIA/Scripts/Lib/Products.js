@@ -42,7 +42,7 @@ let Products = {
 
     },
     saveProduct: function (url) {
-
+        debugger;
         let obj = {};
         obj.pid = $('#id').val();
         obj.P_name = $('#productname').val();
@@ -56,6 +56,9 @@ let Products = {
         obj.category = $('#category').val();
         obj.brand = $('#brand').val();
         obj.company = "";//$('#company').val();
+
+        obj.subCategory = $('#subCategory').val()
+        obj.unit =  $('#unit').val();
 
 
         if (Products.getAllVariants().length <= 0) {
@@ -151,6 +154,11 @@ let Products = {
                 $('#category').val(e.data1.product.category);
                 $('#brand').val(e.data1.product.brand);
                 $('#company').val(e.data1.product.company);
+
+               
+
+                $('#subCategory').val(e.data1.product.subCategory);
+                $('#unit').val(e.data1.product.unit);
 
                 let selectedTax = [];
                 let st = $('#hiddentax').val().split(',');

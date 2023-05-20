@@ -45,6 +45,8 @@ namespace SANITORIA.DAL
                         product_.image = data.image;
                         product_.isActive = data.isActive;
                         product_.updateAt = DateTime.Now;
+                        product_.unit = data.unit;
+                        product_.subCategory = data.subCategory;
                         db.Entry(product_).State = EntityState.Modified;
                         db.SaveChanges();
                         response.message = "updated successfully.";

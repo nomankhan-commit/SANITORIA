@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Bills";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+
+
+
+<div id="grid"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/inventory.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script>
+
+    let data = @Html.Raw(Json.Encode(ViewBag.inventory));
+    $(document).ready(function () {
+        inventory.loadGrid();
+        $('body').on('click', '.elm_edit', function () {
+            debugger;
+            let id = $(this).attr('id');
+            window.location.href = fin_common.sitrurl + "/Bills/bill/" + id;
+
+        })
+
+
+
+
+
+
+    })
+
+
+</script>
+

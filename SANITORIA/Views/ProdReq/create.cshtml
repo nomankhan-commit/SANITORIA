@@ -1,8 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "Purchase Req";
     Layout = "~/Views/Shared/myLayout.cshtml";
 }
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -14,175 +15,28 @@
         <input type="hidden" id="id" value="0" />
 
         <div class="form-row">
+
             <div class="form-group col-md-6">
-                <label for="inputEmail4">Product Name</label>
-                <input type="text" class="form-control" id="productname" name="productname" placeholder="Product name" maxlength = "20" pattern='[A-Za-z\\s]*'/> 
-            </div>
-
-
-            <div class="form-group col-md-2">
-                <button type="button" class="btn" id="openimage">Image</button>
-                <input type="file" style="display:none" id="filehiddeninput" accept="image/x-png,image/jpeg" >
-                <input type="hidden" id="hiddenImage">
-            </div>
-
-            <div class="form-group col-md-4">
-                <div id="imagebox"></div>
-            </div>
-
-        </div>
-
-        <div id="tabs">
-            <ul>
-                <li><a href="#tabs-1">General Info</a></li>
-                <li><a href="#tabs-2">Attribute & Variants</a></li>
-                @*<li><a href="#tabs-3">Aenean lacinia</a></li>*@
-            </ul>
-            <div id="tabs-1">
-
-                <!--row 1-->
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Product Type</label>
-                        <select class="form-control" id="productType">
-
-                            <option value="1">Consumable</option>
-                            <option value="2">Service</option>
-                            <option value="3">Storable Product</option>
-
-                        </select>
-                    </div>
-
-
-
-
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Customer Taxes</label>
-                        <div id="customertaxes"></div>
-
-                        <input type="hidden" id="hiddentax" />
-
-                    </div>
-
-                </div>
-
-
-                <!--row 2-->
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Invoice  Policy</label>
-                        <select class="form-control" id="invoicePolicy">
-
-                            <option value="1">Ordered quantities</option>
-                            <option value="2">Deliverec quantities</option>
-
-                        </select>
-                    </div>
-
-
-                    <div class="form-group col-md-3">
-                        <label for="inputEmail4">Sales Price</label>
-                        <input type="number" class="form-control" id="salesprice" placeholder="sales price" maxlength="5"
-                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-                    </div>
-
-
-                    <div class="form-group col-md-3">
-                        <label for="inputEmail4">Total</label>
-                        <input type="text" class="form-control" id="salepricewithTax" readonly maxlength="5"
-                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-                    </div>
-
-                </div>
-
-
-                <!--row 3-->
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-
-
-                        <label for="inputEmail4">Unit</label>
-                        <select class="form-control" id="unit">
-                          
-                                <option value="feet"> feet </option>
-                                <option value="piece"> piece </option>
-                           
-                        </select>
-
-                        <label for="inputEmail4">SubCategory</label>
-                        <select class="form-control" id="subCategory">
-                           
-                            <option value="stainlessstail"> Stainless stail </option>
-                            <option value="brass"> brass </option>
-                            <option value="pvc"> pvc </option>
-                            <option value="fiber"> fiber </option>
-                            
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Cost</label>
-                        <input type="number" class="form-control" id="cost" placeholder="Cost" maxlength="5"
-                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-
-                        <label for="inputEmail4">Category</label>
-
-                        <select class="form-control" id="category">
-                            @foreach (var item in ViewBag.Categories.data1)
-                            {
-                                <option value="@item.id"> @item.Category </option>
-                            }
-                        </select>
-
-
-
-                        <label for="inputEmail4">Brand</label>
-                        <select class="form-control" id="brand">
-                            @foreach (var item in ViewBag.Brands.data1)
-                            {
-                                <option value="@item.id"> @item.Brand1 </option>
-                            }
-                        </select>
-
-                        @*<label for="inputEmail4">Company</label>
-                <select class="form-control" id="company">
-                    @foreach (var item in ViewBag.Company.data1)
+                <label for="inputEmail4">Products</label>
+                <select class="form-control" id="category">
+                    @foreach (var item in ViewBag.inventory)
                     {
-                        <option value="@item.id"> @item.Comapny1 </option>
+                    <option value="@item.Recid"> @item.P_name (@item.varient)(@item.Recid)(@item.id) </option>
                     }
-                </select>*@
-
-                    </div>
-
-                </div>
-
-                
+                </select>
             </div>
-            <div id="tabs-2">
 
-                <div>
-                    <button type="button" id="addVariant" class="btn btn-primary">Add</button>
-                    <table class="table" id="variantTable">
-                        <thead>
-                            <tr>
-                                <th>Variant</th>
-                                <th>Value</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="variantTableBody">
-                        </tbody>
-                    </table>
 
-                </div>
-
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Qty</label>
+                <input type="text" class="form-control" id="qty" name="qty"  min="0" maxlength="20" />
             </div>
-            @*<div id="tabs-3"></div>*@
 
-            <button type="button" id="saveall" class="btn btn-primary">Save</button>
+
         </div>
 
-
+        <button type="button" id="saveall" class="btn btn-primary">Save</button>
+ 
     </form>
 
 
@@ -214,7 +68,7 @@
         Products.tax =   @Html.Raw(Json.Encode(ViewBag.tax));
         Products.id =  @Html.Raw(ViewBag.id);
 
-        
+
 
         if (Products.id == 0)
         {
@@ -223,7 +77,7 @@
         }
         else
         {
-            
+
             Products.getProductsByid(Products.id);
         }
 
@@ -241,7 +95,7 @@
                     .inputTextListWithTags(bem_common.getGuid(), 'variantValue', $(this).closest('tr').find('td[variantvalue]'), null, currentVarientval);
             }
 
-            
+
 
 
         })
@@ -257,7 +111,7 @@
             let salepricewithTax = $('#salepricewithTax');
             let valid = true;
 
-           
+
 
             if (productname.val().trim() == '' || fin_common.allLetter(productname.val()) == false) {
                 fin_common.showToast(2, 'Product name is required. product value can not have numeric value and special character.');
@@ -269,7 +123,7 @@
 
 
 
-          
+
 
 
             if (hiddentax.val().trim() == '') {
@@ -309,7 +163,7 @@
             } else {
                 fin_common.showToast(2,'Please fill all inputs.');
             }
-            
+
 
         })
 

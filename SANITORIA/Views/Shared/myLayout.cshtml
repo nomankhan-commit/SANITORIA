@@ -272,12 +272,12 @@
                                         </li>
 
 
-                                        <li class="nav-item">
+                                        @*<li class="nav-item">
                                             <a href="@Url.Action("producComapny", "Products")" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Companies</p>
                                             </a>
-                                        </li>
+                                        </li>*@
 
                                         <li class="nav-item">
                                             <a href="@Url.Action("Index", "Tax")" class="nav-link">
@@ -335,8 +335,6 @@
 
                         </li>
 
-                        
-
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
@@ -362,19 +360,38 @@
                         </li>
 
                         <li class="nav-item has-treeview">
-                            <a href="@Url.Action("Index", "Warehouse")" class="nav-link">
-                                <i class="nav-icon fas fa-circle"></i>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
-                                    Warehouse
+                                    Inventory
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="@Url.Action("index", "Inventory")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Inventory</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("create", "ProdReq")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>PR</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index", "Warehouse")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Warehouse</p>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
-
-
-
                     </ul>
-</nav>
+                </nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->

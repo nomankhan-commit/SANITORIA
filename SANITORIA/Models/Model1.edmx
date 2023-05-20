@@ -97,6 +97,19 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="createBy" Type="varchar" MaxLength="255" />
           <Property Name="updateBy" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="PRODUCT_REQ">
+          <Key>
+            <PropertyRef Name="pro_req_id" />
+          </Key>
+          <Property Name="pro_req_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="recvid" Type="int" />
+          <Property Name="product" Type="varchar" MaxLength="50" />
+          <Property Name="productid" Type="int" />
+          <Property Name="qty" Type="int" />
+          <Property Name="createat" Type="datetime" />
+          <Property Name="updateata" Type="datetime" />
+          <Property Name="createBy" Type="int" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="pid" />
@@ -110,6 +123,8 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="salesPrice" Type="int" />
           <Property Name="cost" Type="int" />
           <Property Name="total" Type="varchar" MaxLength="50" />
+          <Property Name="subCategory" Type="varchar" MaxLength="50" />
+          <Property Name="unit" Type="varchar" MaxLength="50" />
           <Property Name="category" Type="int" />
           <Property Name="brand" Type="int" />
           <Property Name="company" Type="int" />
@@ -321,6 +336,38 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="warehouse" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="address" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="Inventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SANITORIA_DBModelStoreContainer">
           <EntitySet Name="BankAccoutn" EntityType="Self.BankAccoutn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
@@ -328,6 +375,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <EntitySet Name="Comapny" EntityType="Self.Comapny" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PO_Product" EntityType="Self.PO_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="policylist" EntityType="Self.policylist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCT_REQ" EntityType="Self.PRODUCT_REQ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsCategory" EntityType="Self.ProductsCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsVariant_" EntityType="Self.ProductsVariant_" Schema="dbo" store:Type="Tables" />
@@ -363,12 +411,43 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
     <edmx:ConceptualModels>
       <Schema Namespace="SANITORIA_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SANITORIA_DBEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(SANITORIA_DBModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(SANITORIA_DBModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="BankAccoutns" EntityType="SANITORIA_DBModel.BankAccoutn" />
           <EntitySet Name="Bills" EntityType="SANITORIA_DBModel.Bill" />
           <EntitySet Name="Brands" EntityType="SANITORIA_DBModel.Brand" />
           <EntitySet Name="Comapnies" EntityType="SANITORIA_DBModel.Comapny" />
           <EntitySet Name="PO_Product" EntityType="SANITORIA_DBModel.PO_Product" />
           <EntitySet Name="policylists" EntityType="SANITORIA_DBModel.policylist" />
+          <EntitySet Name="PRODUCT_REQ" EntityType="SANITORIA_DBModel.PRODUCT_REQ" />
           <EntitySet Name="Products" EntityType="SANITORIA_DBModel.Product" />
           <EntitySet Name="ProductsCategories" EntityType="SANITORIA_DBModel.ProductsCategory" />
           <EntitySet Name="ProductsVariant_" EntityType="SANITORIA_DBModel.ProductsVariant_" />
@@ -386,7 +465,19 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <EntitySet Name="vendors" EntityType="SANITORIA_DBModel.vendor" />
           <EntitySet Name="warehouses" EntityType="SANITORIA_DBModel.warehouse" />
           <EntitySet Name="Bill_Product" EntityType="SANITORIA_DBModel.Bill_Product" />
-        </EntityContainer>
+          <FunctionImport Name="Inventory" ReturnType="Collection(SANITORIA_DBModel.Inventory_Result)" />
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="BankAccoutn">
           <Key>
             <PropertyRef Name="id" />
@@ -456,6 +547,19 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="createBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="updateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="PRODUCT_REQ">
+          <Key>
+            <PropertyRef Name="pro_req_id" />
+          </Key>
+          <Property Name="pro_req_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="recvid" Type="Int32" />
+          <Property Name="product" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="productid" Type="Int32" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="createat" Type="DateTime" Precision="3" />
+          <Property Name="updateata" Type="DateTime" Precision="3" />
+          <Property Name="createBy" Type="Int32" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="pid" />
@@ -469,6 +573,8 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="salesPrice" Type="Int32" />
           <Property Name="cost" Type="Int32" />
           <Property Name="total" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="category" Type="Int32" />
           <Property Name="brand" Type="Int32" />
           <Property Name="company" Type="Int32" />
@@ -701,12 +807,69 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="taxes" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="subtotal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="Inventory_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="Recid" Nullable="true" />
+          <Property Type="Int32" Name="po_id" Nullable="true" />
+          <Property Type="Int32" Name="product" Nullable="false" />
+          <Property Type="String" Name="varientID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="varient" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="qty" Nullable="false" />
+          <Property Type="Int32" Name="REC_qty" Nullable="false" />
+          <Property Type="Int32" Name="unitprice" Nullable="false" />
+          <Property Type="String" Name="taxes" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="subtotal" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="pid" Nullable="false" />
+          <Property Type="String" Name="P_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="p_des" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="p_type" Nullable="true" />
+          <Property Type="String" Name="p_tax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="invoicingPolicy" Nullable="true" />
+          <Property Type="Int32" Name="salesPrice" Nullable="true" />
+          <Property Type="Int32" Name="cost" Nullable="true" />
+          <Property Type="String" Name="total" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="subCategory" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="unit" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="category" Nullable="true" />
+          <Property Type="Int32" Name="brand" Nullable="true" />
+          <Property Type="Int32" Name="company" Nullable="true" />
+          <Property Type="DateTime" Name="createAT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="updateAt" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="createdBy" Nullable="true" />
+          <Property Type="Int32" Name="updatedBy" Nullable="true" />
+          <Property Type="String" Name="image" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="isActive" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SANITORIA_DBModelStoreContainer" CdmEntityContainer="SANITORIA_DBEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SANITORIA_DBModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SANITORIA_DBModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SANITORIA_DBModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SANITORIA_DBModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SANITORIA_DBModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SANITORIA_DBModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SANITORIA_DBModel.Store.sp_upgraddiagrams" />
           <EntitySetMapping Name="BankAccoutns">
             <EntityTypeMapping TypeName="SANITORIA_DBModel.BankAccoutn">
               <MappingFragment StoreEntitySet="BankAccoutn">
@@ -782,6 +945,20 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCT_REQ">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.PRODUCT_REQ">
+              <MappingFragment StoreEntitySet="PRODUCT_REQ">
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="updateata" ColumnName="updateata" />
+                <ScalarProperty Name="createat" ColumnName="createat" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="recvid" ColumnName="recvid" />
+                <ScalarProperty Name="pro_req_id" ColumnName="pro_req_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="SANITORIA_DBModel.Product">
               <MappingFragment StoreEntitySet="Products">
@@ -794,6 +971,8 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
                 <ScalarProperty Name="company" ColumnName="company" />
                 <ScalarProperty Name="brand" ColumnName="brand" />
                 <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="subCategory" ColumnName="subCategory" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="cost" ColumnName="cost" />
                 <ScalarProperty Name="salesPrice" ColumnName="salesPrice" />
@@ -1037,7 +1216,44 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="Inventory" FunctionName="SANITORIA_DBModel.Store.Inventory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.Inventory_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Recid" ColumnName="Recid" />
+                <ScalarProperty Name="po_id" ColumnName="po_id" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="varientID" ColumnName="varientID" />
+                <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="REC_qty" ColumnName="REC_qty" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="taxes" ColumnName="taxes" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="P_name" ColumnName="P_name" />
+                <ScalarProperty Name="p_des" ColumnName="p_des" />
+                <ScalarProperty Name="p_type" ColumnName="p_type" />
+                <ScalarProperty Name="p_tax" ColumnName="p_tax" />
+                <ScalarProperty Name="invoicingPolicy" ColumnName="invoicingPolicy" />
+                <ScalarProperty Name="salesPrice" ColumnName="salesPrice" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="subCategory" ColumnName="subCategory" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

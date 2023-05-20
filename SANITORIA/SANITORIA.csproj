@@ -140,8 +140,10 @@
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\imageUploaderController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PolicyController.cs" />
+    <Compile Include="Controllers\ProdReqController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ReccievdController.cs" />
@@ -174,6 +176,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Comapny.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Inventory_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -209,6 +214,9 @@
     <Compile Include="Models\ProductVariant.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PRODUCT_REQ.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PurchaseBill.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -233,6 +241,12 @@
     <Compile Include="Models\sessionDetails.cs" />
     <Compile Include="Models\sessionExpire.cs" />
     <Compile Include="Models\SessionObj.cs" />
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -2170,6 +2184,7 @@
     <Content Include="Scripts\Lib\Brand.js" />
     <Content Include="Scripts\Lib\Category.js" />
     <Content Include="Scripts\Lib\Comapny.js" />
+    <Content Include="Scripts\Lib\inventory.js" />
     <Content Include="Scripts\Lib\PO.js" />
     <Content Include="Scripts\Lib\policy.js" />
     <Content Include="Scripts\Lib\Products.js" />
@@ -2232,6 +2247,8 @@
     <Content Include="Views\Reccievd\Index.cshtml" />
     <Content Include="Views\Bills\Index.cshtml" />
     <Content Include="Views\Bills\bill.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\ProdReq\create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
