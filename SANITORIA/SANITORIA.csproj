@@ -211,10 +211,13 @@
     <Compile Include="Models\ProductsVariant_.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PRODUCTs_of_Requisition.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProductVariant.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PRODUCT_REQ.cs">
+    <Compile Include="Models\PRODUCT_Requisition.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PurchaseBill.cs">

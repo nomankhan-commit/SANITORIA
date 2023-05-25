@@ -33,8 +33,9 @@ namespace SANITORIA.Models
         public virtual DbSet<Comapny> Comapnies { get; set; }
         public virtual DbSet<PO_Product> PO_Product { get; set; }
         public virtual DbSet<policylist> policylists { get; set; }
-        public virtual DbSet<PRODUCT_REQ> PRODUCT_REQ { get; set; }
+        public virtual DbSet<PRODUCT_Requisition> PRODUCT_Requisition { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<PRODUCTs_of_Requisition> PRODUCTs_of_Requisition { get; set; }
         public virtual DbSet<ProductsCategory> ProductsCategories { get; set; }
         public virtual DbSet<ProductsVariant_> ProductsVariant_ { get; set; }
         public virtual DbSet<ProductVariant> ProductVariants { get; set; }

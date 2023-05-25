@@ -14,29 +14,56 @@
 
         <input type="hidden" id="id" value="0" />
 
-        <div class="form-row">
 
+        <div class="row">
             <div class="form-group col-md-6">
-                <label for="inputEmail4">Products</label>
-                <select class="form-control" id="category">
-                    @foreach (var item in ViewBag.inventory)
-                    {
-                    <option value="@item.Recid"> @item.P_name (@item.varient)(@item.Recid)(@item.id) </option>
-                    }
-                </select>
+                <label for="inputEmail4">PR Name</label>
+                <input type="text" class="form-control" id="prname" name="prname" maxlength="20" />
             </div>
+        </div>
 
 
-            <div class="form-group col-md-6">
-                <label for="inputEmail4">Qty</label>
-                <input type="text" class="form-control" id="qty" name="qty"  min="0" maxlength="20" />
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" id="addproduct" class="btn btn-primary">Add</button>
+                    <table class="table" id="productTable">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>QTY</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="producttablebody">
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-
 
         </div>
 
+
+        <div id="category" style="display:none">
+
+            <select class="form-control">
+                @foreach (var item in ViewBag.inventory)
+                {
+                    <option value="@item.id"  
+                            productname="@item.P_name" 
+                            varient="@item.varient"
+                            recid="@item.Recid"
+                            > @item.P_name (@item.varient)(@item.Recid)(@item.id) </option>
+                }
+            </select>
+
+        </div>
+                
+           
+
         <button type="button" id="saveall" class="btn btn-primary">Save</button>
- 
+
     </form>
 
 
@@ -48,247 +75,103 @@
 <script src="~/Scripts/Lib/bem_common.js"></script>
 <script src="~/Scripts/Lib/bem_htmlHelper.js"></script>
 <script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
-<script src="~/Scripts/Lib/Products.js"></script>
 <script src="~/Scripts/MyScripts/fin_common.js"></script>
 
 
 <script>
-    $(function () {
-        $("#tabs").tabs();
 
-        //____________example__________//
-        //let dat1 = [{ id: 1, name: "Tax1" }, { id: 2, name: "Tax2" }, { id: 3, name: "Tax3" }];
-        //bem_htmlHelper.singleSelectDropdown("customertaxes", "customertaxes", dat1, 2, "id", "name");
-        //bem_htmlHelper.multiSelectDropdown("customertaxes", "customertaxes", dat1, [{ id: 2, name: "abs2" }, { id: 3, name: "abs1" }], "id", "name",'');
+    $(document).ready(function () {
 
-
-
-        Products.variants =   @Html.Raw(Json.Encode(ViewBag.Variants));
-        Products.categories =   @Html.Raw(Json.Encode(ViewBag.Categories));
-        Products.tax =   @Html.Raw(Json.Encode(ViewBag.tax));
-        Products.id =  @Html.Raw(ViewBag.id);
-
-
-
-        if (Products.id == 0)
-        {
-            bem_htmlHelper.multiSelectDropdown("customertaxes", "customertaxes", Products.tax.data1, [], "id", "TaxName", '');
-            Products.applyTaxDLLchange();
-        }
-        else
-        {
-
-            Products.getProductsByid(Products.id);
-        }
-
-
-        $('body').on('change', '.variantnameDdl', function () {
-
+        $('#addproduct').click(function () {
 
             debugger;
-            let id = $(this).val();
 
-            if (Products.variants.data1!=null) {
-                let currentVarientval = Products.variants.data1.filter(x => { return x.id == id })[0].values.split(',');
-                $(this).closest('tr').find('td[variantvalue]').empty();
-                bem_htmlHelper
-                    .inputTextListWithTags(bem_common.getGuid(), 'variantValue', $(this).closest('tr').find('td[variantvalue]'), null, currentVarientval);
-            }
+            let category = $('#category').html();
 
+            let btn = "<button class='form-control btn removevProduct' type='button'>delete</button>";
 
-
-
-        })
-
-
-        $('#saveall').click(function () {
-
-            debugger;
-            let productname = $('#productname');
-            let hiddentax = $('#hiddentax');
-            let salesprice = $('#salesprice');
-            let cost = $('#cost');
-            let salepricewithTax = $('#salepricewithTax');
-            let valid = true;
-
-
-
-            if (productname.val().trim() == '' || fin_common.allLetter(productname.val()) == false) {
-                fin_common.showToast(2, 'Product name is required. product value can not have numeric value and special character.');
-                $(productname).addClass('inputborder');
-                valid = false;
-            } else {
-                $(productname).removeClass('inputborder');
-            }
-
-
-
-
-
-
-            if (hiddentax.val().trim() == '') {
-                $('#customertaxesCmb').addClass('inputborder');
-                valid = false;
-            } else {
-                $('#customertaxesCmb').removeClass('inputborder');
-            }
-
-
-            if (salepricewithTax.val().trim() == '' || salepricewithTax.val() <= 0) {
-                fin_common.showToast(2, 'Value must be greater than 0.');
-                $('#salepricewithTax').addClass('inputborder');
-                valid = false;
-            } else {
-                $('#salepricewithTax').removeClass('inputborder');
-            }
-
-            if (salesprice.val().trim() == '' || salesprice.val() <= 0) {
-                fin_common.showToast(2, 'Value must be greater than 0.');
-                $(salesprice).addClass('inputborder');
-                valid = false;
-            } else {
-                $(salesprice).removeClass('inputborder');
-            }
-
-            if (cost.val().trim() == '' || cost.val() <= 0) {
-                fin_common.showToast(2, 'Value must be greater than 0.');
-                $(cost).addClass('inputborder');
-                valid = false;
-            } else {
-                $(cost).removeClass('inputborder');
-            }
-
-            if (valid) {
-                Products.saveProduct();
-            } else {
-                fin_common.showToast(2,'Please fill all inputs.');
-            }
-
-
-        })
-
-        $('#addVariant').click(function () {
-
-            if (Products != null && Products.variants.data1 != null) {
-
-                let opt = Products.variants.data1.map(x => ("<option  value='" + x.id + "' > " + x.VariantName + "  </option>")).join(' ');
-                let select = "<select class='form-control variantnameDdl'>  '" + opt + "'  </select>";
-                let tbody = `<tr variantGuid='${bem_common.getGuid()}'>
-                            <td variantname> ${select}</td>
-                            <td variantvalue></td>
-                            <td> <button type="button" class="btn btn-primary" id='removevariant'>delete</button> </td>
+            let tbody = `<tr Guid='${bem_common.getGuid()}'>
+                            <td product> ${category}</td>
+                            <td qty> <input type="number" class='qty'  />  </td>
+                            <td> ${btn}  </td>
                             </tr>`;
-                $('#variantTableBody').append(tbody);
-                let td = $('#variantTableBody tr').last().find('td:nth-child(2)');
-                bem_htmlHelper.inputTextListWithTags(bem_common.getGuid(),'variantValue', td, null, null);
+            $('#producttablebody').append(tbody);
 
-            }
-
-        })
-
-        $('#salesprice').keyup(function () {
-
-            let tx = $('#hiddentax').val().split(',');
-            let salesprice =  $(this).val();
-            let total = [];
-            $.each(tx, (i, e) => {
-                debugger;
-                let tax_ = Products.tax.data1.filter(o => o.TaxName == e)[0];
-                //let tax_ = Products.tax.data1.filter(o => o.id == e);
-
-                // fixed = 1 , percentage = 2
-                if (tax_.taxComputation == 2) {
-                    let d = (parseFloat(salesprice) / 100) * tax_.amount;
-                     total.push(parseFloat(salesprice) + d);
-                }
-                else {
-                    let d = tax_.amount;
-                    total.push(d);
-
-                }
-
-
-            })
-
-            let txtotal = total.reduce((curr, next) => curr + next);
-
-            $('#salepricewithTax').val(
-                txtotal < parseFloat(salesprice)
-                    ? (parseFloat(salesprice) + txtotal)
-                    : txtotal
-            );
-            total = [];
-
+           
 
 
         })
 
-
-        $('body').on('click', '#removevariant', function () {
+        $('body').on('click', '.removevProduct', function () {
 
             $(this).closest('tr').remove();
 
         })
-
 
         $('body').on('click', '#saveall', function () {
 
-            $(this).closest('tr').remove();
+            let obj = {};
+            obj.id = $('#id').val();
+            obj.requisitionName = $('#prname').val();
+         
 
-        })
-
-
-        $('body').on('click', '#openimage', function () {
-
-            $('#filehiddeninput').trigger('click');
-
-        })
-
-        $('#filehiddeninput').on('change', function (e) {
-            var d = new Date().valueOf();
-            var n = d.toString();
-            var result = '';
-            var length = 32;
-            var p = 0;
-            var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            for (var i = length; i > 0; --i) {
-                result += ((i & 1) && n.charAt(p) ? n.charAt(p) : chars[Math.floor(Math.random() * chars.length)]);
-                if (i & 1) p++;
-            };
-            var files = e.target.files;
-            var myID = 3; //uncomment this to make sure the ajax URL works
-            if (files.length > 0) {
-                if (window.FormData !== undefined) {
-                    var data = new FormData();
-                    for (var x = 0; x < files.length; x++) {
-                        data.append("file" + x, files[x]);
-                    }
-                    $.ajax({
-                        type: "POST",
-                        url: '/imageUploader/uploadimage?id=' + myID + '&name=' + result + '&folder=ProductImages',
-                        contentType: false,
-                        processData: false,
-                        beforeSend: function () {
-                            $("#imagebox").html('<img src=/content/images/loading.gif style="width:200px">');
-                        },
-                        data: data,
-                        success: function (result) {
-                            debugger;
-                            $('#hiddenImage').val(result);
-                            $("#imagebox").html('<img src=/Content/ProductImages/' + result + '>');
-                        },
-                        error: function (xhr, status, p3, p4) {
-                            var err = "Error " + " " + status + " " + p3 + " " + p4;
-                            if (xhr.responseText && xhr.responseText[0] == "{")
-                                err = JSON.parse(xhr.responseText).Message;
-                            console.log(err);
-                        }
-                    });
-                } else {
-                    alert("This browser doesn't support HTML5 file uploads!");
-                }
+            let data = {
+                data: obj,
+                products: getAllProductsDetails()
             }
-        });
 
-    });
+
+            if (getAllProductsDetails().length == 0) {
+
+                fin_common.showToast(2, "Add Products.");
+                return; 
+            }
+
+            ajaxHealper.ajaxProcessor('/ProdReq/Create', "json", "POST", JSON.stringify(data), true, (e) => {
+                debugger;
+                if (e.status != 2) {
+                    fin_common.showToast(1, e.message);
+                    window.location.href = fin_common.sitrurl + "ProdReq/Index";
+                }
+                else {
+                    fin_common.showToast(2, e.message);
+                }
+
+            });
+
+        })
+
+    })
+
+    function getAllProductsDetails() {
+
+        let data = [];
+
+        $('#producttablebody tr').each((i, e) => {
+            debugger;
+            let Recieved_product_id = $(e).find('td[product] select').val();
+            let productname = $(e).find('td[product] select option:selected').attr('productname');
+            let varient = $(e).find('td[product] select option:selected').attr('varient');
+            let recid = $(e).find('td[product] select option:selected').attr('recid');
+
+
+            let qty = $(e).find('td[qty] .qty').val();
+           
+            let obj = {};
+           
+            obj.Requisitionid = $('#id').val();
+            obj.Recievedid = recid;
+            obj.Recieved_product_id = Recieved_product_id;
+            obj.productName = productname;
+            obj.varient = varient;
+            obj.status = '';
+            obj.qty = qty;
+
+
+            data.push(obj);
+
+        })
+        return data;
+    }
+        
 </script>

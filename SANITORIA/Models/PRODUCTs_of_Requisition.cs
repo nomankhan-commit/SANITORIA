@@ -12,15 +12,14 @@ namespace SANITORIA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PRODUCT_REQ
+    public partial class PRODUCTs_of_Requisition
     {
-        public int pro_req_id { get; set; }
-        public Nullable<int> recvid { get; set; }
-        public string product { get; set; }
-        public Nullable<int> productid { get; set; }
-        public Nullable<int> qty { get; set; }
-        public Nullable<System.DateTime> createat { get; set; }
-        public Nullable<System.DateTime> updateata { get; set; }
-        public Nullable<int> createBy { get; set; }
+        public int id { get; set; }
+        public Nullable<int> Requisitionid { get; set; }
+        public Nullable<int> Recievedid { get; set; }
+        public Nullable<int> Recieved_product_id { get; set; }
+        public string productName { get; set; }
+        public string varient { get; set; }
+        public string status { get; set; }
     }
 }

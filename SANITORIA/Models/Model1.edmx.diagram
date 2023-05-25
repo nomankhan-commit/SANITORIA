@@ -11,24 +11,25 @@
         <EntityTypeShape EntityType="SANITORIA_DBModel.Comapny" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="SANITORIA_DBModel.PO_Product" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="SANITORIA_DBModel.policylist" Width="1.5" PointX="4.75" PointY="3.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.PRODUCT_REQ" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.Product" Width="1.5" PointX="6.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductsCategory" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductsVariant_" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductVariant" Width="1.5" PointX="2.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.PurchaseBill" Width="1.5" PointX="8.75" PointY="3.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.PurchaseOrder" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.PRODUCT_Requisition" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.Product" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.PRODUCTs_of_Requisition" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductsCategory" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductsVariant_" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.ProductVariant" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.PurchaseBill" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.PurchaseOrder" Width="1.5" PointX="4.75" PointY="9.75" />
         <EntityTypeShape EntityType="SANITORIA_DBModel.RECEIVED_ORDER" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.RECV_Product" Width="1.5" PointX="4.75" PointY="10.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.RFQ" Width="1.5" PointX="10.75" PointY="5.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.RfqProduct" Width="1.5" PointX="10.75" PointY="10.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.securityPolicy" Width="1.5" PointX="0.75" PointY="11.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.sysdiagram" Width="1.5" PointX="6.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.RECV_Product" Width="1.5" PointX="10.75" PointY="5.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.RFQ" Width="1.5" PointX="6.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.RfqProduct" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.securityPolicy" Width="1.5" PointX="10.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="SANITORIA_DBModel.Tax" Width="1.5" PointX="12.75" PointY="0.75" />
         <EntityTypeShape EntityType="SANITORIA_DBModel.USER" Width="1.5" PointX="12.75" PointY="4.75" />
         <EntityTypeShape EntityType="SANITORIA_DBModel.vendor" Width="1.5" PointX="12.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.warehouse" Width="1.5" PointX="12.75" PointY="13.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.Bill_Product" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.warehouse" Width="1.5" PointX="10.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.Bill_Product" Width="1.5" PointX="12.75" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
