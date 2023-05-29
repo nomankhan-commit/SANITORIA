@@ -143,6 +143,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="productName" Type="varchar" MaxLength="50" />
           <Property Name="varient" Type="varchar" MaxLength="50" />
           <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="qty" Type="int" />
         </EntityType>
         <EntityType Name="ProductsCategory">
           <Key>
@@ -637,6 +638,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="productName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="varient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" />
         </EntityType>
         <EntityType Name="ProductsCategory">
           <Key>
@@ -1042,6 +1044,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <EntitySetMapping Name="PRODUCTs_of_Requisition">
             <EntityTypeMapping TypeName="SANITORIA_DBModel.PRODUCTs_of_Requisition">
               <MappingFragment StoreEntitySet="PRODUCTs_of_Requisition">
+                <ScalarProperty Name="qty" ColumnName="qty" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="varient" ColumnName="varient" />
                 <ScalarProperty Name="productName" ColumnName="productName" />

@@ -21,5 +21,6 @@ namespace SANITORIA.Models
         public string productName { get; set; }
         public string varient { get; set; }
         public string status { get; set; }
+        public Nullable<int> qty { get; set; }
     }
 }

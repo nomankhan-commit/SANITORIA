@@ -12,7 +12,7 @@
 
     <form>
 
-        <input type="hidden" id="id" value="0" />
+        <input type="hidden" id="id" value="@ViewBag.id" />
 
 
         <div class="row">
@@ -80,7 +80,49 @@
 
 <script>
 
+    
+
+      let view = @Html.Raw(Json.Encode(ViewBag.view));
+
     $(document).ready(function () {
+
+        let id = $('#id').val();
+        if (id > 0) {
+            debugger;
+
+            let url = "/ProdReq/Edit/" + id;
+                ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (data) => {
+                    debugger;
+
+
+                    //'2023-04-07'
+                    $('#id').val(data.data.id);
+                    $('#prname').val(data.data.requisitionName);
+
+
+                    $.each(data.detail, (i, e) => {
+                            debugger;
+                            $('#addproduct').trigger('click');
+                            let lastTR = $('#productTable tr').last();
+
+                        $(lastTR).find('td[qty] .qty').val(e.qty);
+                        $(lastTR).find('td[product] select').val(e.Recieved_product_id);
+                            //$(lastTR).find('td[qty] .qty').val(e.qty);
+                            //$(lastTR).find('td[unitprice] .unitprice').val(e.unitprice);
+                            //$(lastTR).find('td[taxes] .tax').val(e.taxes.split(','));
+                            //$(lastTR).find('td[subtotal] .subtotal').val(e.subtotal);
+
+                        })
+
+
+
+                });
+
+        }
+        if (view) {
+            $('#addproduct').hide();
+            $('#saveall').remove();
+        }
 
         $('#addproduct').click(function () {
 
@@ -97,7 +139,7 @@
                             </tr>`;
             $('#producttablebody').append(tbody);
 
-           
+
 
 
         })
@@ -113,7 +155,7 @@
             let obj = {};
             obj.id = $('#id').val();
             obj.requisitionName = $('#prname').val();
-         
+
 
             let data = {
                 data: obj,
@@ -124,7 +166,7 @@
             if (getAllProductsDetails().length == 0) {
 
                 fin_common.showToast(2, "Add Products.");
-                return; 
+                return;
             }
 
             ajaxHealper.ajaxProcessor('/ProdReq/Create', "json", "POST", JSON.stringify(data), true, (e) => {
@@ -156,9 +198,9 @@
 
 
             let qty = $(e).find('td[qty] .qty').val();
-           
+
             let obj = {};
-           
+
             obj.Requisitionid = $('#id').val();
             obj.Recievedid = recid;
             obj.Recieved_product_id = Recieved_product_id;
@@ -173,5 +215,5 @@
         })
         return data;
     }
-        
+
 </script>

@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<div>
+
+    <button class="btn btn-primary" id="create">Create</button>
+
+    <div id="grid"></div>
+
+</div>
+
+
+<script src="~/Content/Loginpage/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="~/Scripts/Lib/bem_common.js"></script>
+<script src="~/Scripts/Lib/bem_htmlHelper.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+
+<script>
+
+    let data = @Html.Raw(Json.Encode(ViewBag.data));
+    let statusbtn = @Html.Raw(Json.Encode(ViewBag.statusbtn));
+    $(document).ready(function () {
+
+        if (statusbtn) {
+            $('#create').hide();
+
+            setTimeout(function () { $('.elm_edit').hide()},500)
+
+            
+        }
+
+        let columns = [
+                        { dataField: 'requisitionName', caption: "Requisition" },
+                  { dataField: 'status', caption: "Status" },
+                {
+                    dataField: "Action", cellTemplate: function (container, options) {
+                        debugger
+                        var data = JSON.stringify(options.data);
+                        var data_ = encodeURI(data);
+                        let styl = options.data.Status == "Nothing to bill" ? 'style="display: none"' : "";
+
+                        let styl1 = '';
+                        if (!statusbtn) {
+                            styl1 = 'style="display:none"';
+                        } 
+
+
+                        $(`<div class="btn-group btn-group-sm">
+
+              <button type="button" id="${options.data.id}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
+
+              <button type="button" id="${options.data.id}" class="btn elm_view" data="${data_}" title="view" ${styl1}>View</button>
+              <button type="button" id="${options.data.id}" class="btn elm_approve" data="${data_}" title="approve" ${styl1}>Approve</button>
+              <button type="button" id="${options.data.id}" class="btn elm_cancel" data="${data_}" title="cancel" ${styl1}>Cancel</button>
+
+</div>`).appendTo(container);
+                    }
+                }];
+        devExHelper.bindGrid("#grid", data, columns, null, null, null, true);
+
+        $('body').on('click', '.elm_edit', function () {
+
+            let id = $(this).attr('id');
+            window.location.href = fin_common.sitrurl + "/ProdReq/edit/" + id;
+
+        })
+
+        $('body').on('click', '.elm_view', function () {
+
+            let id = $(this).attr('id');
+            window.location.href = fin_common.sitrurl + "/ProdReq/view/" + id;
+
+        })
+
+            $('body').on('click', '.elm_approve, .elm_cancel', function () {
+            debugger;
+            let id = $(this).attr('id');
+            let status = '';
+            if ($(this).hasClass('elm_approve'))
+            {
+                status = 'approved';
+            }
+            if ($(this).hasClass('elm_cancel'))
+            {
+                status = 'cancel';
+            }
+
+
+            let url = "/ProdReq/status?status=" + status + "&id="+id;
+            ajaxHealper.ajaxProcessor(url, "json", "GET", url, true, (data) => {
+                debugger;
+
+                fin_common.showToast(1, data.msg);
+                if (data.type == 1) {
+                    window.location.href = fin_common.sitrurl + "/ProdReq/index_/";
+                }
+
+            });
+
+        })
+    })
+
+</script>
+
