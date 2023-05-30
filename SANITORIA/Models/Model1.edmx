@@ -68,6 +68,28 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Comapny" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="website" Type="varchar" MaxLength="500" />
+          <Property Name="zipcode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerBankAccoutn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bankName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="account" Type="varchar" MaxLength="100" />
+          <Property Name="v_id" Type="int" Nullable="false" />
+          <Property Name="bankGudi" Type="varchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="PO_Product">
           <Key>
             <PropertyRef Name="id" />
@@ -383,6 +405,8 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comapny" EntityType="Self.Comapny" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerBankAccoutn" EntityType="Self.CustomerBankAccoutn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PO_Product" EntityType="Self.PO_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="policylist" EntityType="Self.policylist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT_Requisition" EntityType="Self.PRODUCT_Requisition" Schema="dbo" store:Type="Tables" />
@@ -457,6 +481,8 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <EntitySet Name="Bills" EntityType="SANITORIA_DBModel.Bill" />
           <EntitySet Name="Brands" EntityType="SANITORIA_DBModel.Brand" />
           <EntitySet Name="Comapnies" EntityType="SANITORIA_DBModel.Comapny" />
+          <EntitySet Name="customers" EntityType="SANITORIA_DBModel.customer" />
+          <EntitySet Name="CustomerBankAccoutns" EntityType="SANITORIA_DBModel.CustomerBankAccoutn" />
           <EntitySet Name="PO_Product" EntityType="SANITORIA_DBModel.PO_Product" />
           <EntitySet Name="policylists" EntityType="SANITORIA_DBModel.policylist" />
           <EntitySet Name="PRODUCT_Requisition" EntityType="SANITORIA_DBModel.PRODUCT_Requisition" />
@@ -562,6 +588,28 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Comapny1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="website" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="zipcode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CustomerBankAccoutn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bankName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="account" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="v_id" Type="Int32" Nullable="false" />
+          <Property Name="bankGudi" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PO_Product">
           <Key>
@@ -969,6 +1017,30 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
             <EntityTypeMapping TypeName="SANITORIA_DBModel.Comapny">
               <MappingFragment StoreEntitySet="Comapny">
                 <ScalarProperty Name="Comapny1" ColumnName="Comapny" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerBankAccoutns">
+            <EntityTypeMapping TypeName="SANITORIA_DBModel.CustomerBankAccoutn">
+              <MappingFragment StoreEntitySet="CustomerBankAccoutn">
+                <ScalarProperty Name="bankGudi" ColumnName="bankGudi" />
+                <ScalarProperty Name="v_id" ColumnName="v_id" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="bankName" ColumnName="bankName" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

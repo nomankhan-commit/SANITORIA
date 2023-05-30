@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<div>
+
+
+
+
+    <form id="taxform">
+        <div class="row">
+            <input type="hidden" id="id" value="@ViewBag.id" />
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">customer Name:</label>
+                    <input type="text" class="form-control" id="vname" maxlength="20">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Phone:</label>
+                    <input type="text" class="form-control" id="phone" placeholder="+1 (697) 673-3955">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email">
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Website:</label>
+                    <input type="text" class="form-control" id="website">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="email">Zip Code:</label>
+                    <input type="number" class="form-control" id="zipcode"
+                           maxlength="5"
+                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Addrss:</label>
+                    <textarea class="form-control" id="address" name="address" rows="4" cols="100" maxlength="200">
+
+                    </textarea>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+    </form>
+
+
+    <div>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" id="addbankaccount" class="btn btn-primary">Add</button>
+                <table class="table" id="bankaccountTable">
+                    <thead>
+                        <tr>
+                            <th>Bank</th>
+                            <th>Account</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bankaccountBody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+
+                <button type="button" id="save" class="btn btn-default">Submit</button>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/customer.js"></script>
+<script src="~/Scripts/Lib/bem_common.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        if ($('#id').val()>0)
+        {
+            customer.getByid($('#id').val());
+        }
+
+
+        $('#addbankaccount').click(function () {
+
+            debugger;
+
+                let input = "<input type='text' class='bankname form-control'>";
+                let accoutninput = "<input type='number' class='account form-control'>";
+                let tbody = `<tr bankGuid='${bem_common.getGuid()}'>
+                            <td bankname> ${input}</td>
+                            <td accountnumber>  ${accoutninput} </td>
+                            <td> <button type="button" class="btn btn-primary removeBank">delete</button> </td>
+                            </tr>`;
+            $('#bankaccountBody').append(tbody);
+
+
+        })
+
+        $('body').on('click', '.removeBank', function () {
+
+            $(this).closest('tr').remove();
+
+        })
+
+
+        $('body').on('click', '#save', function () {
+
+            let vname = $('#vname');
+            let phone = $('#phone');
+            let email = $('#email');
+            let website = $('#website');
+            let zipcode = $('#zipcode');
+            let address = $('#address');
+
+            debugger;
+            let valid = true;
+
+
+            if (!fin_common.validatePhone('phone')) {
+                valid = false;
+                fin_common.showToast(2, 'Invalid phone number. ');
+                return
+            }
+
+            if (vname.val().trim() == '' || fin_common.allLetter(vname.val()) == false) {
+                fin_common.showToast(2, 'Vender name is required. </br> Vender name can not have any special characters and numeric value. ');
+                $(vname).addClass('inputborder');
+                valid = false;
+            } else {
+                $(vname).removeClass('inputborder');
+            }
+
+
+            if (phone.val().trim() == '') {
+                $(phone).addClass('inputborder');
+                valid = false;
+            } else {
+                $(phone).removeClass('inputborder');
+            }
+
+            if (email.val().trim() == '' || fin_common.validateEmail(email.val()) == false) {
+                $(email).addClass('inputborder');
+                valid = false;
+            } else {
+                $(email).removeClass('inputborder');
+            }
+
+
+            if (website.val().trim() == '') {
+                $(website).addClass('inputborder');
+                valid = false;
+            } else {
+                $(website).removeClass('inputborder');
+            }
+
+            if (zipcode.val().trim() == '' || zipcode.val() <= 0) {
+                fin_common.showToast(2, 'Zipcode is required. </br> Zipcode must be greater than 0. ');
+                $(zipcode).addClass('inputborder');
+                valid = false;
+            } else {
+                $(zipcode).removeClass('inputborder');
+            }
+
+            if (address.val().trim() == '') {
+                $(address).addClass('inputborder');
+                valid = false;
+            } else {
+                $(address).removeClass('inputborder');
+            }
+
+            if (!valid) {
+                fin_common.showToast(2, 'Please fill all inputs.');
+                return;
+            }
+
+
+
+            customer.save();
+
+        })
+
+    })
+
+
+    function validatePhone(txtPhone) {
+        var a = document.getElementById(txtPhone).value;
+        var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+        if (filter.test(a)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>

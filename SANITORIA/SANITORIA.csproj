@@ -136,6 +136,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccessdeniedController.cs" />
     <Compile Include="Controllers\BillsController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\vendorController.cs" />
     <Compile Include="Controllers\WarehouseController.cs" />
+    <Compile Include="DAL\Customer.cs" />
     <Compile Include="DAL\Product.cs" />
     <Compile Include="DAL\PurchaseOrder_.cs" />
     <Compile Include="DAL\Reccievd.cs" />
@@ -176,6 +178,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Comapny.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\customer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerBankAccoutn.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inventory_Result.cs">
@@ -2187,6 +2195,7 @@
     <Content Include="Scripts\Lib\Brand.js" />
     <Content Include="Scripts\Lib\Category.js" />
     <Content Include="Scripts\Lib\Comapny.js" />
+    <Content Include="Scripts\Lib\Customer.js" />
     <Content Include="Scripts\Lib\inventory.js" />
     <Content Include="Scripts\Lib\PO.js" />
     <Content Include="Scripts\Lib\policy.js" />
@@ -2253,6 +2262,8 @@
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\ProdReq\create.cshtml" />
     <Content Include="Views\ProdReq\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
