@@ -273,11 +273,11 @@
 
 
                                         @*<li class="nav-item">
-                                            <a href="@Url.Action("producComapny", "Products")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Companies</p>
-                                            </a>
-                                        </li>*@
+                            <a href="@Url.Action("producComapny", "Products")" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Companies</p>
+                            </a>
+                        </li>*@
 
                                         <li class="nav-item">
                                             <a href="@Url.Action("Index", "Tax")" class="nav-link">
@@ -336,6 +336,66 @@
                                                 <p>PR</p>
                                             </a>
                                         </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-circle"></i>
+                                <p>
+                                    Sales
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-chart-pie"></i>
+                                        <p>
+                                            Sales Quotation
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("index", "SalesQuotation")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Quotation</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("index", "SalesOrder")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Sales Order</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("index", "SalesReccievd")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Sales Received Order</p>
+                                            </a>
+                                        </li>
+
+
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("index", "SalesBills")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Invoice</p>
+                                            </a>
+                                        </li>
+
+
+                                        @*<li class="nav-item">
+                                            <a href="@Url.Action("Index_", "ProdReq")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>PR</p>
+                                            </a>
+                                        </li>*@
 
                                     </ul>
                                 </li>

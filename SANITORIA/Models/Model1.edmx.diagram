@@ -25,13 +25,20 @@
         <EntityTypeShape EntityType="SANITORIA_DBModel.RECV_Product" Width="1.5" PointX="10.75" PointY="5.75" />
         <EntityTypeShape EntityType="SANITORIA_DBModel.RFQ" Width="1.5" PointX="10.75" PointY="9.75" />
         <EntityTypeShape EntityType="SANITORIA_DBModel.RfqProduct" Width="1.5" PointX="12.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.securityPolicy" Width="1.5" PointX="2.75" PointY="12.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.sysdiagram" Width="1.5" PointX="12.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.Tax" Width="1.5" PointX="4.75" PointY="12.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.USER" Width="1.5" PointX="12.75" PointY="7.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.vendor" Width="1.5" PointX="12.75" PointY="12.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.warehouse" Width="1.5" PointX="14.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SANITORIA_DBModel.Bill_Product" Width="1.5" PointX="14.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.SALES_RECEIVED_ORDER" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.SALES_RECV_Product" Width="1.5" PointX="12.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.SalesBill" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.SalesOrder" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.SalesQuotation" Width="1.5" PointX="12.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.SalesQuotationProduct" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.securityPolicy" Width="1.5" PointX="14.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.SO_Product" Width="1.5" PointX="6.75" PointY="14.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.sysdiagram" Width="1.5" PointX="14.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.Tax" Width="1.5" PointX="8.75" PointY="14.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.USER" Width="1.5" PointX="14.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.vendor" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.warehouse" Width="1.5" PointX="16.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SANITORIA_DBModel.Bill_Product" Width="1.5" PointX="16.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

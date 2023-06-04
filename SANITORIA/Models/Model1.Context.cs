@@ -47,7 +47,14 @@ namespace SANITORIA.Models
         public virtual DbSet<RECV_Product> RECV_Product { get; set; }
         public virtual DbSet<RFQ> RFQs { get; set; }
         public virtual DbSet<RfqProduct> RfqProducts { get; set; }
+        public virtual DbSet<SALES_RECEIVED_ORDER> SALES_RECEIVED_ORDER { get; set; }
+        public virtual DbSet<SALES_RECV_Product> SALES_RECV_Product { get; set; }
+        public virtual DbSet<SalesBill> SalesBills { get; set; }
+        public virtual DbSet<SalesOrder> SalesOrders { get; set; }
+        public virtual DbSet<SalesQuotation> SalesQuotations { get; set; }
+        public virtual DbSet<SalesQuotationProduct> SalesQuotationProducts { get; set; }
         public virtual DbSet<securityPolicy> securityPolicies { get; set; }
+        public virtual DbSet<SO_Product> SO_Product { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tax> Taxes { get; set; }
         public virtual DbSet<USER> USERS { get; set; }

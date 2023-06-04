@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Sales Bills";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+
+
+
+<div id="grid"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/Lib/SalesBill.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        SalesBill.loadGrid();
+        $('body').on('click', '.elm_edit', function () {
+            debugger;
+            let id = $(this).attr('id');
+            window.location.href = fin_common.sitrurl + "/SalesBills/bill/" + id;
+
+        })
+
+
+
+
+
+
+    })
+
+
+</script>
+

@@ -149,6 +149,10 @@
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ReccievdController.cs" />
     <Compile Include="Controllers\RfqController.cs" />
+    <Compile Include="Controllers\SalesBillsController.cs" />
+    <Compile Include="Controllers\SalesOrderController.cs" />
+    <Compile Include="Controllers\SalesQuotationController.cs" />
+    <Compile Include="Controllers\SalesReccievdController.cs" />
     <Compile Include="Controllers\TaxController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\vendorController.cs" />
@@ -158,6 +162,9 @@
     <Compile Include="DAL\PurchaseOrder_.cs" />
     <Compile Include="DAL\Reccievd.cs" />
     <Compile Include="DAL\RFQ.cs" />
+    <Compile Include="DAL\SalesOrder_.cs" />
+    <Compile Include="DAL\SalesQuotation.cs" />
+    <Compile Include="DAL\SalesReccievd.cs" />
     <Compile Include="DAL\Tax_.cs" />
     <Compile Include="DAL\UserAccess.cs" />
     <Compile Include="DAL\Vendor.cs" />
@@ -246,12 +253,33 @@
     <Compile Include="Models\RfqProduct.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalesBill.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesOrder.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesQuotation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesQuotationProduct.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SALES_RECEIVED_ORDER.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SALES_RECV_Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\securityPolicy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sessionDetails.cs" />
     <Compile Include="Models\sessionExpire.cs" />
     <Compile Include="Models\SessionObj.cs" />
+    <Compile Include="Models\SO_Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -2202,6 +2230,10 @@
     <Content Include="Scripts\Lib\Products.js" />
     <Content Include="Scripts\Lib\Received.js" />
     <Content Include="Scripts\Lib\Rfq.js" />
+    <Content Include="Scripts\Lib\SalesBill.js" />
+    <Content Include="Scripts\Lib\salesquotation.js" />
+    <Content Include="Scripts\Lib\SalesReceived.js" />
+    <Content Include="Scripts\Lib\SO.js" />
     <Content Include="Scripts\Lib\Tax.js" />
     <Content Include="Scripts\Lib\User.js" />
     <Content Include="Scripts\Lib\variants.js" />
@@ -2264,6 +2296,14 @@
     <Content Include="Views\ProdReq\Index.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\New.cshtml" />
+    <Content Include="Views\SalesQuotation\Index.cshtml" />
+    <Content Include="Views\SalesQuotation\Create.cshtml" />
+    <Content Include="Views\SalesOrder\Index.cshtml" />
+    <Content Include="Views\SalesOrder\Create.cshtml" />
+    <Content Include="Views\SalesReccievd\Index.cshtml" />
+    <Content Include="Views\SalesReccievd\SoReceived.cshtml" />
+    <Content Include="Views\SalesBills\Index.cshtml" />
+    <Content Include="Views\SalesBills\bill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

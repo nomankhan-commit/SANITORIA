@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Saled bill";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<input type="hidden" value="@ViewBag.id" id="id" />
+
+<div>
+
+    <h4>Bill ID :   <span id="billid"></span></h4>
+
+    <div id="grid"></div>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script src="~/Scripts/Lib/SalesBill.js"></script>
+<script src="~/Scripts/MyScripts/devExhelper.js"></script>
+<script>
+
+
+
+    $(document).ready(function () {
+
+
+
+        SalesBill.getByid($('#id').val());
+
+
+
+
+
+    })
+
+
+
+</script>
+
+
