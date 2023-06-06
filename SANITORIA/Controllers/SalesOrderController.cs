@@ -15,6 +15,7 @@ namespace SANITORIA.Controllers
     public class SalesOrderController : Controller
     {
         // GET: PurchaseOrder
+        SANITORIA_DBEntities db = new SANITORIA_DBEntities();
         public ActionResult Index()
         {
 
@@ -45,7 +46,29 @@ namespace SANITORIA.Controllers
             ViewBag.vendor = v.GetAll();
             ViewBag.varient = prd.GetAllvariants();
             ViewBag.tax = tax.GetAllTax();
-            ViewBag.products = prd.GetAllProducts();
+
+
+            var inv = db.Inventory().ToList();
+            List<Product> products = new List<Product>();
+            foreach (var item in inv)
+            {
+                Product product = new Product();
+                product.pid = item.pid;
+                product.P_name = item.id + "-" + item.P_name + "(" + item.varient + ")" + "(" + item.Recid + ")";
+                product.p_type = item.p_type;
+                //product. = item.p_type;
+                products.Add(product);
+            }
+
+            //ViewBag.products = prd.GetAllProducts();
+            Response response = new Response();
+            response.data1 = products;
+            response.status = 1;
+            response.message = "Loaded successfully.";
+            ViewBag.products = response;
+            //ViewBag.products = prd.GetAllProducts();
+
+
             ViewBag.productvarient = prd.GetAllProductVarient();
             ViewBag.warehouse = warehouse.GetAll();
             return View();
@@ -66,7 +89,27 @@ namespace SANITORIA.Controllers
             ViewBag.vendor = v.GetAll();
             ViewBag.varient = prd.GetAllvariants();
             ViewBag.tax = tax.GetAllTax();
-            ViewBag.products = prd.GetAllProducts();
+
+            var inv = db.Inventory().ToList();
+            List<Product> products = new List<Product>();
+            foreach (var item in inv)
+            {
+                Product product = new Product();
+                product.pid = item.pid;
+                product.P_name = item.id + "-" + item.P_name + "(" + item.varient + ")" + "(" + item.Recid + ")";
+                product.p_type = item.p_type;
+                //product. = item.p_type;
+                products.Add(product);
+            }
+
+            //ViewBag.products = prd.GetAllProducts();
+            Response response = new Response();
+            response.data1 = products;
+            response.status = 1;
+            response.message = "Loaded successfully.";
+            ViewBag.products = response;
+            //ViewBag.products = prd.GetAllProducts();
+
             ViewBag.warehouse = warehouse.GetAll();
             ViewBag.productvarient = prd.GetAllProductVarient();
             return View("Create");

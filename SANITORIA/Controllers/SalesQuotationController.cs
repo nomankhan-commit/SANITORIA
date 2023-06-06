@@ -12,10 +12,10 @@ namespace SANITORIA.Controllers
     public class SalesQuotationController : Controller
     {
         // GET: SalesQuotation
-       
-     
-            // GET: salesquotation
-            public ActionResult Index()
+
+        SANITORIA_DBEntities db = new SANITORIA_DBEntities();
+        // GET: salesquotation
+        public ActionResult Index()
             {
 
                 DAL.Product prd = new DAL.Product();
@@ -32,10 +32,12 @@ namespace SANITORIA.Controllers
             public ActionResult Create()
             {
 
+
+                
                 ViewBag.id = 0;
                 DAL.Product prd = new DAL.Product();
                 DAL.warehouse warehouse = new DAL.warehouse();
-
+                var inv = db.Inventory().ToList();
                 DAL.Vendor v = new DAL.Vendor();
                 DAL.Customer c = new DAL.Customer();
                 DAL.Tax_ tax = new DAL.Tax_();
@@ -44,8 +46,26 @@ namespace SANITORIA.Controllers
                 ViewBag.customer = c.GetAll();
                 ViewBag.varient = prd.GetAllvariants();
                 ViewBag.tax = tax.GetAllTax();
-                ViewBag.products = prd.GetAllProducts();
-                ViewBag.productvarient = prd.GetAllProductVarient();
+
+            List<Product> products = new List<Product>();
+            foreach (var item in inv)
+            {
+                Product product = new Product();
+                product.pid = item.pid;
+                product.P_name =  item.id + "-" + item.P_name + "(" + item.varient + ")" + "(" + item.Recid + ")";
+                product.p_type = item.p_type;
+                //product. = item.p_type;
+                products.Add(product);
+            }
+
+            //ViewBag.products = prd.GetAllProducts();
+            Response response = new Response();
+            response.data1 = products;
+            response.status = 1;
+            response.message = "Loaded successfully.";
+            ViewBag.products = response;
+
+            ViewBag.productvarient = prd.GetAllProductVarient();
                 ViewBag.warehouse = warehouse.GetAll();
                 return View();
 
@@ -64,8 +84,29 @@ namespace SANITORIA.Controllers
                 ViewBag.vendor = v.GetAll();
                 ViewBag.varient = prd.GetAllvariants();
                 ViewBag.tax = tax.GetAllTax();
-                ViewBag.products = prd.GetAllProducts();
-                ViewBag.warehouse = warehouse.GetAll();
+
+            var inv = db.Inventory().ToList();
+            List<Product> products = new List<Product>();
+            foreach (var item in inv)
+            {
+                Product product = new Product();
+                product.pid = item.pid;
+                product.P_name = item.id + "-" + item.P_name + "(" + item.varient + ")" + "(" + item.Recid + ")";
+                product.p_type = item.p_type;
+                //product. = item.p_type;
+                products.Add(product);
+            }
+
+            //ViewBag.products = prd.GetAllProducts();
+            Response response = new Response();
+            response.data1 = products;
+            response.status = 1;
+            response.message = "Loaded successfully.";
+            ViewBag.products = response;
+            //ViewBag.products = prd.GetAllProducts();
+            
+            
+            ViewBag.warehouse = warehouse.GetAll();
             ViewBag.customer = c.GetAll();
             ViewBag.productvarient = prd.GetAllProductVarient();
                 return View("Create");

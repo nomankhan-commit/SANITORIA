@@ -112,7 +112,7 @@ namespace SANITORIA.DAL
             {
 
                 Response response = new Response();
-                response.data1 =   db.Products.ToList();
+                response.data1 =    db.Products.ToList();
                 response.status = 1;
                 response.message = "Loaded successfully.";
                 return response;

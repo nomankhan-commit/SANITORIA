@@ -15,7 +15,7 @@
 
             {
                 dataField: 'company', caption: "Company", customizeText: function (cellInfo) {
-                    debugger;
+                    ;
                     return SalesReceived.company.data1.filter(e => { return e.id == cellInfo.value })[0].Comapny1;
 
                 }
@@ -23,7 +23,7 @@
 
             {
                 dataField: 'customer', caption: "Customer", customizeText: function (cellInfo) {
-                    debugger;
+                    ;
                     return SalesReceived.customer.data1.filter(e => { return e.id == cellInfo.value })[0].Name
 
                 }
@@ -31,7 +31,7 @@
 
             {
                 dataField: 'RecieptDate', caption: "Reciept Date", customizeText: function (cellInfo) {
-                    debugger;
+                    ;
 
                     return fin_common.convertDataToDatePicker(cellInfo.value);
 
@@ -39,7 +39,7 @@
             },
             {
                 dataField: 'orderDeadLine', caption: "Order Dead Line", customizeText: function (cellInfo) {
-                    debugger;
+                    ;
                     return fin_common.convertDataToDatePicker(cellInfo.value);
 
                 }
@@ -49,7 +49,7 @@
                 dataField: 'Status', caption: "Status",
 
                 cellTemplate: function (container, options) {
-                    debugger
+                    
                     let color = 'green';
                     if (options.data.Status == "Purchase Order") {
                         color = 'green';
@@ -71,7 +71,7 @@
 
             {
                 dataField: "Action", cellTemplate: function (container, options) {
-                    debugger
+                    
                     var data = JSON.stringify(options.data);
                     var data_ = encodeURI(data);
 
@@ -88,10 +88,10 @@
               </div>`).appendTo(container);
                 }
             }];
-        debugger;
+        ;
         let url = "/SalesReccievd/getall";
         ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (e) => {
-            debugger;
+            ;
 
             if (e.status == 1) {
                 fin_common.showToast(1, "loades successfully.");
@@ -102,7 +102,7 @@
 
     },
     save: function (url) {
-        debugger;
+        ;
 
         //'2023-04-07'
         if (SalesReceived.getAllProductsDetails() == null || SalesReceived.getAllProductsDetails() == undefined || SalesReceived.getAllProductsDetails().length == 0) {
@@ -144,7 +144,7 @@
 
 
         ajaxHealper.ajaxProcessor('/SalesReccievd/Create', "json", "POST", JSON.stringify(data), true, (e) => {
-            debugger;
+            ;
             if (e.status != 2) {
                 $('#status_').html('waiting for bill');
                 fin_common.showToast(1, e.message);
@@ -158,10 +158,10 @@
                 let sum = array.reduce((a, b) => { return parseInt(a) + parseInt(b) });
 
                 $('#sumtotal').html('<strong>Sum Total : </strong>' + sum);
-
+                debugger;
                 $.each(p, (i, e) => {
 
-                    let product = SalesReceived.products.data1.find(e => { return e.pid == 100 }).P_name;
+                    let product = SalesReceived.products.data1.find(x => { return x.pid == e.product }).P_name;
                     let tax = '';
                     if (e.taxes != undefined && e.taxes != null) {
                         tax = e.taxes.split(',').map(e => (SalesReceived.tax.data1.filter(x => { return x.id == e })[0].TaxName)).join();
@@ -195,7 +195,7 @@
         let data = [];
 
         $('#producttablebody tr').each((i, e) => {
-            debugger;
+            ;
             let guid = $(e).attr('bankGuid');
             let product = $(e).find('td[product] .product').val();
             let varient = $(e).find('td[varient] .varient').val();
@@ -224,7 +224,7 @@
         let isvalid = true;
 
         $('#producttablebody tr').each((i, e) => {
-            debugger;
+            ;
 
             let recqty = $(e).find('td[RECqty] .RECqty')
 
@@ -243,7 +243,7 @@
         let isvalid = true;
 
         $('#producttablebody tr').each((i, e) => {
-            debugger;
+            ;
 
             let recqty = $(e).find('td[RECqty] .RECqty')
 
@@ -263,7 +263,7 @@
         let isvalid = true;
 
         $('#producttablebody tr').each((i, e) => {
-            debugger;
+            ;
 
             let recqty = $(e).find('td[RECqty] .RECqty')
             let qty = $(e).find('td[qty] .qty')
@@ -283,7 +283,7 @@
 
         let url = "/SalesOrder/getbyid/" + id;
         ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (data) => {
-            debugger;
+            ;
 
             if (data.status == 1) {
 
@@ -317,7 +317,7 @@
 
 
                 $.each(data.data1.soProducts, (i, e) => {
-                    debugger;
+                    ;
                     $('#addproduct').trigger('click');
                     let lastTR = $('#productTable tr').last();
 
@@ -341,7 +341,7 @@
 
         let url = "/SalesReccievd/getbyid/" + id;
         ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (data) => {
-            debugger;
+            ;
 
             if (data.status == 1) {
 
@@ -378,7 +378,7 @@
 
 
                 $.each(data.data1.rfqProducts, (i, e) => {
-                    debugger;
+                    ;
                     $('#addproduct').trigger('click');
                     let lastTR = $('#productTable tr').last();
 
@@ -400,9 +400,9 @@
     },
     delete: function (id) {
 
-        debugger;
+        ;
         ajaxHealper.ajaxProcessor('/SalesOrder/delete', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
-            debugger;
+            ;
 
             fin_common.showToast(1, e.message);
             SalesReceived.loadGrid();
@@ -427,9 +427,9 @@
         let sum = array.reduce((a, b) => { return parseInt(a) + parseInt(b) });
 
         let obj = { SALES_rec: SalesReceivedid, payMethod: paymethod, totalAmount: sum }
-        debugger;
+        ;
         ajaxHealper.ajaxProcessor('/SalesReccievd/paybill', "json", "POST", JSON.stringify({ data: obj }), true, (e) => {
-            debugger;
+            ;
             fin_common.showToast(1, e.message);
             window.location.href = fin_common.sitrurl + "/SalesReccievd/Index";
         });
@@ -437,9 +437,9 @@
     },
     orderConform: function (id) {
 
-        debugger;
+        ;
         ajaxHealper.ajaxProcessor('/SalesOrder/ConformOrder', "json", "POST", JSON.stringify({ id: id }), true, (e) => {
-            debugger;
+            ;
 
             fin_common.showToast(1, e.message);
             $('#status_').html('Nothing to bill')
@@ -456,7 +456,7 @@
     },
     calculate: function (tis) {
 
-        debugger;
+        ;
         let qty = $(tis).closest('tr').find('td[qty] .qty').val();
         let RECqty = $(tis).closest('tr').find('td[RECqty] .RECqty').val();
         let unitprice = $(tis).closest('tr').find('td[unitprice] .unitprice').val();
@@ -475,7 +475,7 @@
             let salesprice = sumtotal;
             let total = [];
             $.each(tx, (i, e) => {
-                debugger;
+                ;
                 let tax_ = SalesReceived.tax.data1.filter(o => o.id == e)[0];
 
                 if (tax_.taxComputation == 2) {

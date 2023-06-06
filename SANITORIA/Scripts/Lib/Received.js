@@ -157,7 +157,7 @@
                 let sum = array.reduce((a, b) => { return parseInt(a) + parseInt(b) });
                
                 $('#sumtotal').html('<strong>Sum Total : </strong>'+sum);
-
+                debugger;
                 $.each(p, (i, e) => {
 
                     let product = Received.products.data1.find(e => { return e.pid == 100 }).P_name;
