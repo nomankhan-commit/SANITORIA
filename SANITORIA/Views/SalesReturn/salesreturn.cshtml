@@ -1,0 +1,197 @@
+﻿
+@{
+    ViewBag.Title = "salesreturn";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
+      integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
+      crossorigin="anonymous" 
+      referrerpolicy="no-referrer" />
+
+
+<div>
+
+    <form>
+
+        <input type="hidden" id="id" value="@ViewBag.id" />
+
+        <div class="row">
+            <div class="col-md-6">
+                <select class="form-control" id="products">
+                    @foreach (var item in ViewBag.inventory)
+                    {
+                        <option value="@item.id"
+                                productname="@item.P_name"
+                                varient="@item.varient"
+                                recid="@item.Recid">
+                            @item.P_name (@item.varient)(@item.Recid)(@item.id)
+                        </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input type="number" class="form-control" id="qty" name="qty" maxlength="20" />
+            </div>
+        </div>
+
+
+        <button type="button" id="saveall" class="btn btn-primary">Save</button>
+
+    </form>
+
+
+</div>
+
+
+<script src="~/Content/Loginpage/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="~/Scripts/Lib/bem_common.js"></script>
+<script src="~/Scripts/Lib/bem_htmlHelper.js"></script>
+<script src="~/Scripts/MyScripts/AjaxHelper.js"></script>
+<script src="~/Scripts/MyScripts/fin_common.js"></script>
+
+
+<script>
+
+
+
+      let view = @Html.Raw(Json.Encode(ViewBag.view));
+
+    $(document).ready(function () {
+
+        let id = $('#id').val();
+        if (id > 0) {
+            debugger;
+
+            let url = "/ProdReq/Edit/" + id;
+                ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (data) => {
+                    debugger;
+
+
+                    //'2023-04-07'
+                    $('#id').val(data.data.id);
+                    $('#prname').val(data.data.requisitionName);
+
+
+                    $.each(data.detail, (i, e) => {
+                            debugger;
+                            $('#addproduct').trigger('click');
+                            let lastTR = $('#productTable tr').last();
+
+                        $(lastTR).find('td[qty] .qty').val(e.qty);
+                        $(lastTR).find('td[product] select').val(e.Recieved_product_id);
+                            //$(lastTR).find('td[qty] .qty').val(e.qty);
+                            //$(lastTR).find('td[unitprice] .unitprice').val(e.unitprice);
+                            //$(lastTR).find('td[taxes] .tax').val(e.taxes.split(','));
+                            //$(lastTR).find('td[subtotal] .subtotal').val(e.subtotal);
+
+                        })
+
+
+
+                });
+
+        }
+        if (view) {
+            $('#addproduct').hide();
+            $('#saveall').remove();
+        }
+
+        $('#addproduct').click(function () {
+
+            debugger;
+
+            let category = $('#category').html();
+
+            let btn = "<button class='form-control btn removevProduct' type='button'>delete</button>";
+
+            let tbody = `<tr Guid='${bem_common.getGuid()}'>
+                            <td product> ${category}</td>
+                            <td qty> <input type="number" class='qty'  />  </td>
+                            <td> ${btn}  </td>
+                            </tr>`;
+            $('#producttablebody').append(tbody);
+
+
+
+
+        })
+
+        $('body').on('click', '.removevProduct', function () {
+
+            $(this).closest('tr').remove();
+
+        })
+
+        $('body').on('click', '#saveall', function () {
+
+            let obj = {};
+            obj.rid = $('#products').find('td[product] select option:selected').attr('recid');
+            obj.qty = $('#qty').val();
+
+
+            let data = {
+                data: obj
+            }
+
+
+            //if (getAllProductsDetails().length == 0) {
+
+            //    fin_common.showToast(2, "Add Products.");
+            //    return;
+            //}
+
+            ajaxHealper.ajaxProcessor('/SalesReturn/salesreturn', "json", "POST", JSON.stringify(data), true, (e) => {
+                debugger;
+                if (e.status != 2) {
+                    fin_common.showToast(1, e.message);
+                    window.location.href = fin_common.sitrurl + "ProdReq/Index";
+                }
+                else {
+                    fin_common.showToast(2, e.message);
+                }
+
+            });
+
+        })
+
+    })
+
+    function getAllProductsDetails() {
+
+        let data = [];
+
+        $('#producttablebody tr').each((i, e) => {
+            debugger;
+            let Recieved_product_id = $(e).find('td[product] select').val();
+            let productname = $(e).find('td[product] select option:selected').attr('productname');
+            let varient = $(e).find('td[product] select option:selected').attr('varient');
+            let recid = $(e).find('td[product] select option:selected').attr('recid');
+
+
+            let qty = $(e).find('td[qty] .qty').val();
+
+            let obj = {};
+
+            obj.Requisitionid = $('#id').val();
+            obj.Recievedid = recid;
+            obj.Recieved_product_id = Recieved_product_id;
+            obj.productName = productname;
+            obj.varient = varient;
+            obj.status = '';
+            obj.qty = qty;
+
+
+            data.push(obj);
+
+        })
+        return data;
+    }
+
+</script>
+
