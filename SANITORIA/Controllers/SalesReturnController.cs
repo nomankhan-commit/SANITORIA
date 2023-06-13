@@ -21,13 +21,14 @@ namespace SANITORIA.Controllers
 
         public ActionResult salesreturn()
         {
-            ViewBag.inventory = db.Inventory().ToList();
+            ViewBag.inventory = db.sp_Inventory().ToList();
             return View();
         }
 
         [HttpPost]
         public ActionResult salesreturn(int rid, int qty)
         {
+           int rqty = db.RECV_Product.Find(rid).REC_qty + qty;
             return View();
         }
 

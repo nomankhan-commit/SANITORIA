@@ -214,7 +214,8 @@ let so = {
                     $('#receivedorder').show()
                     $('input').prop("disabled", true);
                     $('select').prop("disabled", true);
-                    $('.qty, .unitprice').prop("disabled", false);
+                    $('.qty').prop("disabled", false);
+                    $('.unitprice').prop("disabled", false);
 
                 }
                 else {
@@ -225,7 +226,8 @@ let so = {
                     //$('#receivedorder').show()
                     $('input').prop("disabled", true);
                     $('select').prop("disabled", true);
-                    $('.qty, .unitprice, #orderdeadline, #receiptdate').prop("disabled", false);
+                    $('.qty,  #orderdeadline, #receiptdate').prop("disabled", false);
+                   
 
                 }
 
@@ -303,6 +305,19 @@ let so = {
         let unitprice = $(tis).closest('tr').find('td[unitprice] .unitprice').val();
         let tax = $(tis).closest('tr').find('td[taxes] .tax').val();
 
+        if ($(tis).hasClass('qty')) {
+
+            let rq = parseInt($(tis).attr('rec_qty'));
+            let q = parseInt($(tis).val());
+            if (q > rq) {
+
+                alert(`Actual quantity is ${rq} and your quanity is  ${q}`)
+                $(tis).val('');
+                return;
+            }
+        }
+
+
         let sumtotal = parseFloat(qty) * parseFloat(unitprice);
 
         if (tax != null && tax != undefined && tax.length > 0) {
@@ -353,18 +368,18 @@ let so = {
             debugger;
             let guid = $(e).attr('bankGuid');
             let product = $(e).find('td[product] .product')
-            let varient = $(e).find('td[varient] .varient')
+            //let varient = $(e).find('td[varient] .varient')
             let qty = $(e).find('td[qty] .qty')
             let unitprice = $(e).find('td[unitprice] .unitprice')
             let taxes = $(e).find('td[taxes] .tax')
             let subtotal = $(e).find('td[subtotal] .subtotal')
 
-            if (varient.val() == undefined || varient.val() == null || varient.val().length == 0) {
-                $(varient).addClass('inputborder')
-                isvalid = false;
-            } else {
-                $(varient).removeClass('inputborder')
-            }
+            //if (varient.val() == undefined || varient.val() == null || varient.val().length == 0) {
+            //    $(varient).addClass('inputborder')
+            //    isvalid = false;
+            //} else {
+            //    $(varient).removeClass('inputborder')
+            //}
 
             if (qty.val() == '') {
                 isvalid = false;

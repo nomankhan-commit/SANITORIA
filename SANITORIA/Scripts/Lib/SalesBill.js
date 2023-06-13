@@ -62,7 +62,7 @@
                 //{ dataField: 'varientID', caption: "Varients" },
                 { dataField: 'varient', caption: "Varients" },
                 { dataField: 'qty', caption: "Quantity" },
-                { dataField: 'REC_qty', caption: "Rec Qty" },
+                { dataField: 'REC_qty', caption: "Sale Qty" },
                 { dataField: 'unitprice', caption: "Unit Price" },
                 { dataField: 'taxes', caption: "Taxes" },
                 { dataField: 'subtotal', caption: "Total" },

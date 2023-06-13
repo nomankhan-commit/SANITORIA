@@ -75,6 +75,8 @@ namespace SANITORIA.DAL
                     foreach (var item in SalesQuotationProduct)
                     {
                         item.SQid = data.id;
+                        item.varient = "";
+                        item.varientID = "";
                         db.SalesQuotationProducts.Add(item);
                         db.SaveChanges();
                     }

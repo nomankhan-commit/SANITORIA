@@ -111,9 +111,9 @@
                     <thead>
                         <tr>
                             <th>Product</th>
-                            <th>Varient</th>
+                            @*<th>Varient</th>*@
                             <th>QTY</th>
-                            <th>RECV QTY</th>
+                            <th>SALE QTY</th>
                             <th>Unit Price</th>
                             <th>Taxes</th>
                             <th>Sub Total</th>
@@ -160,7 +160,7 @@
                             <thead>
                                 <tr>
                                     <th>Product</th>
-                                    <th>Varient</th>
+                                    @*<th>Varient</th>*@
                                     <th>QTY</th>
                                     <th>RECV QTY</th>
                                     <th>Unit Price</th>
@@ -215,7 +215,7 @@
         SalesReceived.tax = @Html.Raw(Json.Encode(ViewBag.tax));
         SalesReceived.products = @Html.Raw(Json.Encode(ViewBag.products));
         SalesReceived.productsVarient = @Html.Raw(Json.Encode(ViewBag.productvarient));
-
+        SalesReceived.inventory = @Html.Raw(Json.Encode(ViewBag.inventory));
         if ($('#id').val() > 0) {
 
             if (window.location.href.toLowerCase().indexOf('edit') != -1)
@@ -267,9 +267,10 @@
             let subtotal = "<input type='text' readonly class='subtotal form-control'>";
             let btn = "<button class='form-control btn removevProduct' type='button'>delete</button>";
 
+            // <td varient>   </td>
             let tbody = `<tr Guid='${bem_common.getGuid()}'>
                             <td product> ${product}</td>
-                            <td varient>   </td>
+                           
                             <td qty> ${qty} </td>
                             <td RECqty> ${RECqty} </td>
                             <td unitprice>  ${unitprice} </td>
@@ -318,6 +319,16 @@
         $('body').on('change', '.product', function () {
 
             let id = $(this).val();
+
+
+            var inv = SalesReceived.inventory.filter(x => { return x.id == id })[0];
+
+            $(this).closest('tr').find('td[unitprice] .unitprice').val(inv.unitprice).prop("disabled", true);
+            $(this).closest('tr').find('td[subtotal] .subtotal').val('').prop("disabled", true);
+            $(this).closest('tr').find('td[qty] .qty').attr('REC_qty', inv.REC_qty).val(inv.REC_qty).prop("disabled", false);
+            $(this).closest('tr').find('td[taxes] .tax').val(inv.taxes.split(',')).trigger('change').prop("disabled", true);
+            return;
+
 
             if (SalesReceived.productsVarient.data1 != null && SalesReceived.productsVarient.data1.length > 0) {
                 let vari = SalesReceived.productsVarient.data1.filter(x => { return x.p_id == id })[0].variantValues;

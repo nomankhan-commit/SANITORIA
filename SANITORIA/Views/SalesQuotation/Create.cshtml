@@ -123,7 +123,7 @@
                         <tr>
                             <th>Product</th>
                             @*<th>Var Name</th>*@
-                            <th>Varient</th>
+                            @*<th>Varient</th>*@
                             <th>QTY</th>
                             <th>Unit Price</th>
                             <th>Taxes</th>
@@ -168,7 +168,8 @@
         salesquotation.tax = @Html.Raw(Json.Encode(ViewBag.tax));
         salesquotation.products = @Html.Raw(Json.Encode(ViewBag.products));
         salesquotation.productsVarient = @Html.Raw(Json.Encode(ViewBag.productvarient));
-         salesquotation.customer = @Html.Raw(Json.Encode(ViewBag.customer));
+        salesquotation.customer = @Html.Raw(Json.Encode(ViewBag.customer));
+        salesquotation.inventory = @Html.Raw(Json.Encode(ViewBag.inventory));
 
 
         if ($('#id').val() > 0) {
@@ -245,9 +246,10 @@
 
             let btn = "<button class='form-control btn removevProduct' type='button'>delete</button>";
 
+            //<td varient>   </td>
             let tbody = `<tr Guid='${bem_common.getGuid()}'>
                             <td product> ${product}</td>
-                            <td varient>   </td>
+                            
                             <td qty> ${qty} </td>
                             <td unitprice>  ${unitprice} </td>
                             <td taxes> ${tax}  </td>
@@ -322,58 +324,16 @@
 
         $('body').on('change', '.product', function () {
 
+            
             let id = $(this).val();
             debugger;
-            if (salesquotation.productsVarient.data1 != null && salesquotation.productsVarient.data1.length > 0) {
-                let vari = salesquotation.productsVarient.data1.filter(x => { return x.p_id == id })[0].variantValues;
 
-                if (vari!=null && vari.length>0) {
-
-                    let g = bem_common.getGuid();
-                   let pvar = salesquotation.productsVarient.data1
-                        .filter(x => { return x.p_id == id })
-                        .map(e => (e.variantID)).join(',').split(',');
-                    let grpopt = "";
-                    for (var i = 0; i < pvar.length; i++) {
-
-                      var varients = salesquotation.productsVarient.data1.
-                          filter(e => { return e.p_id == id && e.variantID == pvar[i] })[0]
-                                        .variantValues.split(',');
-                        let opts = "";
-
-                        for (var j = 0; j < varients.length; j++) {
-                            opts += `<option value="${varients[j]}">  ${varients[j]}  </option>`;
-                        }
-
-                       let varname = salesquotation.varient.data1.filter(e => { return e.id == pvar[i] })[0].VariantName
-                        grpopt += `<optgroup label="${varname}">  ${opts}  </optgroup>`;
-
-                    }
-
-                    let finalSelect = `<select class="varient" id="${g}" multiple> ${grpopt} </select>`;
-                    $(this).closest('tr').find('td[varient]').html(finalSelect);
-
-
-
-
-                    setTimeout((e) => {
-
-                        $("#" + g).select2({ maximumSelectionLength: pvar.length });
-
-                    }, 100)
-                }
-
-                if (salesquotation.products.data1 != null && salesquotation.products.data1.length > 0)
-                {
-                   let cost = salesquotation.products.data1.filter(e => (e.pid == id))[0].cost;
-                    $(this).closest('tr').find('td[unitprice] .unitprice').val(cost);
-                    $(this).closest('tr').find('td[subtotal] .subtotal').val('');
-                    $(this).closest('tr').find('td[qty] .qty').val('');
-                }
-
-            }
-
-            debugger;
+            var inv = salesquotation.inventory.filter(x => { return x.id == id })[0];
+            
+            $(this).closest('tr').find('td[unitprice] .unitprice').val(inv.unitprice).attr('unitprice', inv.unitprice).prop("disabled", false);
+            $(this).closest('tr').find('td[subtotal] .subtotal').val('').prop("disabled", true);
+            $(this).closest('tr').find('td[qty] .qty').attr('REC_qty', inv.REC_qty).val(inv.REC_qty).prop("disabled", false);
+            $(this).closest('tr').find('td[taxes] .tax').val(inv.taxes.split(',')).trigger('change').prop("disabled", true);
 
         })
 

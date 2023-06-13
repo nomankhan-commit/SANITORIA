@@ -111,7 +111,7 @@
                     <thead>
                         <tr>
                             <th>Product</th>
-                            <th>Varient</th>
+                            @*<th>Varient</th>*@
                             <th>QTY</th>
                             <th>Unit Price</th>
                             <th>Taxes</th>
@@ -156,7 +156,7 @@
         so.tax = @Html.Raw(Json.Encode(ViewBag.tax));
         so.products = @Html.Raw(Json.Encode(ViewBag.products));
         so.productsVarient = @Html.Raw(Json.Encode(ViewBag.productvarient));
-
+        so.inventory = @Html.Raw(Json.Encode(ViewBag.inventory));
         if ($('#id').val() > 0) {
             so.getByid($('#id').val());
         }
@@ -192,10 +192,10 @@
                             maxLength='5' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">`;
 
 
-
+            //<td varient>   </td>
             let tbody = `<tr Guid='${bem_common.getGuid()}'>
                             <td product> ${product}</td>
-                            <td varient>   </td>
+                            
                             <td qty> ${qty} </td>
                             <td unitprice>  ${unitprice} </td>
                             <td taxes> ${tax}  </td>
@@ -367,6 +367,21 @@
 
             let id = $(this).val();
             debugger;
+
+
+
+            var inv = so.inventory.filter(x => { return x.id == id })[0];
+
+            $(this).closest('tr').find('td[unitprice] .unitprice').val(inv.unitprice).attr('unitprice', inv.unitprice).prop("disabled", false);
+            $(this).closest('tr').find('td[subtotal] .subtotal').val('').prop("disabled", true);
+            $(this).closest('tr').find('td[qty] .qty').attr('REC_qty', inv.REC_qty).val(inv.REC_qty).prop("disabled", false);
+            $(this).closest('tr').find('td[taxes] .tax').val(inv.taxes.split(',')).trigger('change').prop("disabled", true);
+
+
+
+            return;
+
+
             if (so.productsVarient.data1 != null && so.productsVarient.data1.length > 0) {
                 let vari = so.productsVarient.data1.filter(x => { return x.p_id == id })[0].variantValues;
 

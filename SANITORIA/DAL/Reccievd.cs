@@ -93,6 +93,7 @@ namespace SANITORIA.DAL
                     RECV_Product.varient = item.varient;
                     RECV_Product.qty = item.qty;
                     RECV_Product.REC_qty = item.REC_qty;
+                    RECV_Product.Temp_Rec_Qty = item.REC_qty;
                     RECV_Product.unitprice = item.unitprice;
                     RECV_Product.taxes = item.taxes;
                     RECV_Product.subtotal = item.subtotal;

@@ -167,10 +167,10 @@
                         tax = e.taxes.split(',').map(e => (SalesReceived.tax.data1.filter(x => { return x.id == e })[0].TaxName)).join();
                     }
 
-
+                    //<td>${e.varient}</td >
                     let tr = `<tr>
                                 <td>${product}</td>
-                                <td>${e.varient}</td>
+                                
                                 <td>${e.qty}</td>
                                 <td>${e.REC_qty}</td>
                                 <td>${e.unitprice}</td>
@@ -208,7 +208,7 @@
             let obj = {};
             obj.id = $('#id').val();
             obj.product = product;
-            obj.varient = varient.join(',');
+            //obj.varient = varient.join(',');
             obj.qty = qty;
             obj.REC_qty = recqty;
             obj.unitprice = unitprice;
@@ -463,7 +463,7 @@
         let tax = $(tis).closest('tr').find('td[taxes] .tax').val();
 
         if (parseInt(RECqty) > parseInt(qty)) {
-            fin_common.showToast(2, 'Receive quentity can not be greater than Actual quantity.');
+            fin_common.showToast(2, 'Sale quentity can not be greater than Actual quantity.');
             return;
         }
 

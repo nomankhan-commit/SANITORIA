@@ -32,12 +32,10 @@ namespace SANITORIA.Controllers
             public ActionResult Create()
             {
 
-
-                
                 ViewBag.id = 0;
                 DAL.Product prd = new DAL.Product();
                 DAL.warehouse warehouse = new DAL.warehouse();
-                var inv = db.Inventory().ToList();
+                var inv = db.sp_Inventory().ToList();
                 DAL.Vendor v = new DAL.Vendor();
                 DAL.Customer c = new DAL.Customer();
                 DAL.Tax_ tax = new DAL.Tax_();
@@ -51,7 +49,7 @@ namespace SANITORIA.Controllers
             foreach (var item in inv)
             {
                 Product product = new Product();
-                product.pid = item.pid;
+                product.pid = item.id;
                 product.P_name =  item.id + "-" + item.P_name + "(" + item.varient + ")" + "(" + item.Recid + ")";
                 product.p_type = item.p_type;
                 //product. = item.p_type;
@@ -65,13 +63,14 @@ namespace SANITORIA.Controllers
             response.message = "Loaded successfully.";
             ViewBag.products = response;
 
-            ViewBag.productvarient = prd.GetAllProductVarient();
-                ViewBag.warehouse = warehouse.GetAll();
-                return View();
+            ViewBag.productvarient = inv.Select(x => new { x.id, x.varient }).ToList(); //prd.GetAllProductVarient();
+            ViewBag.warehouse = warehouse.GetAll();
+            ViewBag.inventory = inv;
+            return View();
+            //inv.Select(x => new { x.id, x.varient }).ToList();
+        }
 
-            }
-
-            public ActionResult Edit(int id)
+        public ActionResult Edit(int id)
             {
 
                 ViewBag.id = id;
@@ -85,12 +84,12 @@ namespace SANITORIA.Controllers
                 ViewBag.varient = prd.GetAllvariants();
                 ViewBag.tax = tax.GetAllTax();
 
-            var inv = db.Inventory().ToList();
+            var inv = db.sp_Inventory().ToList();
             List<Product> products = new List<Product>();
             foreach (var item in inv)
             {
                 Product product = new Product();
-                product.pid = item.pid;
+                product.pid = item.id;
                 product.P_name = item.id + "-" + item.P_name + "(" + item.varient + ")" + "(" + item.Recid + ")";
                 product.p_type = item.p_type;
                 //product. = item.p_type;
@@ -109,7 +108,8 @@ namespace SANITORIA.Controllers
             ViewBag.warehouse = warehouse.GetAll();
             ViewBag.customer = c.GetAll();
             ViewBag.productvarient = prd.GetAllProductVarient();
-                return View("Create");
+            ViewBag.inventory = inv;
+            return View("Create");
             }
 
 

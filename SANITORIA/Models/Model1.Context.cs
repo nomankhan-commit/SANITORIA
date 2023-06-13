@@ -33,6 +33,7 @@ namespace SANITORIA.Models
         public virtual DbSet<Comapny> Comapnies { get; set; }
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<CustomerBankAccoutn> CustomerBankAccoutns { get; set; }
+        public virtual DbSet<inventory> inventories { get; set; }
         public virtual DbSet<PO_Product> PO_Product { get; set; }
         public virtual DbSet<policylist> policylists { get; set; }
         public virtual DbSet<PRODUCT_Requisition> PRODUCT_Requisition { get; set; }
@@ -165,9 +166,35 @@ namespace SANITORIA.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual ObjectResult<Inventory_Result> Inventory()
+        public virtual int salesReturn(Nullable<int> rid, Nullable<int> qty)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Inventory_Result>("Inventory");
+            var ridParameter = rid.HasValue ?
+                new ObjectParameter("rid", rid) :
+                new ObjectParameter("rid", typeof(int));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("qty", qty) :
+                new ObjectParameter("qty", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("salesReturn", ridParameter, qtyParameter);
+        }
+    
+        public virtual ObjectResult<sp_Inventory_Result> sp_Inventory()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Inventory_Result>("sp_Inventory");
+        }
+    
+        public virtual int sp_updateRecievedProductQty(Nullable<int> rid, Nullable<int> qty)
+        {
+            var ridParameter = rid.HasValue ?
+                new ObjectParameter("rid", rid) :
+                new ObjectParameter("rid", typeof(int));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("qty", qty) :
+                new ObjectParameter("qty", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_updateRecievedProductQty", ridParameter, qtyParameter);
         }
     }
 }

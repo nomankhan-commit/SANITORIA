@@ -74,7 +74,7 @@ namespace SANITORIA.DAL
                     SO_Product sO_Product = new SO_Product();
                     sO_Product.so_id = data.id;
                     sO_Product.product = item.product;
-                    sO_Product.varient = item.varient;
+                    sO_Product.varient = "";// item.varient;
                     sO_Product.qty = item.qty;
                     sO_Product.unitprice = item.unitprice;
                     sO_Product.taxes = item.taxes;

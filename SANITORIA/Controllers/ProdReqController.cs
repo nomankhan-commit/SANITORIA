@@ -32,7 +32,7 @@ namespace SANITORIA.Controllers
 
         public ActionResult create()
         {
-            ViewBag.inventory = db.Inventory().ToList();
+            ViewBag.inventory = db.sp_Inventory().ToList();
             ViewBag.id = 0;
             ViewBag.view = false;
             return View();
@@ -101,7 +101,7 @@ namespace SANITORIA.Controllers
 
         public ActionResult edit(int id)
         {
-            ViewBag.inventory = db.Inventory().ToList();
+            ViewBag.inventory = db.sp_Inventory().ToList();
             ViewBag.id = id;
             ViewBag.view = false;
             return View("create");
@@ -109,7 +109,7 @@ namespace SANITORIA.Controllers
         
         public ActionResult view(int id)
         {
-            ViewBag.inventory = db.Inventory().ToList();
+            ViewBag.inventory = db.sp_Inventory().ToList();
             ViewBag.id = id;
             ViewBag.view = true;
             return View("create");

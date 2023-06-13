@@ -11,7 +11,7 @@ namespace SANITORIA.Models
 {
     using System;
     
-    public partial class Inventory_Result
+    public partial class sp_Inventory_Result
     {
         public int id { get; set; }
         public Nullable<int> Recid { get; set; }

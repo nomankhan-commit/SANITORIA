@@ -22,7 +22,7 @@ namespace SANITORIA.Controllers
         public JsonResult getAll()
         {
             
-            return Json(db.Inventory().ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.sp_Inventory().ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

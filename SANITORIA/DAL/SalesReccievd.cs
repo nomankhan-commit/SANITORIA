@@ -89,7 +89,7 @@ namespace SANITORIA.DAL
                     SALES_RECV_Product.Recid = data.id;
                     SALES_RECV_Product.so_id = po_.id;
                     SALES_RECV_Product.product = item.product;
-                    SALES_RECV_Product.varient = item.varient;
+                    SALES_RECV_Product.varient = "";// item.varient;
                     SALES_RECV_Product.qty = item.qty;
                     SALES_RECV_Product.REC_qty = item.REC_qty;
                     SALES_RECV_Product.unitprice = item.unitprice;
@@ -97,6 +97,8 @@ namespace SANITORIA.DAL
                     SALES_RECV_Product.subtotal = item.subtotal;
                     db.SALES_RECV_Product.Add(SALES_RECV_Product);
                     db.SaveChanges();
+
+                    db.sp_updateRecievedProductQty(item.product, item.REC_qty);
                 }
 
                 return response;
@@ -346,6 +348,16 @@ namespace SANITORIA.DAL
 
                 db.SalesBills.Add(data);
                 db.SaveChanges();
+
+
+                var bil = db.SalesBills.Find(data.ID);
+                var rece = db.SALES_RECEIVED_ORDER.Where(e => e.REC_id == bil.SALES_rec).ToList();
+                foreach (var item in rece)
+                {
+                   // item.REC_idn
+
+                     
+                }
 
 
                 Response response = new Response();
