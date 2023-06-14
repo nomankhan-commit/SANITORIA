@@ -55,6 +55,8 @@ namespace SANITORIA.Controllers
             }
             else
             {
+                data.status = "inprogress";
+                data.createAT = DateTime.Now;
                 db.PRODUCT_Requisition.Add(data);
                 db.SaveChanges();
             }
@@ -85,7 +87,7 @@ namespace SANITORIA.Controllers
             var d = db.PRODUCT_Requisition.Where(x=>x.id == id).FirstOrDefault();
             string msg = "status can not be chaged because itis already "+ d.status+".";
             int type = 2;
-            if (d.status=="" || d.status == null)
+            if (d.status=="" || d.status == null || d.status == "inprogress")
             {
                 d.status = status;
                 db.Entry(d).State = EntityState.Modified;

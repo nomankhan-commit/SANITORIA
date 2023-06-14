@@ -129,9 +129,9 @@
         })
 
         $('body').on('click', '#saveall', function () {
-
+            debugger;
             let obj = {};
-            obj.rid = $('#products').find('td[product] select option:selected').attr('recid');
+            obj.rid = $('#products').find('option:selected').val();
             obj.qty = $('#qty').val();
 
 
@@ -146,7 +146,7 @@
             //    return;
             //}
 
-            ajaxHealper.ajaxProcessor('/SalesReturn/salesreturn', "json", "POST", JSON.stringify(data), true, (e) => {
+            ajaxHealper.ajaxProcessor('/SalesReturn/salesreturn_', "json", "GET", obj, true, (e) => {
                 debugger;
                 if (e.status != 2) {
                     fin_common.showToast(1, e.message);

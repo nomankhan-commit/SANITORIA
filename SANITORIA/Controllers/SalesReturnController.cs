@@ -25,10 +25,11 @@ namespace SANITORIA.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult salesreturn(int rid, int qty)
+        [HttpGet]
+        public ActionResult salesreturn_(int rid, int qty)
         {
-           int rqty = db.RECV_Product.Find(rid).REC_qty + qty;
+           var rqty = db.RECV_Product.Find(rid).Temp_Rec_Qty;
+            int a = 
             return View();
         }
 

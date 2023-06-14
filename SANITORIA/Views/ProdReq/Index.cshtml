@@ -26,7 +26,7 @@
     let data = @Html.Raw(Json.Encode(ViewBag.data));
     let statusbtn = @Html.Raw(Json.Encode(ViewBag.statusbtn));
     $(document).ready(function () {
-
+        //convertJsonDateToDate
         if (statusbtn) {
             $('#create').hide();
 
@@ -38,6 +38,13 @@
         let columns = [
                         { dataField: 'requisitionName', caption: "Requisition" },
                   { dataField: 'status', caption: "Status" },
+            {
+                dataField: 'createAT', caption: "Create Date", customizeText: function (cellInfo) {
+                    debugger;
+                    return fin_common.convertJsonDateToDate(cellInfo.value);
+
+                }
+            },
                 {
                     dataField: "Action", cellTemplate: function (container, options) {
                         debugger
