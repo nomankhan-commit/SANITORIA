@@ -42,23 +42,57 @@ namespace SANITORIA.Controllers
         [HttpPost]
         public JsonResult create(PRODUCT_Requisition data , List<PRODUCTs_of_Requisition> products)
         {
-           
 
-            if (data.id>0)
+            dynamic dyn;
+            if (data.id > 0)
             {
-                var d = db.PRODUCT_Requisition.Where(x => x.id == data.id).FirstOrDefault();
-                d.requisitionName = data.requisitionName;
-                d.status = data.status;
-                d.createAT = DateTime.Now;
-                db.Entry(d).State = EntityState.Modified;
-                db.SaveChanges();
+
+                var datadb = db.PRODUCT_Requisition.Where(x => x.requisitionName == data.requisitionName && x.id != data.id).ToList();
+
+                
+
+                if (datadb.Count == 0)
+                {
+
+                    var d = db.PRODUCT_Requisition.Where(x => x.id == data.id).FirstOrDefault();
+                    d.requisitionName = data.requisitionName;
+
+                   
+
+                    d.createAT = DateTime.Now;
+                    db.Entry(d).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                }
+                else
+                {
+                    dyn = new { status = 2, message = "name already exist." };
+                    return Json(dyn, JsonRequestBehavior.AllowGet);
+                }
+
+               
             }
             else
             {
-                data.status = "inprogress";
-                data.createAT = DateTime.Now;
-                db.PRODUCT_Requisition.Add(data);
-                db.SaveChanges();
+
+                
+
+                var datadb = db.PRODUCT_Requisition.Where(x => x.requisitionName == data.requisitionName).ToList();
+                if (datadb.Count == 0)
+                {
+
+                    data.status = "inprogress";
+                    data.createAT = DateTime.Now;
+                    db.PRODUCT_Requisition.Add(data);
+                    db.SaveChanges();
+
+                }
+                else
+                {
+                    dyn = new { status = 2, message = "name already exist." };
+                    return Json(dyn, JsonRequestBehavior.AllowGet);
+                }
+                
             }
 
             if (data.id>0)
@@ -76,7 +110,8 @@ namespace SANITORIA.Controllers
             }
 
             db.SaveChanges();
-            return Json("1",JsonRequestBehavior.AllowGet);
+            dyn = new { status = 1, message = "save successfully." };
+            return Json(dyn,JsonRequestBehavior.AllowGet);
         }
 
          [HttpGet]

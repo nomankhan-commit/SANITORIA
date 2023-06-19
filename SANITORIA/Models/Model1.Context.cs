@@ -166,6 +166,19 @@ namespace SANITORIA.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
+        public virtual int sp_updateRecievedProductQty(Nullable<int> rid, Nullable<int> qty)
+        {
+            var ridParameter = rid.HasValue ?
+                new ObjectParameter("rid", rid) :
+                new ObjectParameter("rid", typeof(int));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("qty", qty) :
+                new ObjectParameter("qty", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_updateRecievedProductQty", ridParameter, qtyParameter);
+        }
+    
         public virtual int salesReturn(Nullable<int> rid, Nullable<int> qty)
         {
             var ridParameter = rid.HasValue ?
@@ -182,19 +195,6 @@ namespace SANITORIA.Models
         public virtual ObjectResult<sp_Inventory_Result> sp_Inventory()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Inventory_Result>("sp_Inventory");
-        }
-    
-        public virtual int sp_updateRecievedProductQty(Nullable<int> rid, Nullable<int> qty)
-        {
-            var ridParameter = rid.HasValue ?
-                new ObjectParameter("rid", rid) :
-                new ObjectParameter("rid", typeof(int));
-    
-            var qtyParameter = qty.HasValue ?
-                new ObjectParameter("qty", qty) :
-                new ObjectParameter("qty", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_updateRecievedProductQty", ridParameter, qtyParameter);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace SANITORIA.Models
         public int unitprice { get; set; }
         public string taxes { get; set; }
         public string subtotal { get; set; }
+        public Nullable<int> Temp_Rec_Qty { get; set; }
         public int pid { get; set; }
         public string P_name { get; set; }
         public string p_des { get; set; }

@@ -21,10 +21,9 @@
         </div>
 
         <div class="row">
-            
             <div class="form-group col-md-6">
                 <label for="inputEmail4">PR Name</label>
-                <input type="text" class="form-control" id="prname" name="prname" maxlength="20" />
+                <input type="text" class="form-control" id="prname" name="prname" minlength="6" maxlength="20" />
             </div>
         </div>
 
@@ -141,7 +140,7 @@
 
             let tbody = `<tr Guid='${bem_common.getGuid()}'>
                             <td product> ${category}</td>
-                            <td qty> <input type="number" class='qty'  />  </td>
+                            <td qty> <input type="number"  class='qty'  />  </td>
                             <td> ${btn}  </td>
                             </tr>`;
             $('#producttablebody').append(tbody);
@@ -158,6 +157,36 @@
         })
 
         $('body').on('click', '#saveall', function () {
+
+            let email = $('#prname');
+            let isvalid = true;
+            debugger;
+            if (email.val().trim() == "") {
+                $(email).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(email).removeClass('inputborder')
+            }
+
+            if (email.val().trim().length < 6) {
+                fin_common.showToast(2, 'please add proper name.')
+                $(email).addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(email).removeClass('inputborder')
+            }
+
+
+            if (getAllProductsDetails().length==0) {
+
+                fin_common.showToast(2,'Please add products.')
+                return;
+            }
+
+
+            if (!isvalid) {
+                return;
+            }
 
             let obj = {};
             obj.id = $('#id').val();
@@ -176,10 +205,16 @@
                 return;
             }
 
+            if (!getAllProductsDetailsValidate()) {
+
+                fin_common.showToast(2, "Add QTY properly.");
+                return;
+            }
+
             ajaxHealper.ajaxProcessor('/ProdReq/Create', "json", "POST", JSON.stringify(data), true, (e) => {
                 debugger;
                 if (e.status != 2) {
-                    fin_common.showToast(1, e.message);
+                    fin_common.showToast(e.status, e.message);
                     window.location.href = fin_common.sitrurl + "ProdReq/Index";
                 }
                 else {
@@ -223,4 +258,23 @@
         return data;
     }
 
+    function getAllProductsDetailsValidate() {
+
+        let isvalid = true;
+
+        $('#producttablebody tr').each((i, e) => {
+            debugger;
+            
+            let qty = $(e).find('td[qty] .qty').val().trim();
+
+            if (qty == '' || qty.indexOf('-') != -1) {
+                $(e).find('td[qty] .qty').addClass('inputborder')
+                isvalid = false;
+            } else {
+                $(e).find('td[qty] .qty').removeClass('inputborder')
+            }
+
+        })
+        return isvalid;
+    }
 </script>
