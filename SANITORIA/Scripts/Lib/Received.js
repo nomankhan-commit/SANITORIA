@@ -160,7 +160,7 @@
                 debugger;
                 $.each(p, (i, e) => {
 
-                    let product = Received.products.data1.find(e => { return e.pid == 100 }).P_name;
+                    let product = Received.products.data1.find(c => { return c.pid == e.product }).P_name;
                     let tax = '';
                     if (e.taxes != undefined && e.taxes != null)
                     {

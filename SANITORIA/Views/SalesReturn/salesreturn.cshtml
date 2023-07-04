@@ -30,7 +30,20 @@
                     }
                 </select>
             </div>
+
+            <div class="col-md-4">
+                <select class="form-control" id="invoice">
+                    @foreach (var item in ViewBag.invoice)
+                    {
+                        <option value="@item.bill_id">
+                            @item.bill_id
+                        </option>
+                    }
+                </select>
+            </div>
         </div>
+        
+   
 
         <div class="row">
             <div class="form-group col-md-6">
@@ -133,6 +146,7 @@
             let obj = {};
             obj.rid = $('#products').find('option:selected').val();
             obj.qty = $('#qty').val();
+            obj.invoice = $('#invoice').val();
 
 
             let data = {

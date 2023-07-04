@@ -25,5 +25,7 @@ namespace SANITORIA.Models
         public Nullable<System.DateTime> updateat { get; set; }
         public Nullable<int> createby { get; set; }
         public Nullable<int> updatedBy { get; set; }
+        public string Parent { get; set; }
+        public string productID { get; set; }
     }
 }

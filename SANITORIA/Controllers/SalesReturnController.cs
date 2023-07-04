@@ -23,14 +23,15 @@ namespace SANITORIA.Controllers
         public ActionResult salesreturn()
         {
             ViewBag.inventory = db.sp_Inventory().ToList();
+            ViewBag.invoice = db.SalesBills.Where(x => x.Parent == null).ToList();
             return View();
         }
 
         [HttpGet]
-        public JsonResult salesreturn_(int rid, int qty)
+        public JsonResult salesreturn_(int rid, int qty, string invoice)
         {
            var onhand = db.RECV_Product.Find(rid).Temp_Rec_Qty;
-           var rqty = db.RECV_Product.Find(rid).Temp_Rec_Qty;
+           var rqty = db.RECV_Product.Find(rid).REC_qty;
 
             if (onhand >= rqty)
             {
@@ -60,11 +61,16 @@ namespace SANITORIA.Controllers
                 db.Entry(recp).State = EntityState.Modified;
                 db.SaveChanges();
 
+
+
+                SalesBill salesBill = new SalesBill();
+                salesBill.Parent = invoice;
+                salesBill.productID = "RecID : "+ recp.Recid + ", RecPdtID : " +  rid.ToString();
+                db.SalesBills.Add(salesBill);
+                db.SaveChanges();
+
                 return Json(new { status = 1, message = "inventory updated." }, JsonRequestBehavior.AllowGet);
             }
-
-
-            
         }
 
 

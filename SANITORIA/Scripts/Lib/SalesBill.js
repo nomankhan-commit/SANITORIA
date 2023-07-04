@@ -7,6 +7,8 @@
             { dataField: 'payMethod', caption: "Pay Method" },
             { dataField: 'SALES_rec', caption: "Sales Recv Id" },
             { dataField: 'totalAmount', caption: "Total Amount" },
+            { dataField: 'Parent', caption: "Parent" },
+            { dataField: 'productID', caption: "Product ID" },
             {
                 dataField: "Action", cellTemplate: function (container, options) {
                     debugger

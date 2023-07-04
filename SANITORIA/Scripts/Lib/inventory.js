@@ -16,6 +16,7 @@ let inventory = {
         //    'createAT', 'updateAt', 'createdBy', 'updatedBy', 'image', 'isActive']
 
         let columns = [
+            { dataField: 'id', caption: "Rec Product" },
             { dataField: 'Recid', caption: "Rec Id" },
             //{ dataField: 'po_id', caption: "PO Id" },
             { dataField: 'product', caption: "Product Id" },
