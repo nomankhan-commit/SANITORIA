@@ -12,11 +12,17 @@
             {
                 dataField: "Action", cellTemplate: function (container, options) {
                     debugger
-                    var data = JSON.stringify(options.data);
-                    var data_ = encodeURI(data);
-                    $(`<div class="btn-group btn-group-sm">
+
+                    if (options.data.Parent == null) {
+
+                        var data = JSON.stringify(options.data);
+                        var data_ = encodeURI(data);
+                        $(`<div class="btn-group btn-group-sm">
               <button type="button" id="${options.data.ID}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
               </div>`).appendTo(container);
+
+                    }
+
                 }
             }];
         let url = "/SalesBills/GetAll";

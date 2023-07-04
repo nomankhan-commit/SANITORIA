@@ -31,7 +31,7 @@
           <Property Name="createby" Type="int" />
           <Property Name="updatedBy" Type="int" />
           <Property Name="ParentBill" Type="varchar" MaxLength="50" />
-          <Property Name="Rec_Prod_ID" Type="int" />
+          <Property Name="Rec_Prod_ID" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -765,7 +765,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="createby" Type="Int32" />
           <Property Name="updatedBy" Type="Int32" />
           <Property Name="ParentBill" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Rec_Prod_ID" Type="Int32" />
+          <Property Name="Rec_Prod_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Brand">
           <Key>

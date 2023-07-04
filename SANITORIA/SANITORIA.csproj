@@ -148,6 +148,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PolicyController.cs" />
     <Compile Include="Controllers\ProdReqController.cs" />
+    <Compile Include="Controllers\ProductReturnController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ReccievdController.cs" />
@@ -2318,6 +2319,8 @@
     <Content Include="Views\SalesBills\bill.cshtml" />
     <Content Include="Views\SalesReturn\salesreturn.cshtml" />
     <Content Include="Views\SalesReturn\salesreplaceproduct.cshtml" />
+    <Content Include="Views\ProductReturn\productreturn.cshtml" />
+    <Content Include="Views\ProductReturn\purchasereturn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

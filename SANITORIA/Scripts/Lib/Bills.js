@@ -7,14 +7,20 @@
             { dataField: 'payMethod', caption: "Pay Method" },
             { dataField: 'rec', caption: "Recv Id" },
             { dataField: 'totalAmount', caption: "Total Amount" },
+            { dataField: 'ParentBill', caption: "Parent Bill" },
+            { dataField: 'Rec_Prod_ID', caption: "Product ID" },
             {
                 dataField: "Action", cellTemplate: function (container, options) {
                     debugger
-                    var data = JSON.stringify(options.data);
-                    var data_ = encodeURI(data);
-                    $(`<div class="btn-group btn-group-sm">
+                    if (options.data.ParentBill == null) {
+
+                        var data = JSON.stringify(options.data);
+                        var data_ = encodeURI(data);
+                        $(`<div class="btn-group btn-group-sm">
               <button type="button" id="${options.data.ID}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
               </div>`).appendTo(container);
+
+                    }
                 }
             }];
         let url = "/Bills/GetAll";
