@@ -349,7 +349,7 @@
             $('input').prop("disabled", true);
             $('select').prop("disabled", true);
             $('button').prop("disabled", true);
-            $('#cancel').show().prop("disabled", false);;
+            $('#cancel').show().prop("disabled", true);
             $('#conformorder').hide();
             fin_common.showToast(1, e.message);
             //rfq.loadGrid();

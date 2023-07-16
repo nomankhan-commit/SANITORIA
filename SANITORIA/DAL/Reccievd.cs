@@ -48,6 +48,7 @@ namespace SANITORIA.DAL
                     db.SaveChanges();
                     response.message = "updated successfully.";
                     response.status = 1;
+                    response.data1 = rec.id;
 
 
 
@@ -58,48 +59,60 @@ namespace SANITORIA.DAL
                 {
 
 
-                  
-                    data.createAT = DateTime.Now;
-                    data.updateAt = DateTime.Now;
-                    data.createBy = 1;
-                    data.updateBy = 0;
-                    data.isDeleted = false;
-                    data.Status = "waiting for bill";
-                    db.RECEIVED_ORDER.Add(data);
-                    db.SaveChanges();
-                    response.message = "Received successfully.";
-                    response.status = 1;
-                    response.data1 = data.id;
+                    if (db.RECEIVED_ORDER.Where(x=>x.PO_ID == data.PO_ID).Count()>0)
+                    {
+                        response.message = "Already received this form.";
+                        response.status = 1;
+                        response.data1 = data.id;
+                    }
+                    else
+                    {
+
+                        data.createAT = DateTime.Now;
+                        data.updateAt = DateTime.Now;
+                        data.createBy = 1;
+                        data.updateBy = 0;
+                        data.isDeleted = false;
+                        data.Status = "waiting for bill";
+                        db.RECEIVED_ORDER.Add(data);
+                        db.SaveChanges();
+                        response.message = "Received successfully.";
+                        response.status = 1;
+                        response.data1 = data.id;
+
+                        int poind = Convert.ToInt32(data.PO_ID);
+
+                        var po_ = db.PurchaseOrders.Where(x => x.id == poind).FirstOrDefault();
+                        po_.Status = "waiting for bill";
+                        db.Entry(po_).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        var rp = db.RECV_Product.Where(x => x.Recid == data.id).ToList();
+                        db.RECV_Product.RemoveRange(rp);
+                        db.SaveChanges();
+                        foreach (var item in rec_Product)
+                        {
+
+                            RECV_Product RECV_Product = new RECV_Product();
+                            RECV_Product.Recid = data.id;
+                            RECV_Product.po_id = po_.id;
+                            RECV_Product.product = item.product;
+                            RECV_Product.varient = item.varient;
+                            RECV_Product.qty = item.qty;
+                            RECV_Product.REC_qty = item.REC_qty;
+                            RECV_Product.Temp_Rec_Qty = item.REC_qty;
+                            RECV_Product.unitprice = item.unitprice;
+                            RECV_Product.taxes = item.taxes;
+                            RECV_Product.subtotal = item.subtotal;
+                            db.RECV_Product.Add(RECV_Product);
+                            db.SaveChanges();
+                        }
+
+                    }
 
                 }
 
-                int poind = Convert.ToInt32(data.PO_ID);
-
-                var po_ = db.PurchaseOrders.Where(x => x.id == poind).FirstOrDefault();
-                po_.Status = "waiting for bill";
-                db.Entry(po_).State = EntityState.Modified;
-                db.SaveChanges();
-
-                var rp = db.RECV_Product.Where(x=>x.Recid==data.id).ToList();
-                db.RECV_Product.RemoveRange(rp);
-                db.SaveChanges();
-                foreach (var item in rec_Product)
-                {
-                 
-                    RECV_Product RECV_Product = new RECV_Product();
-                    RECV_Product.Recid = data.id;
-                    RECV_Product.po_id = po_.id;
-                    RECV_Product.product = item.product;
-                    RECV_Product.varient = item.varient;
-                    RECV_Product.qty = item.qty;
-                    RECV_Product.REC_qty = item.REC_qty;
-                    RECV_Product.Temp_Rec_Qty = item.REC_qty;
-                    RECV_Product.unitprice = item.unitprice;
-                    RECV_Product.taxes = item.taxes;
-                    RECV_Product.subtotal = item.subtotal;
-                    db.RECV_Product.Add(RECV_Product);
-                    db.SaveChanges();
-                }
+              
 
                 return response;
             }

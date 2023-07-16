@@ -215,7 +215,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="p_id" Type="int" />
           <Property Name="variantID" Type="int" />
-          <Property Name="variantValues" Type="varchar" MaxLength="50" />
+          <Property Name="variantValues" Type="varchar(max)" />
           <Property Name="variantGuid" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="ProductVariants">
@@ -926,7 +926,7 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="p_id" Type="Int32" />
           <Property Name="variantID" Type="Int32" />
-          <Property Name="variantValues" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="variantValues" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="variantGuid" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProductVariant">
