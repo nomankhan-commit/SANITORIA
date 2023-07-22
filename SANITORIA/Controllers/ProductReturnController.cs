@@ -34,12 +34,12 @@ namespace SANITORIA.Controllers
             var onhand = db.RECV_Product.Find(rid).Temp_Rec_Qty;
             var rqty = db.RECV_Product.Find(rid).REC_qty;
 
-            if (onhand >= rqty)
+            if (onhand > rqty)
             {
                 return Json(new { status = 2, message = "please add valid QTY." }, JsonRequestBehavior.AllowGet);
             }
 
-            if (qty >= onhand)
+            if (qty > onhand)
             {
 
                 return Json(new { status = 2, message = "please add valid QTY." }, JsonRequestBehavior.AllowGet);
@@ -66,6 +66,7 @@ namespace SANITORIA.Controllers
 
                 Bill productBill = new Bill();
                 productBill.ParentBill = invoice;
+                productBill.createat = DateTime.Now;
                 productBill.Rec_Prod_ID = "RecID : " + recp.Recid + ", RecPdtID : " + rid.ToString();
                 db.Bills.Add(productBill);
                 db.SaveChanges();

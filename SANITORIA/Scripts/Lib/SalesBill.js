@@ -10,6 +10,14 @@
             { dataField: 'Parent', caption: "Parent" },
             { dataField: 'productID', caption: "Product ID" },
             {
+                dataField: 'createat', caption: "Create Date",
+                 customizeText: function (cellInfo) {
+                debugger;
+                return fin_common.convertDataToDatePicker(cellInfo.value);
+
+            }
+            },
+            {
                 dataField: "Action", cellTemplate: function (container, options) {
                     debugger
 

@@ -38,7 +38,7 @@ namespace SANITORIA.Controllers
                 return Json(new { status = 2, message = "please add valid QTY." }, JsonRequestBehavior.AllowGet);
             }
 
-            if (qty >= onhand)
+            if (qty > onhand)
             {
 
                 return Json(new { status=2, message = "please add valid QTY." }, JsonRequestBehavior.AllowGet);
@@ -66,6 +66,7 @@ namespace SANITORIA.Controllers
                 SalesBill salesBill = new SalesBill();
                 salesBill.Parent = invoice;
                 salesBill.productID = "RecID : "+ recp.Recid + ", RecPdtID : " +  rid.ToString();
+                salesBill.createat = DateTime.Now;
                 db.SalesBills.Add(salesBill);
                 db.SaveChanges();
 
