@@ -4,11 +4,66 @@
     Layout = "~/Views/Shared/myLayout.cshtml";
 }
 
+<style>
+    .product_view .card-body {
+        position: relative;
+        padding: 0;
+        background-color: #f4f6f9;
+    }
 
-<div class="row" id="mainDiv">
+        .product_view .card-body div {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
 
-  
+            .product_view .card-body div img {
+                width: 100%;
+                height: 200px;
+                object-fit: contain;
+                background-color: #f4f6f9;
+            }
 
+        .product_view .card-body h5 {
+            font-size: 16px;
+            color: gray;
+            float: none;
+            padding-left: 10px;
+            padding-top: 10px;
+        }
+
+            .product_view .card-body h5 + h5 {
+                color: green;
+                font-size: 16px;
+                font-weight: 600;
+                padding-top: 0;
+            }
+
+        .product_view .card-body a {
+        }
+
+    .product_view .card > div > a {
+        color: black;
+        font-size: 14px;
+    }
+
+    .img-links {
+        position: relative;
+        position: absolute;
+        bottom: 15px;
+        right: 10px;
+    }
+
+    .product_view .card {
+        padding-bottom: 10px;
+        background-color: #f4f6f9;
+    }
+</style>
+
+<div class="container-fluid product_view">
+    <div class="row " id="mainDiv">
+
+    </div>
 </div>
 
 

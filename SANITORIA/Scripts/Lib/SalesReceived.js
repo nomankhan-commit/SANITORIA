@@ -388,7 +388,7 @@
                     $(lastTR).find('td[unitprice] .unitprice').val(e.unitprice).prop("disabled", true);;
                     $(lastTR).find('td[taxes] .tax').val(e.taxes.split(',')).prop("disabled", true);;
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal).prop("disabled", true);;
-                    $(lastTR).find('td[recqty] .RECqty').val(e.REC_qty);
+                    $(lastTR).find('td[recqty] .RECqty').val(e.REC_qty).prop("disabled", true);
                 })
                 $('.qty').trigger('keyup')
 

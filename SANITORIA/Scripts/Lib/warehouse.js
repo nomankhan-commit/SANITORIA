@@ -11,10 +11,11 @@
                     var data_ = encodeURI(data);
                     $(`<div class="btn-group btn-group-sm">
               <button type="button" id="${options.data.id}" class="btn elm_edit" data="${data_}" title="Edit"><i class="fas fa-edit"></i></button>
-              <button type="button" id="${options.data.id}" class="btn delete elm_delete" title="Delete"><i class="far fa-trash-alt"></i></button>
+             
               </div>`).appendTo(container);
                 }
             }];
+        // <button type="button" id="${options.data.id}" class="btn delete elm_delete" title="Delete"><i class="far fa-trash-alt"></i></button>
         let url = "/warehouse/getAll";
         ajaxHealper.ajaxProcessor(url, "json", "POST", null, true, (e) => {
             debugger;

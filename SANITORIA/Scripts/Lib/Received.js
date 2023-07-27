@@ -330,8 +330,15 @@
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal).prop("disabled", true);;
                     
                 })
+               
+              
 
-                
+                //if (window.location.href.toLowerCase().indexOf("edit") != -1 ) {
+
+                //    $('.RECqty ').prop("disabled", true);
+
+                //}
+
                 fin_common.showToast(1, "successfully.");
             }
 
@@ -389,10 +396,11 @@
                     $(lastTR).find('td[unitprice] .unitprice').val(e.unitprice).prop("disabled", true);;
                     $(lastTR).find('td[taxes] .tax').val(e.taxes.split(',')).prop("disabled", true);;
                     $(lastTR).find('td[subtotal] .subtotal').val(e.subtotal).prop("disabled", true);;
-                    $(lastTR).find('td[recqty] .RECqty').val(e.REC_qty);
+                    $(lastTR).find('td[recqty] .RECqty').val(e.REC_qty).prop("disabled", true);
                 })
                 $('.qty').trigger('keyup')
-
+                //$('#save').hide();
+                //$('#bill').show();
                 fin_common.showToast(1, "successfully.");
             }
 

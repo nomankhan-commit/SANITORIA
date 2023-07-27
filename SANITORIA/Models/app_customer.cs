@@ -10,10 +10,16 @@
 namespace SANITORIA.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class app_customer
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int id { get; set; }
+        public string username { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public byte[] photo { get; set; }
+        public string pasword { get; set; }
+        public System.DateTime register_date { get; set; }
     }
 }

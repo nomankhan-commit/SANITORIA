@@ -28,6 +28,7 @@ namespace SANITORIA.Controllers
 
             DAL.Product Product = new DAL.Product();
             DAL.Tax_ tx = new DAL.Tax_();
+            //ViewBag.huzaifa = Product.GetAllvariants();
             ViewBag.Variants = Product.GetAllvariants();
             ViewBag.Categories = Product.GetAllCategory();
             ViewBag.Brands = Product.GetAllBrands();

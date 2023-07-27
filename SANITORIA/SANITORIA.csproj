@@ -198,6 +198,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccessdeniedController.cs" />
     <Compile Include="Controllers\API\DefaultController.cs" />
+    <Compile Include="Controllers\AppCustomersController.cs" />
     <Compile Include="Controllers\BillsController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -237,6 +238,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\app_customer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BankAccoutn.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -248,6 +252,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Brand.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cart.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Comapny.cs">
@@ -276,6 +283,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\order_header.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\order_item.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\policylist.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -346,16 +359,7 @@
     <Compile Include="Models\SO_Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\sp_Inventory_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tax.cs">
@@ -2291,6 +2295,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Lib\AppCustomer.js" />
     <Content Include="Scripts\Lib\bem_common.js" />
     <Content Include="Scripts\Lib\bem_htmlHelper.js" />
     <Content Include="Scripts\Lib\Bills.js" />
@@ -2382,6 +2387,7 @@
     <Content Include="Views\SalesReturn\salesreplaceproduct.cshtml" />
     <Content Include="Views\ProductReturn\productreturn.cshtml" />
     <Content Include="Views\ProductReturn\purchasereturn.cshtml" />
+    <Content Include="Views\AppCustomers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

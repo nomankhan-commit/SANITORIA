@@ -74,7 +74,7 @@
         //var data = { id: id, city1: cityname };
 
         var xhr = $.ajax({
-            type: postType,
+            type: postType,// get , post, 
             url: url,
             datatype: dataType,
             contentType: 'application/json; charset=utf-8',

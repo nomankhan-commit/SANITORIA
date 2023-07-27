@@ -24,14 +24,16 @@ let Products = {
                 <h5 class="card-title">Sales Price: ${e.salesPrice}</h5>
                 <h5 class="card-title">Cost : ${e.cost}</h5>
                 </div>
-                <div>
-                <a href="${fin_common.sitrurl + "/Products/Edit/" + e.pid}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <a href="#" class="btn btn-primary"><i class="far fa-trash-alt"></i></a>
+                <div class="img-links">
+                <a href="${fin_common.sitrurl + "/Products/Edit/" + e.pid}" class=""><i class="fas fa-edit"></i></a>
+              
+                
                 </div>
                 </div>
                 </div>`;
 
+                    //<a href="#" class=""><i class="far fa-trash-alt"></i></a>
+                    //  <a href="#" class=""><i class="fa fa-eye" aria-hidden="true"></i></a>
               $('#mainDiv').append(div);
 
 

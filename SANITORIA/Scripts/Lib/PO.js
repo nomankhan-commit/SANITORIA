@@ -213,7 +213,8 @@ let po = {
                     $('#receivedorder').show()
                     $('input').prop("disabled", true);
                     $('select').prop("disabled", true);
-                    $('.qty, .unitprice').prop("disabled", false);
+                    $('#addproduct, .removevProduct').prop("disabled", true);
+                    //$('.qty, .unitprice').prop("disabled", false);
 
                 }
                 else
@@ -285,7 +286,8 @@ let po = {
             $('#status_').html('Nothing to bill')
             $('input').prop("disabled", true);
             $('select').prop("disabled", true);
-            $('.qty, .unitprice').prop("disabled", false);
+            $('.qty, .unitprice').prop("disabled", true);
+            $('#addproduct, .removevProduct').prop("disabled", true);
 
             $('#conformorder').hide();
             $('#receivedorder').show();

@@ -12,12 +12,12 @@ namespace SANITORIA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class order_header
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int id { get; set; }
+        public int userid { get; set; }
+        public string user_email { get; set; }
+        public Nullable<int> cartid { get; set; }
+        public Nullable<System.DateTime> order_date { get; set; }
     }
 }

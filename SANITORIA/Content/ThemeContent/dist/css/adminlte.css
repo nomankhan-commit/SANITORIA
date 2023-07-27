@@ -10428,8 +10428,17 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
   background-color: #ffffff;
 }
 
+.layout-navbar-fixed .wrapper .sidebar-light-info-my .brand-link:not([class*="navbar"]) {
+    background-color: #87CEEB;
+}
+
+aside.main-sidebar.sidebar-light-info-my.elevation-4 {
+    background-color: #87CEEB;
+}
+
+
 .layout-navbar-fixed .wrapper .sidebar-dark-warning .brand-link:not([class*="navbar"]) {
-  background-color: #343a40;
+    background-color: #87CEEB;
 }
 
 .layout-navbar-fixed .wrapper .sidebar-light-warning .brand-link:not([class*="navbar"]) {
