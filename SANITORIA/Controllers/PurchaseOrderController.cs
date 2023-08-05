@@ -10,6 +10,7 @@ namespace SANITORIA.Controllers
 {
 
     [sessionExpire]
+    [PurchaseRole]
     public class PurchaseOrderController : Controller
     {
         // GET: PurchaseOrder

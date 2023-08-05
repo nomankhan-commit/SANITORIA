@@ -10,6 +10,7 @@ using System.Web.Mvc;
 namespace SANITORIA.Controllers
 {
     [sessionExpire]
+    [PurchaseRole]
     public class ProductReturnController : Controller
     {
         // GET: productReturn

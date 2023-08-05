@@ -12,6 +12,7 @@ namespace SANITORIA.Controllers
         
 
         [sessionExpire]
+        [SalesRole]
         public class SalesBillsController : Controller
         {
             // GET: Bills

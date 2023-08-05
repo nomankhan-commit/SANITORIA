@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 namespace SANITORIA.Controllers
 {
+    [sessionExpire]
+    [PurchaseRole]
     public class BillsController : Controller
     {
         // GET: Bills

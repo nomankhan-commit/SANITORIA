@@ -9,6 +9,9 @@ using System.Web.Mvc;
 
 namespace SANITORIA.Controllers
 {
+
+    [sessionExpire]
+    [SalesRole]
     public class SalesReturnController : Controller
     {
         // GET: SalesReturn

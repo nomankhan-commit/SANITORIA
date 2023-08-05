@@ -7,7 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace SANITORIA.Controllers
-{
+{     
+    [sessionExpire]
+    [InventoryRole]
     public class InventoryController : Controller
     {
         SANITORIA_DBEntities db = new SANITORIA_DBEntities();

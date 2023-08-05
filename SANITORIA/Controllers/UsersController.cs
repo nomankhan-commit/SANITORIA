@@ -11,6 +11,7 @@ namespace SANITORIA.Controllers
 {
 
     [sessionExpire]
+    [AdminOnly]
     public class UsersController : Controller
     {
         SANITORIA_DBEntities db = new SANITORIA_DBEntities();

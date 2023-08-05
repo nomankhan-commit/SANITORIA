@@ -9,6 +9,7 @@ using System.Web.Mvc;
 namespace SANITORIA.Controllers
 {
     [sessionExpire]
+    [InventoryRole]
     public class WarehouseController : Controller
     {
         // GET: Warehouse

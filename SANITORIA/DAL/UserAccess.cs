@@ -37,6 +37,7 @@ namespace SANITORIA.DAL
                         userdata.CompleteName = data.CompleteName;
                         userdata.nic = data.nic;
                         userdata.password = data.password;
+                        userdata.UserRoles = data.UserRoles;
                         userdata.imgGuid = data.imgGuid;
                         userdata.isActive = data.isActive;
                         userdata.contactNo = data.contactNo;
@@ -126,7 +127,7 @@ namespace SANITORIA.DAL
             {
 
                 Response response = new Response();
-                response.data1 = db.USERS.ToList();
+                response.data1 = db.USERS.Where(x => x.Admin != true).ToList();//    db.USERS.ToList();
                 response.status = 1;
                 response.message = "User Loaded successfully.";
                 return response;

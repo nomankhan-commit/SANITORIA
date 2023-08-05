@@ -42,6 +42,7 @@
         $('#contactno').val(data.contactNo);
         $('#nic').val(data.nic);
         $('#userimageguid').val(data.imgGuid);
+        $('#userRoles').val(data.UserRoles);
         $("#imageBoxFor").html('<img src=/Content/UserImages/' + data.imgGuid + '>');
         document.getElementById('active').checked = data.isActive;
 
@@ -55,6 +56,7 @@
         userobj.password = $('#password').val();
         //userobj.abc = $('#Cpassword').val();
         userobj.contactNo = $('#contactno').val();
+        userobj.UserRoles = $('#userRoles').val();
         userobj.nic = $('#nic').val();
         userobj.imgGuid = $('#userimageguid').val();
         userobj.isActive = document.getElementById('active').checked;

@@ -11,6 +11,7 @@ namespace SANITORIA.Controllers
 {
 
     [sessionExpire]
+    [PurchaseRole]
     public class TaxController : Controller
     {
         // GET: Tax

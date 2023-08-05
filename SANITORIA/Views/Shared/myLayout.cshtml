@@ -2,14 +2,23 @@
 
     SANITORIA.Models.SessionObj sessionObj = new SANITORIA.Models.SessionObj();
     string name = "";
+    string userrole = "";
+    bool admin = false;
     int uuserid = 0;
     if (sessionObj!=null)
     {
         name =  sessionObj.CSession.userData[0].CompleteName;
-        
+        userrole = sessionObj.CSession.userData[0].UserRoles;
+
+        admin = sessionObj.CSession.userData[0].Admin == null
+                    ? false : (bool)sessionObj.CSession.userData[0].Admin;
+
+        if (true)
+        {
+
+        }
+
     }
-
-
 
 }
 
@@ -218,275 +227,288 @@
                         <!-- Add icons to the links using the .nav-icon class
     with font-awesome or any other icon font library -->
 
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-circle"></i>
-                                <p>
-                                    Purchase
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-chart-pie"></i>
-                                        <p>
-                                            Product
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("New", "Products")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Create Product</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("index", "Products")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>All Products</p>
-                                            </a>
-                                        </li>
+                        @if (admin || userrole == "purchase")
+                        {
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-circle"></i>
+                                    <p>
+                                        Purchase
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-chart-pie"></i>
+                                            <p>
+                                                Product
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("New", "Products")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Create Product</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "Products")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>All Products</p>
+                                                </a>
+                                            </li>
 
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("productvariants", "Products")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Variant</p>
-                                            </a>
-                                        </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("productvariants", "Products")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Variant</p>
+                                                </a>
+                                            </li>
 
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("producCategory", "Products")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Category</p>
-                                            </a>
-                                        </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("producCategory", "Products")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Category</p>
+                                                </a>
+                                            </li>
 
 
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("producBrand", "Products")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Brands</p>
-                                            </a>
-                                        </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("producBrand", "Products")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Brands</p>
+                                                </a>
+                                            </li>
 
+
+                                            @*<li class="nav-item">
+                                <a href="@Url.Action("producComapny", "Products")" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Companies</p>
+                                </a>
+                            </li>*@
+
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Index", "Tax")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Tax</p>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-chart-pie"></i>
+                                            <p>
+                                                Order
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "Rfq")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>RFQ</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "PurchaseOrder")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Purchase Order</p>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "Reccievd")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Received Order</p>
+                                                </a>
+                                            </li>
+
+
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "Bills")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Bills</p>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("purchasereturn", "ProductReturn")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Purchase Return</p>
+                                                </a>
+                                            </li>
+
+
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Index_", "ProdReq")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>PR</p>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+
+
+                        @if (admin || userrole == "sales")
+                        {
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-circle"></i>
+                                    <p>
+                                        Sales
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-chart-pie"></i>
+                                            <p>
+                                                Sales Quotation
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
 
                                         @*<li class="nav-item">
-                            <a href="@Url.Action("producComapny", "Products")" class="nav-link">
+                            <a href="@Url.Action("index", "customer")" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Companies</p>
+                                <p>Customer</p>
                             </a>
                         </li>*@
 
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("Index", "Tax")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Tax</p>
-                                            </a>
-                                        </li>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "SalesQuotation")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Quotation</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "SalesOrder")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Sales Order</p>
+                                                </a>
+                                            </li>
 
-                                    </ul>
-                                </li>
-                            </ul>
-
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-chart-pie"></i>
-                                        <p>
-                                            Order
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("index", "Rfq")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>RFQ</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("index", "PurchaseOrder")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Purchase Order</p>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("index", "Reccievd")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Received Order</p>
-                                            </a>
-                                        </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "SalesReccievd")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Good Receipt Note</p>
+                                                </a>
+                                            </li>
 
 
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("index", "Bills")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Bills</p>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("purchasereturn", "ProductReturn")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Purchase Return</p>
-                                            </a>
-                                        </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("index", "SalesBills")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Invoice</p>
+                                                </a>
+                                            </li>
 
 
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("Index_", "ProdReq")" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>PR</p>
-                                            </a>
-                                        </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("salesreturn", "SalesReturn")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Sales Return</p>
+                                                </a>
+                                            </li>
 
-                                    </ul>
-                                </li>
-                            </ul>
+                                            @*<li class="nav-item">
+                                <a href="@Url.Action("salesreplaceproduct", "SalesReturn")" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Replace Product</p>
+                                </a>
+                            </li>*@
 
-                        </li>
+                                        </ul>
+                                    </li>
+                                </ul>
 
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-circle"></i>
-                                <p>
-                                    Sales
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-chart-pie"></i>
-                                        <p>
-                                            Sales Quotation
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
+                            </li>
+                        }
 
-                                @*<li class="nav-item">
-                                    <a href="@Url.Action("index", "customer")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Customer</p>
-                                    </a>
-                                </li>*@
-
+                        @if (admin)
+                        {
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>
+                                        Company / Vendor
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="@Url.Action("index", "SalesQuotation")" class="nav-link">
+                                        <a href="@Url.Action("index", "vendor")" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Quotation</p>
+                                            <p>Vendor</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="@Url.Action("index", "SalesOrder")" class="nav-link">
+                                        <a href="@Url.Action("producComapny", "Products")" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Sales Order</p>
+                                            <p>Company</p>
                                         </a>
                                     </li>
-
                                     <li class="nav-item">
-                                        <a href="@Url.Action("index", "SalesReccievd")" class="nav-link">
+                                        <a href="@Url.Action("index", "customer")" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Good Receipt Note</p>
+                                            <p>Customer</p>
                                         </a>
                                     </li>
-
-
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("index", "SalesBills")" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Invoice</p>
-                                        </a>
-                                    </li>
-
-
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("salesreturn", "SalesReturn")" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Sales Return</p>
-                                        </a>
-                                    </li>
-
-                                    @*<li class="nav-item">
-                                        <a href="@Url.Action("salesreplaceproduct", "SalesReturn")" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Replace Product</p>
-                                        </a>
-                                    </li>*@
 
                                 </ul>
-</li>
-                            </ul>
+                            </li>
+                        }
 
-                        </li>
-
+                        @if (admin || userrole == "inventory")
+                        { 
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    Company / Vendor
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("index", "vendor")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Vendor</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("producComapny", "Products")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Company</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("index", "customer")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Customer</p>
-                                    </a>
-                                </li>
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>
+                                        Inventory
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("index", "Inventory")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Inventory</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("index", "ProdReq")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>PR</p>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index", "Warehouse")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Warehouse</p>
+                                        </a>
+                                    </li>
 
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    Inventory
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("index", "Inventory")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Inventory</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("index", "ProdReq")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>PR</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="@Url.Action("Index", "Warehouse")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Warehouse</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        }   
+                    
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -539,7 +561,12 @@
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
-            <a href="@Url.Action("index", "Users")">Manage Users</a>
+
+            @if (admin)
+            {
+                <a href="@Url.Action("index", "Users")">Manage Users</a>
+            }
+
             <a href="@Url.Action("Logout", "Login")">LogOut</a>
         </aside>
         <!-- /.control-sidebar -->

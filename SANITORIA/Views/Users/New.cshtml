@@ -97,6 +97,24 @@
                 </div>
 
             </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label>User Role:</label>
+                    
+                    <select class="form-control" id="userRoles">
+
+                        <option selected disabled>select</option>
+                        <option value="purchase">Purchase</option>
+                        <option value="sales">Sales</option>
+                        <option value="inventory">Inventory</option>
+
+                    </select>
+                    
+                </div>
+
+            </div>
         </div>
 
         <div class="form-group form-check">
@@ -224,6 +242,7 @@
             let password = $('#password');
             let Cpassword = $('#Cpassword');
             let contactno = $('#contactno');
+            let userRoles = $('#userRoles');
             let nic = $('#nic');
 
             let isvalid =  true;
@@ -279,6 +298,13 @@
             } else {
                 $(nic).removeClass('inputborder')
             }
+
+            if (userRoles.val() == null) {
+                $(userRoles).addClass('inputborder');
+                isvalid = false;
+                alert('Please select user role.');
+            }
+
 
 
             if (isvalid) {

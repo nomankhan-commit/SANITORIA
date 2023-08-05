@@ -9,6 +9,7 @@ using SANITORIA.Models;
 namespace SANITORIA.Controllers
 {
     [sessionExpire]
+    [SalesRole]
     public class SalesQuotationController : Controller
     {
         // GET: SalesQuotation

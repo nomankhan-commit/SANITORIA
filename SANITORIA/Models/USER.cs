@@ -26,6 +26,8 @@ namespace SANITORIA.Models
         public Nullable<System.DateTime> updateAT { get; set; }
         public Nullable<int> createdBy { get; set; }
         public Nullable<int> updatedBy { get; set; }
+        public string UserRoles { get; set; }
+        public Nullable<bool> Admin { get; set; }
         public Nullable<bool> isActive { get; set; }
     }
 }

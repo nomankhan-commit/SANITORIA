@@ -9,6 +9,7 @@ using System.Web.Mvc;
 namespace SANITORIA.Controllers
 {
     [sessionExpire]
+    [AdminOnly]
     public class CustomerController : Controller
     {
         // GET: Customer

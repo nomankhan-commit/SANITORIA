@@ -8,8 +8,9 @@ using SANITORIA.Models;
 
 namespace SANITORIA.Controllers
 {
-   
-
+    
+    [sessionExpire]
+    [SalesRole]
     public class SalesReccievdController : Controller
     {
         // GET: Reccievd

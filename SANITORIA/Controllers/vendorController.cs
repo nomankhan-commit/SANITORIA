@@ -10,6 +10,7 @@ namespace SANITORIA.Controllers
 {
 
     [sessionExpire]
+    [AdminOnly]
     public class vendorController : Controller
     {
         // GET: vendor
