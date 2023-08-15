@@ -30,6 +30,13 @@ namespace SANITORIA.Controllers
             return View();
         }
 
+        public JsonResult GetAll()
+        {
+            return Json(db.SalesBills.Where(x => x.Parent != null).ToList()
+                , JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpGet]
         public JsonResult salesreturn_(int rid, int qty, string invoice)
         {

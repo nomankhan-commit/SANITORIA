@@ -2388,6 +2388,8 @@
     <Content Include="Views\ProductReturn\productreturn.cshtml" />
     <Content Include="Views\ProductReturn\purchasereturn.cshtml" />
     <Content Include="Views\AppCustomers\Index.cshtml" />
+    <Content Include="Views\ProductReturn\Index.cshtml" />
+    <Content Include="Views\SalesReturn\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

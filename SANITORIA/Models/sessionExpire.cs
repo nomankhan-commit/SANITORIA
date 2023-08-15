@@ -12,6 +12,7 @@ using Common;
 
 namespace SANITORIA.Models
 {
+    [sessionExpire]
     public class sessionExpire : ActionFilterAttribute
     {
 

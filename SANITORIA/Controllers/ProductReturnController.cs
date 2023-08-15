@@ -29,6 +29,13 @@ namespace SANITORIA.Controllers
             return View();
         }
 
+        public JsonResult GetAll()
+        {
+            return Json(db.Bills.Where(x => x.ParentBill != null).ToList()
+                , JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpGet]
         public JsonResult productreturn_(int rid, int qty, string invoice)
         {
