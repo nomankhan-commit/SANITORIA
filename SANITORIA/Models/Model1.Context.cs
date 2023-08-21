@@ -66,11 +66,6 @@ namespace SANITORIA.Models
         public virtual DbSet<warehouse> warehouses { get; set; }
         public virtual DbSet<Bill_Product> Bill_Product { get; set; }
     
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
         public virtual int salesReturn(Nullable<int> rid, Nullable<int> qty)
         {
             var ridParameter = rid.HasValue ?
@@ -84,9 +79,34 @@ namespace SANITORIA.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("salesReturn", ridParameter, qtyParameter);
         }
     
+        public virtual ObjectResult<sp_ActiveCompany_Result> sp_ActiveCompany()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ActiveCompany_Result>("sp_ActiveCompany");
+        }
+    
+        public virtual ObjectResult<sp_ActiveCustomer_Result> sp_ActiveCustomer()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ActiveCustomer_Result>("sp_ActiveCustomer");
+        }
+    
+        public virtual ObjectResult<sp_ActiveWherehouse_Result> sp_ActiveWherehouse()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ActiveWherehouse_Result>("sp_ActiveWherehouse");
+        }
+    
         public virtual ObjectResult<sp_Inventory_Result> sp_Inventory()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Inventory_Result>("sp_Inventory");
+        }
+    
+        public virtual ObjectResult<sp_SALES_Result> sp_SALES()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SALES_Result>("sp_SALES");
+        }
+    
+        public virtual ObjectResult<sp_SalesData_Result> sp_SalesData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SalesData_Result>("sp_SalesData");
         }
     
         public virtual int sp_updateRecievedProductQty(Nullable<int> rid, Nullable<int> qty)

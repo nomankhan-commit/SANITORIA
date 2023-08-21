@@ -562,7 +562,12 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Parameter Name="rid" Type="int" Mode="In" />
           <Parameter Name="qty" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_ActiveCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ActiveCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ActiveWherehouse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_Inventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_SALES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_SalesData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_updateRecievedProductQty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="rid" Type="int" Mode="In" />
           <Parameter Name="qty" Type="int" Mode="In" />
@@ -624,16 +629,6 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
     <edmx:ConceptualModels>
       <Schema Namespace="SANITORIA_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SANITORIA_DBEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="salesReturn">
-            <Parameter Name="rid" Mode="In" Type="Int32" />
-            <Parameter Name="qty" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Inventory" ReturnType="Collection(SANITORIA_DBModel.sp_Inventory_Result)" />
-          <FunctionImport Name="sp_updateRecievedProductQty">
-            <Parameter Name="rid" Mode="In" Type="Int32" />
-            <Parameter Name="qty" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="app_customer" EntityType="SANITORIA_DBModel.app_customer" />
           <EntitySet Name="BankAccoutns" EntityType="SANITORIA_DBModel.BankAccoutn" />
           <EntitySet Name="Bills" EntityType="SANITORIA_DBModel.Bill" />
@@ -672,41 +667,21 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <EntitySet Name="vendors" EntityType="SANITORIA_DBModel.vendor" />
           <EntitySet Name="warehouses" EntityType="SANITORIA_DBModel.warehouse" />
           <EntitySet Name="Bill_Product" EntityType="SANITORIA_DBModel.Bill_Product" />
+          <FunctionImport Name="salesReturn">
+            <Parameter Name="rid" Mode="In" Type="Int32" />
+            <Parameter Name="qty" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ActiveCompany" ReturnType="Collection(SANITORIA_DBModel.sp_ActiveCompany_Result)" />
+          <FunctionImport Name="sp_ActiveCustomer" ReturnType="Collection(SANITORIA_DBModel.sp_ActiveCustomer_Result)" />
+          <FunctionImport Name="sp_ActiveWherehouse" ReturnType="Collection(SANITORIA_DBModel.sp_ActiveWherehouse_Result)" />
+          <FunctionImport Name="sp_Inventory" ReturnType="Collection(SANITORIA_DBModel.sp_Inventory_Result)" />
+          <FunctionImport Name="sp_SALES" ReturnType="Collection(SANITORIA_DBModel.sp_SALES_Result)" />
+          <FunctionImport Name="sp_SalesData" ReturnType="Collection(SANITORIA_DBModel.sp_SalesData_Result)" />
+          <FunctionImport Name="sp_updateRecievedProductQty">
+            <Parameter Name="rid" Mode="In" Type="Int32" />
+            <Parameter Name="qty" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
-        <ComplexType Name="sp_Inventory_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="Recid" Nullable="true" />
-          <Property Type="Int32" Name="po_id" Nullable="true" />
-          <Property Type="Int32" Name="product" Nullable="false" />
-          <Property Type="String" Name="varientID" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="varient" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="qty" Nullable="false" />
-          <Property Type="Int32" Name="REC_qty" Nullable="false" />
-          <Property Type="Int32" Name="unitprice" Nullable="false" />
-          <Property Type="String" Name="taxes" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="subtotal" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="Temp_Rec_Qty" Nullable="true" />
-          <Property Type="Int32" Name="pid" Nullable="false" />
-          <Property Type="String" Name="P_name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="p_des" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="p_type" Nullable="true" />
-          <Property Type="String" Name="p_tax" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="invoicingPolicy" Nullable="true" />
-          <Property Type="Int32" Name="salesPrice" Nullable="true" />
-          <Property Type="Int32" Name="cost" Nullable="true" />
-          <Property Type="String" Name="total" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="subCategory" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="unit" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="category" Nullable="true" />
-          <Property Type="Int32" Name="brand" Nullable="true" />
-          <Property Type="Int32" Name="company" Nullable="true" />
-          <Property Type="DateTime" Name="createAT" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="updateAt" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="createdBy" Nullable="true" />
-          <Property Type="Int32" Name="updatedBy" Nullable="true" />
-          <Property Type="String" Name="image" Nullable="true" MaxLength="200" />
-          <Property Type="Boolean" Name="isActive" Nullable="true" />
-        </ComplexType>
         <EntityType Name="app_customer">
           <Key>
             <PropertyRef Name="id" />
@@ -1258,52 +1233,110 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
           <Property Name="taxes" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="subtotal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="sp_ActiveCompany_Result">
+          <Property Type="Int32" Name="ActiveCompany" Nullable="true" />
+          <Property Type="String" Name="Comapny" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_ActiveCustomer_Result">
+          <Property Type="Int32" Name="ActiveCustomer" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_ActiveWherehouse_Result">
+          <Property Type="Int32" Name="ActiveWhereHouse" Nullable="true" />
+          <Property Type="String" Name="warehouse" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_Inventory_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="Recid" Nullable="true" />
+          <Property Type="Int32" Name="po_id" Nullable="true" />
+          <Property Type="Int32" Name="product" Nullable="false" />
+          <Property Type="String" Name="varientID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="varient" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="qty" Nullable="false" />
+          <Property Type="Int32" Name="REC_qty" Nullable="false" />
+          <Property Type="Int32" Name="unitprice" Nullable="false" />
+          <Property Type="String" Name="taxes" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="subtotal" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="Temp_Rec_Qty" Nullable="true" />
+          <Property Type="Int32" Name="pid" Nullable="false" />
+          <Property Type="String" Name="P_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="p_des" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="p_type" Nullable="true" />
+          <Property Type="String" Name="p_tax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="invoicingPolicy" Nullable="true" />
+          <Property Type="Int32" Name="salesPrice" Nullable="true" />
+          <Property Type="Int32" Name="cost" Nullable="true" />
+          <Property Type="String" Name="total" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="subCategory" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="unit" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="category" Nullable="true" />
+          <Property Type="Int32" Name="brand" Nullable="true" />
+          <Property Type="Int32" Name="company" Nullable="true" />
+          <Property Type="DateTime" Name="createAT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="updateAt" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="createdBy" Nullable="true" />
+          <Property Type="Int32" Name="updatedBy" Nullable="true" />
+          <Property Type="String" Name="image" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="isActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_SALES_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="REC_id" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="SQ_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SO_ID" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="customer" Nullable="false" />
+          <Property Type="Int32" Name="company" Nullable="false" />
+          <Property Type="String" Name="currenty" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="orderDeadLine" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="RecieptDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="DeliverTo" Nullable="false" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="createAT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="updateAt" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="createBy" Nullable="true" />
+          <Property Type="Boolean" Name="isDeleted" Nullable="false" />
+          <Property Type="Int32" Name="updateBy" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Comapny" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="warehouse" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_SalesData_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="Recid" Nullable="true" />
+          <Property Type="Int32" Name="so_id" Nullable="true" />
+          <Property Type="Int32" Name="product" Nullable="false" />
+          <Property Type="String" Name="varientID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="varient" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="qty" Nullable="false" />
+          <Property Type="Int32" Name="REC_qty" Nullable="false" />
+          <Property Type="Int32" Name="unitprice" Nullable="false" />
+          <Property Type="String" Name="taxes" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="subtotal" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="id1" Nullable="true" />
+          <Property Type="String" Name="REC_id" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="SQ_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SO_ID1" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="customer" Nullable="true" />
+          <Property Type="Int32" Name="company" Nullable="true" />
+          <Property Type="String" Name="currenty" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="orderDeadLine" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="RecieptDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DeliverTo" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="createAT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="updateAt" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="createBy" Nullable="true" />
+          <Property Type="Boolean" Name="isDeleted" Nullable="true" />
+          <Property Type="Int32" Name="updateBy" Nullable="true" />
+          <Property Type="String" Name="P_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SANITORIA_DBModelStoreContainer" CdmEntityContainer="SANITORIA_DBEntities">
-          <FunctionImportMapping FunctionImportName="salesReturn" FunctionName="SANITORIA_DBModel.Store.salesReturn" />
-          <FunctionImportMapping FunctionImportName="sp_Inventory" FunctionName="SANITORIA_DBModel.Store.sp_Inventory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_Inventory_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Recid" ColumnName="Recid" />
-                <ScalarProperty Name="po_id" ColumnName="po_id" />
-                <ScalarProperty Name="product" ColumnName="product" />
-                <ScalarProperty Name="varientID" ColumnName="varientID" />
-                <ScalarProperty Name="varient" ColumnName="varient" />
-                <ScalarProperty Name="qty" ColumnName="qty" />
-                <ScalarProperty Name="REC_qty" ColumnName="REC_qty" />
-                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
-                <ScalarProperty Name="taxes" ColumnName="taxes" />
-                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
-                <ScalarProperty Name="Temp_Rec_Qty" ColumnName="Temp_Rec_Qty" />
-                <ScalarProperty Name="pid" ColumnName="pid" />
-                <ScalarProperty Name="P_name" ColumnName="P_name" />
-                <ScalarProperty Name="p_des" ColumnName="p_des" />
-                <ScalarProperty Name="p_type" ColumnName="p_type" />
-                <ScalarProperty Name="p_tax" ColumnName="p_tax" />
-                <ScalarProperty Name="invoicingPolicy" ColumnName="invoicingPolicy" />
-                <ScalarProperty Name="salesPrice" ColumnName="salesPrice" />
-                <ScalarProperty Name="cost" ColumnName="cost" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="subCategory" ColumnName="subCategory" />
-                <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="category" ColumnName="category" />
-                <ScalarProperty Name="brand" ColumnName="brand" />
-                <ScalarProperty Name="company" ColumnName="company" />
-                <ScalarProperty Name="createAT" ColumnName="createAT" />
-                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
-                <ScalarProperty Name="image" ColumnName="image" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_updateRecievedProductQty" FunctionName="SANITORIA_DBModel.Store.sp_updateRecievedProductQty" />
           <EntitySetMapping Name="app_customer">
             <EntityTypeMapping TypeName="SANITORIA_DBModel.app_customer">
               <MappingFragment StoreEntitySet="app_customer">
@@ -1886,6 +1919,130 @@ warning 6002: The table/view 'SANITORIA_DB.dbo.Bill_Product' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="salesReturn" FunctionName="SANITORIA_DBModel.Store.salesReturn" />
+          <FunctionImportMapping FunctionImportName="sp_ActiveCompany" FunctionName="SANITORIA_DBModel.Store.sp_ActiveCompany">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_ActiveCompany_Result">
+                <ScalarProperty Name="ActiveCompany" ColumnName="ActiveCompany" />
+                <ScalarProperty Name="Comapny" ColumnName="Comapny" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ActiveCustomer" FunctionName="SANITORIA_DBModel.Store.sp_ActiveCustomer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_ActiveCustomer_Result">
+                <ScalarProperty Name="ActiveCustomer" ColumnName="ActiveCustomer" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ActiveWherehouse" FunctionName="SANITORIA_DBModel.Store.sp_ActiveWherehouse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_ActiveWherehouse_Result">
+                <ScalarProperty Name="ActiveWhereHouse" ColumnName="ActiveWhereHouse" />
+                <ScalarProperty Name="warehouse" ColumnName="warehouse" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Inventory" FunctionName="SANITORIA_DBModel.Store.sp_Inventory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_Inventory_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Recid" ColumnName="Recid" />
+                <ScalarProperty Name="po_id" ColumnName="po_id" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="varientID" ColumnName="varientID" />
+                <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="REC_qty" ColumnName="REC_qty" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="taxes" ColumnName="taxes" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="Temp_Rec_Qty" ColumnName="Temp_Rec_Qty" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="P_name" ColumnName="P_name" />
+                <ScalarProperty Name="p_des" ColumnName="p_des" />
+                <ScalarProperty Name="p_type" ColumnName="p_type" />
+                <ScalarProperty Name="p_tax" ColumnName="p_tax" />
+                <ScalarProperty Name="invoicingPolicy" ColumnName="invoicingPolicy" />
+                <ScalarProperty Name="salesPrice" ColumnName="salesPrice" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="subCategory" ColumnName="subCategory" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SALES" FunctionName="SANITORIA_DBModel.Store.sp_SALES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_SALES_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="REC_id" ColumnName="REC_id" />
+                <ScalarProperty Name="SQ_ID" ColumnName="SQ_ID" />
+                <ScalarProperty Name="SO_ID" ColumnName="SO_ID" />
+                <ScalarProperty Name="customer" ColumnName="customer" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="currenty" ColumnName="currenty" />
+                <ScalarProperty Name="orderDeadLine" ColumnName="orderDeadLine" />
+                <ScalarProperty Name="RecieptDate" ColumnName="RecieptDate" />
+                <ScalarProperty Name="DeliverTo" ColumnName="DeliverTo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Comapny" ColumnName="Comapny" />
+                <ScalarProperty Name="warehouse" ColumnName="warehouse" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SalesData" FunctionName="SANITORIA_DBModel.Store.sp_SalesData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SANITORIA_DBModel.sp_SalesData_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Recid" ColumnName="Recid" />
+                <ScalarProperty Name="so_id" ColumnName="so_id" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="varientID" ColumnName="varientID" />
+                <ScalarProperty Name="varient" ColumnName="varient" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="REC_qty" ColumnName="REC_qty" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="taxes" ColumnName="taxes" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="id1" ColumnName="id1" />
+                <ScalarProperty Name="REC_id" ColumnName="REC_id" />
+                <ScalarProperty Name="SQ_ID" ColumnName="SQ_ID" />
+                <ScalarProperty Name="SO_ID1" ColumnName="SO_ID1" />
+                <ScalarProperty Name="customer" ColumnName="customer" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="currenty" ColumnName="currenty" />
+                <ScalarProperty Name="orderDeadLine" ColumnName="orderDeadLine" />
+                <ScalarProperty Name="RecieptDate" ColumnName="RecieptDate" />
+                <ScalarProperty Name="DeliverTo" ColumnName="DeliverTo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="createAT" ColumnName="createAT" />
+                <ScalarProperty Name="updateAt" ColumnName="updateAt" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+                <ScalarProperty Name="P_name" ColumnName="P_name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_updateRecievedProductQty" FunctionName="SANITORIA_DBModel.Store.sp_updateRecievedProductQty" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

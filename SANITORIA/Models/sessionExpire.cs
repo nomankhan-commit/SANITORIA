@@ -48,29 +48,39 @@ namespace SANITORIA.Models
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            string ActionName = filterContext.ActionDescriptor.ActionName;
-            //string ActionName = filterContext.ActionDescriptor.;
-            SessionObj session = new SessionObj();
 
-            bool admin = session.CSession.userData[0].Admin == null
-                            ? false : (bool)session.CSession.userData[0].Admin;
-
-            string userrole = session.CSession.userData[0].UserRoles;
-
-            if (session.CSession == null)
+            try
             {
-                filterContext.Result = new RedirectResult("~/Login/Index");
-            } 
-           
-            else if (userrole != "purchase")
-            {
-                if (!admin)
+                string ActionName = filterContext.ActionDescriptor.ActionName;
+                //string ActionName = filterContext.ActionDescriptor.;
+                SessionObj session = new SessionObj();
+
+                bool admin = session.CSession.userData[0].Admin == null
+                                ? false : (bool)session.CSession.userData[0].Admin;
+
+                string userrole = session.CSession.userData[0].UserRoles;
+
+                if (session.CSession == null)
                 {
-                    filterContext.Result = new RedirectResult("~/Accessdenied/Index");
+                    filterContext.Result = new RedirectResult("~/Login/Index");
                 }
-              
 
+                else if (userrole != "purchase")
+                {
+                    if (!admin)
+                    {
+                        filterContext.Result = new RedirectResult("~/Accessdenied/Index");
+                    }
+
+
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
 
            
 
