@@ -314,7 +314,6 @@
             </section>
         </div>
 
-
         <div class="row">
 
             <section class="col-lg-6 connectedSortable">
@@ -336,6 +335,24 @@
                 </div>
             </section>
 
+            <section class="col-lg-6 connectedSortable">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-pie mr-1"></i>
+                            ProductDemand
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content p-0">
+                            <div class="chart tab-pane active" id="revenue-chart"
+                                 style="position: relative; height: 300px;">
+                                <div id="ProductDemand" height="300" style="height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
         </div>
 
@@ -375,10 +392,13 @@
         let ActiveWherehouse = @Html.Raw(Json.Encode(ViewBag.ActiveWherehouse));
         pieChart('#activewherhouse', ActiveWherehouse, "warehouse", "ActiveWhereHouse", "");
 
+        let ProductDemand = @Html.Raw(Json.Encode(ViewBag.ProductDemand));
+        BarChart('#ProductDemand', ProductDemand, "P_name", "units", "",null, true);
+
         let SalesData = @Html.Raw(Json.Encode(ViewBag.SalesData));
-        BarChart('#SalesData', SalesData, "Products", "Amount", "");
-        BarChart('#customerWiseSale', SalesData, "Customer", "Amount", "");
-        BarChart('#dateWiseSale', SalesData, "createDate", "Amount", "");
+        BarChart('#SalesData', SalesData, "Products", "Amount", "",null,true);
+        BarChart('#customerWiseSale', SalesData, "Customer", "Amount", "",null,false);
+        BarChart('#dateWiseSale', SalesData, "createDate", "Amount", "",null,false);
 
 
         $('#PWSDone').click(function () {
@@ -397,10 +417,11 @@
 
     });
 
-    function BarChart(divid, dataSource, _argumentField, _valueField, _name, _color){
+    function BarChart(divid, dataSource, _argumentField, _valueField, _name, _color, rotated){
 
         $(divid).dxChart({
             dataSource,
+            rotated: rotated,
             tooltip: {
                 enabled: true,
                 customizeTooltip(info) {

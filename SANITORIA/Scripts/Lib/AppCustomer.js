@@ -3,12 +3,12 @@
     loadGrid: function () {
 
         let columns = [
-            { dataField: 'Name', caption: "Name" },
+            { dataField: 'username', caption: "Name" },
             { dataField: 'phone', caption: "Phone" },
             { dataField: 'email', caption: "Email" },
-            { dataField: 'address', caption: "Address" },
-            { dataField: 'zipcode', caption: "ZipCode" },
-            { dataField: 'website', caption: "WebSite" }
+            //{ dataField: 'address', caption: "Address" },
+            //{ dataField: 'zipcode', caption: "ZipCode" },
+            //{ dataField: 'website', caption: "WebSite" }
 
 
         ];

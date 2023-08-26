@@ -10,14 +10,11 @@
 namespace SANITORIA.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class order_header
+    public partial class sp_ProductDemandMobileApp_Result
     {
-        public int id { get; set; }
-        public Nullable<int> userid { get; set; }
-        public string user_email { get; set; }
-        public Nullable<int> cartid { get; set; }
-        public Nullable<System.DateTime> order_date { get; set; }
+        public Nullable<int> units { get; set; }
+        public string P_name { get; set; }
+        public Nullable<int> product_id { get; set; }
     }
 }

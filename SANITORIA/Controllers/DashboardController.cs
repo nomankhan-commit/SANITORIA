@@ -36,6 +36,8 @@ namespace SANITORIA.Controllers
             ViewBag.ActiveWherehouse = db.sp_ActiveWherehouse().ToList();
             ViewBag.SALES = db.sp_SALES().ToList();
 
+            ViewBag.ProductDemand = db.sp_ProductDemandMobileApp().ToList();
+
             ViewBag.SalesData = salesBind();
 
             return View();

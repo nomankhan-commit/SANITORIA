@@ -371,6 +371,9 @@
     <Compile Include="Models\sp_Inventory_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_ProductDemandMobileApp_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_SalesData_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

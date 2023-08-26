@@ -121,5 +121,10 @@ namespace SANITORIA.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_updateRecievedProductQty", ridParameter, qtyParameter);
         }
+    
+        public virtual ObjectResult<sp_ProductDemandMobileApp_Result> sp_ProductDemandMobileApp()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ProductDemandMobileApp_Result>("sp_ProductDemandMobileApp");
+        }
     }
 }
