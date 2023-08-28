@@ -217,6 +217,14 @@ let so = {
                     $('.qty').prop("disabled", false);
                     $('.unitprice').prop("disabled", false);
 
+                } else if (data.data1.so.Status == "waiting for bill") {
+
+                   
+                     $('input').prop("disabled", true);
+                     $('select').prop("disabled", true);
+                     $('.qty').prop("disabled", true);
+                     $('.unitprice, #conformorder, #email, #addproduct, #save').prop("disabled", true);
+
                 }
                 else {
                     $('#conformorder').show()

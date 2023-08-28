@@ -216,6 +216,14 @@ let po = {
                     $('#addproduct, .removevProduct').prop("disabled", true);
                     //$('.qty, .unitprice').prop("disabled", false);
 
+                } else if (data.data1.po.Status == "waiting for bill") {
+
+                    //$('#conformorder').hide();
+                    //$('#receivedorder').hide();
+                    $('input').prop("disabled", true);
+                    $('select').prop("disabled", true);
+                    $('#addproduct, .removevProduct, #save, #conformorder, #receivedorder, #email').prop("disabled", true);
+
                 }
                 else
                 {
